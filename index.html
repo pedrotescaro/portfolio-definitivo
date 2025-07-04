@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Portfólio de Pedro Tescaro, Desenvolvedor Front-End especializado em HTML, CSS, JavaScript e projetos criativos. Confira meus projetos e habilidades técnicas." />
         <link rel="shortcut icon" href="./src/imagens/Favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="./src/css/reset.css" />
         <link rel="stylesheet" href="./src/css/estilos.css" />
@@ -33,15 +34,18 @@
             <video class="first__background" autoplay muted loop>
                 <source src="./src/videos/video.mp4" type="video/mp4" />
             </video>
-            <div class="fade-overlay"></div> <!-- Elemento de sobreposição para o efeito de fading -->
+            <div class="fade-overlay"></div>
             <header class="cabecalho">
-                <a href="#">
-                    <h1 class="logo">PT</h1>
-                </a>
                 <nav class="menu">
                     <ul>
                         <li>
-                            <a href="#projetos">Meus projetos</a>
+                            <a href="#sobre-mim">Sobre Mim</a>
+                        </li>
+                        <li>
+                            <a href="#hard-skills">Hard Skills</a>
+                        </li>
+                        <li>
+                            <a href="#projetos">Meus Projetos</a>
                         </li>
                     </ul>
                 </nav>
@@ -56,6 +60,7 @@
                       href="https://www.linkedin.com/in/pedrotescaro/"
                       title="Ir para o LinkedIn"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <i class="fab fa-linkedin-in"></i>
                     </a>
@@ -66,6 +71,7 @@
                       href="https://wa.me/5511972015304"
                       title="Enviar Mensagem no WhatsApp"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <i class="fab fa-whatsapp"></i>
                     </a>
@@ -76,6 +82,7 @@
                       href="https://github.com/pedrotescaro"
                       title="Ir para o GitHub"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <i class="fab fa-github"></i>
                     </a>
@@ -86,6 +93,7 @@
                       href="https://www.instagram.com/tescpedro"
                       title="Ir para o Instagram"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <i class="fab fa-instagram"></i>
                     </a>
@@ -94,226 +102,275 @@
             </div>
         </section>
         
-
-            <section class="second_section">
-                <h2 id="sobre" class="second__title"><span>Resumo </span>Profissional</h2>
-                <div>
-                    <div class="second__info">
-                        <img
-                            class="second__user"
-                            src="./src/imagens/foto-perfil.png"
-                            alt="Foto de perfil (Pedro Tescaro)"
-                        />
-                        <div>
-                            <p class="second__text">
-                           
-                              <span
-                              >Desenvolvedor Front-End
-                            </span> 
-                            altamente qualificado com dois anos de experiência em programação, especializado em HTML, CSS, JavaScript, com conhecimentos específicos em Python, C, C++, C# e PHP. Demonstro habilidades sólidas em 
-                            <span
-                            >criação
-                          </span> e
-                          <span
-                          >otimização
-                        </span>de interfaces de usuário,
-                          bem como experiência prática em desenvolvimento 
-                          <span
-                          >responsivo. 
-                        </span>
-                          Busco oportunidades
-                          <span
-                          > desafiadoras
-                        </span>
-                           para aplicar minha   paixão pelo design e programação, contribuindo para 
-                           <span
-                          >projetos inovadores.
-                          </span>
-                            </p>
-                           
-                        </div>
-                    </div>
+        <section class="sobre-mim" id="sobre-mim">
+            <h2 class="sobre-mim__title"><span>Sobre</span> Mim</h2>
+            <div class="sobre-mim__content">
+                <img class="sobre-mim__foto" src="./src/imagens/fotoperfil.jpg" alt="Foto de perfil de Pedro Tescaro" />
+                <div class="sobre-mim__texto">
+                    <p>
+                        <span>Desenvolvedor Front-End</span> apaixonado por tecnologia, cursando <span>Análise e Desenvolvimento de Sistemas</span> (FATEC) e com base técnica em <span>Automação Industrial</span> (IFSP). Meu objetivo é transformar ideias em <span>soluções digitais criativas, funcionais e de alto impacto</span>.
+                    </p>
+                    
+                    <p>
+                        <strong>Competências Principais:</strong><br>
+                        • <span>Desenvolvimento Front-End:</span> Sólida experiência em HTML5, CSS3 e JavaScript, com proficiência em frameworks responsivos como <span>Bootstrap</span> e <span>Tailwind CSS</span>.<br><br>
+                        • <span>Linguagens e Backend:</span> Conhecimento em um ecossistema variado de linguagens (<span>Python</span>, <span>Java</span>, <span>C#</span>, <span>PHP</span>, <span>C/C++</span>) e experiência com bancos de dados <span>MySQL</span>.<br><br>
+                        • <span>Ferramentas de Desenvolvimento e Design:</span> Controle de versão com <span>Git & GitHub</span> e criação de interfaces e protótipos com <span>Figma & Photoshop</span>.<br><br>
+                        • <span>Exploração e Hobbies:</span> Entusiasta de desenvolvimento Mobile (<span>Dart/Flutter</span>) e Game Dev (<span>Godot/GameMaker</span>).
+                    </p>
+                    
+                    <p>
+                        Busco ativamente por oportunidades para aplicar meu conjunto de habilidades em <span>projetos inovadores e desafiadores</span>.
+                    </p>
                 </div>
-                
-          
-                </div>
-          
-            </section>
+            </div>
+        </section>
 
-            <section class="third_section">
-                <h1 class="third__title"><span>Hard</span> Skills</h1>
+        <section class="stack-tecnologias" id="hard-skills">
+            <h2 class="stack-tecnologias__title"><span>Hard</span> Skills</h2>
 
+            <div class="categoria">
+                <h3 class="categoria__titulo">Linguagens de Programação</h3>
                 <div class="container">
-                    <div class="item">
-                        <img
-                            src="./src/imagens/html.png"
-                            alt="Logo HTML"
-                            height="70"
-                        />
-                        <h3>HTML</h3>
+                    <div class="item"><i class="devicon-python-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">Python</span></div>
+                    <div class="item"><i class="devicon-java-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">Java</span></div>
+                    <div class="item"><i class="devicon-csharp-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">C#</span></div>
+                    <div class="item"><i class="devicon-cplusplus-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">C++</span></div>
+                    <div class="item"><i class="devicon-c-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">C</span></div>
+                    <div class="item"><i class="devicon-php-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">PHP</span></div>
+                    <div class="item"><i class="devicon-javascript-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">JavaScript</span></div>
+                    <div class="item"><i class="devicon-dart-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">Dart</span></div>
+                </div>
+                </div>
+          
+            <div class="categoria">
+                <h3 class="categoria__titulo">Desenvolvimento Frontend</h3>
+                <div class="container">
+                    <div class="item"><i class="devicon-html5-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">HTML5</span></div>
+                    <div class="item"><i class="devicon-css3-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">CSS3</span></div>
+                    <div class="item"><i class="devicon-javascript-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">JavaScript</span></div>
+                    <div class="item"><i class="devicon-bootstrap-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">Bootstrap</span></div>
+                    <div class="item"><i class="devicon-tailwindcss-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">Tailwind CSS</span></div>
+                </div>
                     </div>
 
-                    <div class="item">
-                        <img
-                            src="./src/imagens/css.png"
-                            alt="logo CSS"
-                            height="70"
-                        />
-                        <h3>CSS</h3>
+            <div class="categoria">
+                <h3 class="categoria__titulo">Desenvolvimento Mobile</h3>
+                <div class="container">
+                    <div class="item"><i class="devicon-flutter-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">Flutter</span></div>
+                    </div>
                     </div>
 
-                    <div class="item">
-                        <img
-                            src="./src/imagens/javascript.png"
-                            alt="logo CSS"
-                            height="70"
-                        />
-                        <h3>JavaScript</h3>
+            <div class="categoria">
+                <h3 class="categoria__titulo">Bancos de Dados</h3>
+                <div class="container">
+                    <div class="item"><i class="devicon-mysql-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">MySQL</span></div>
+                    </div>
                     </div>
 
-
-                    <div class="item">
-                        <img
-                            src="./src/imagens/python.png"
-                            alt="logo CSS"
-                            height="70"
-                        />
-                        <h3>Python</h3>
+            <div class="categoria">
+                <h3 class="categoria__titulo">Ferramentas e Plataformas</h3>
+                <div class="container">
+                    <div class="item"><i class="devicon-git-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">Git</span></div>
+                    <div class="item"><i class="devicon-github-plain stack-tecnologias__icon"></i><span class="stack-tecnologias__label">GitHub</span></div>
+                    <div class="item"><i class="devicon-figma-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">Figma</span></div>
+                    <div class="item"><i class="devicon-photoshop-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">Photoshop</span></div>
+                    </div>
                     </div>
 
-                    <div class="item">
-                        <img
-                            src="./src/imagens/php.png"
-                            alt="logo CSS"
-                            height="70"
-                        />
-                        <h3>PHP</h3>
-                    </div>
-
-                    <div class="item">
-                        <img
-                            src="./src/imagens/C.png"
-                            alt="logo CSS"
-                            height="70"
-                        />
-                        <h3>C</h3>
-                    </div>
-
-                    <div class="item">
-                        <img
-                            src="./src/imagens/CSHARP.png"
-                            alt="logo CSS"
-                            height="70"
-                        />
-                        <h3>C#</h3>
-                    </div>
-
-                    <div class="item">
-                        <img
-                            src="./src/imagens/C++.png"
-                            alt="logo CSS"
-                            height="70"
-                        />
-                        <h3>C++</h3>
-                    </div>
+            <div class="categoria">
+                <h3 class="categoria__titulo">Desenvolvimento de Jogos</h3>
+                <div class="container">
+                    <div class="item"><i class="devicon-godot-plain colored stack-tecnologias__icon"></i><span class="stack-tecnologias__label">Godot</span></div>
+                    <div class="item"><img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/logos/gamemaker-98kqzlyi1frrscfd07vfi.png/gamemaker-os7p0j98mgnwmrd3pzgoof.png?_a=DATAdtAAZAA0" alt="GameMaker" class="stack-tecnologias__icon icon-gamemaker"><span class="stack-tecnologias__label">GameMaker</span></div>
+                </div>
                 </div>
             </section>
+        
+
 
         
 
             <section class="projetos" id="projetos">
                 <h2 class="fourth__title">Meus <span>Projetos</span></h2>
-                <p class="fifth__text">*Clique nos icones abaixo*</p>
-                <br> <br>
-          
-                <div class="container-projetos">
-                  <div class="projeto ativo">
-                    <a href="https://github.com/pedrotescaro/projeto-gta-main" target="_blank">
-                      <img
-                        src="./src/imagens/projeto-gta.png"
-                        alt="Projeto Landing page GTA"
-                      />
-                      <h3>Projeto 1</h3>
-          
-                      <div class="informacoes-projeto">
-                        <p>Projeto feito usando HTML, CSS e JavaScript</p>
-                        <p>🔗 Ver no GitHub Pages</p>
-                      </div>
+            <div class="projects-container">
+              <!-- 1. Landing Page Heal - Mais Complexo (Sistema completo com PHP/MySQL) -->
+              <article class="project">
+                <a class="project-link" href="https://landing-page-heal.vercel.app/" target="_blank" rel="noopener noreferrer">
+                  <img class="project-image" src="./src/imagens/heal.png" alt="Screenshot da Landing Page Heal - Sistema para profissionais da saúde" />
+                </a>
+                <div class="project-details">
+                  <div class="project-tile">
+                    <p class="icons">
+                      <i class="devicon-html5-plain icon-html5"></i>
+                      <i class="devicon-css3-plain icon-css3"></i>
+                      <i class="devicon-tailwindcss-plain icon-tailwind"></i>
+                      <i class="devicon-javascript-plain icon-js"></i>
+                      <i class="devicon-php-plain icon-php"></i>
+                      <i class="devicon-mysql-plain icon-mysql"></i>
+                    </p>
+                    Landing Page Heal
+                  </div>
+                  <small>
+                    Landing page e sistema web para profissionais da saúde. Permite registrar, acompanhar e analisar a evolução de lesões em pacientes.
+                  </small>
+                  <div class="buttons">
+                    <a href="https://github.com/pedrotescaro/landing-page-heal" target="_blank" rel="noopener noreferrer">
+                      View source <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <a href="https://landing-page-heal.vercel.app/" target="_blank" rel="noopener noreferrer">
+                      Try it Live <i class="fas fa-external-link-alt"></i>
                     </a>
                   </div>
-          
-                  <div class="projeto ativo">
-                    <a
-                      href="https://github.com/pedrotescaro/projeto-listagem-pokemon"
-                      target="_blank"
-                    >
-                      <img
-                        src="./src/imagens/projeto-listagem-pokemon.png"
-                        alt="Projeto listagem de pokemons"
-                      />
-                      <h3>Projeto 2</h3>
-                      <div class="informacoes-projeto">
-                        <p>Projeto feito usando HTML, CSS e JavaScript</p>
-                        <p>🔗 Ver no GitHub Pages</p>
-                      </div>
-                    </a>
-                  </div>
-          
-                  <div class="projeto ativo">
-                    <a
-                      href="https://github.com/pedrotescaro/projeto-social-links-profile"
-                      target="_blank"
-                    >
-                      <img
-                        src="./src/imagens/projeto-perfil.png"
-                        alt="Projeto social links profile"
-                      />
-                      <h3>Projeto 3</h3>
-                      <div class="informacoes-projeto">
-                        <p>Projeto feito usando HTML, CSS e JavaScript</p>
-                        <p>🔗 Ver no GitHub Pages</p>
-                      </div>
-                    </a>
-                  </div>
-          
-                  <div class="projeto ativo">
-                    <a href="https://github.com/pedrotescaro/projetoJujutsuKaisen" target="_blank">
-                      <img
-                        src="./src/imagens/projeto-jjk.png"
-                        alt="Projeto seletor de personagens jjk"
-                      />
-                      <h3>Projeto 4</h3>
-                      <div class="informacoes-projeto">
-                        <p>Projeto feito usando HTML, CSS e JavaScript</p>
-                        <p>🔗 Ver no GitHub Pages</p>
-                      </div>
-                    </a>
-                  </div>
-          
-                  <div class="projeto">
-                    <a href="#" target="_blank">
-                      <img
-                        src="https://via.placeholder.com/515X700"
-                        alt="Projeto landing page Mario"
-                      />
-                      <h3>Projeto 5</h3>
-                      <div class="informacoes-projeto">
-                        <p>Projeto feito usando HTML, CSS e JavaScript</p>
-                        <p>🔗 Ver no GitHub Pages</p>
-                      </div>
-                    </a>
-                  </div>
-    
-        
                 </div>
-          
-                <button class="btn-mostrar-projetos">Mostrar mais</button>
+              </article>
+
+              <!-- 2. Pryzen Lab - Projeto Colaborativo -->
+              <article class="project">
+                <a class="project-link" href="https://pryzen.space/" target="_blank" rel="noopener noreferrer">
+                  <img class="project-image" src="./src/imagens/pryzen.space.jpg" alt="Screenshot do Pryzen Lab - Plataforma de scripts educacionais" />
+                </a>
+                <div class="project-details">
+                  <div class="project-tile">
+                    <p class="icons">
+                      <i class="devicon-html5-plain icon-html5"></i>
+                      <i class="devicon-css3-plain icon-css3"></i>
+                      <i class="devicon-javascript-plain icon-js"></i>
+                      <i class="devicon-mysql-plain icon-mysql"></i>
+                    </p>
+                    Pryzen Lab
+                      </div>
+                  <small>
+                    Scripts e ferramentas educacionais para plataformas como Khan Academy, Matific, Quizziz e mais. Projeto colaborativo com soluções em JavaScript, HTML e CSS.
+                  </small>
+                  <div class="buttons">
+                    <a href="https://github.com/pryzen-lab/pryzen-lab.github.io" target="_blank" rel="noopener noreferrer">
+                      View source <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <a href="https://pryzen.space/" target="_blank" rel="noopener noreferrer">
+                      Try it Live <i class="fas fa-external-link-alt"></i>
+                    </a>
+                  </div>
+                </div>
+              </article>
+
+              <!-- 3. Listagem Pokémon - JavaScript Avançado -->
+              <article class="project">
+                <a class="project-link" href="https://pedrotescaro.github.io/projeto-listagem-pokemon/" target="_blank" rel="noopener noreferrer">
+                  <img class="project-image" src="./src/imagens/projeto-listagem-pokemon.png" alt="Screenshot da Listagem Pokémon - Interface de busca e visualização de pokémons" />
+                </a>
+                <div class="project-details">
+                  <div class="project-tile">
+                    <p class="icons">
+                      <i class="devicon-html5-plain icon-html5"></i>
+                      <i class="devicon-css3-plain icon-css3"></i>
+                      <i class="devicon-javascript-plain icon-js"></i>
+                    </p>
+                    Listagem Pokémon
+                      </div>
+                  <small>
+                    Projeto de listagem de pokémons com busca e visual moderno, feito em HTML, CSS e JavaScript.
+                  </small>
+                  <div class="buttons">
+                    <a href="https://github.com/pedrotescaro/projeto-listagem-pokemon" target="_blank" rel="noopener noreferrer">
+                      View source <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <a href="https://pedrotescaro.github.io/projeto-listagem-pokemon/" target="_blank" rel="noopener noreferrer">
+                      Try it Live <i class="fas fa-external-link-alt"></i>
+                    </a>
+                  </div>
+                </div>
+              </article>
+
+              <!-- 4. Projeto Jujutsu Kaisen - JavaScript Interativo -->
+              <article class="project">
+                <a class="project-link" href="https://pedrotescaro.github.io/projetoJujutsuKaisen/" target="_blank" rel="noopener noreferrer">
+                  <img class="project-image" src="./src/imagens/projeto-jjk.png" alt="Screenshot do Projeto Jujutsu Kaisen - Landing page interativa com personagens" />
+                </a>
+                <div class="project-details">
+                  <div class="project-tile">
+                    <p class="icons">
+                      <i class="devicon-html5-plain icon-html5"></i>
+                      <i class="devicon-css3-plain icon-css3"></i>
+                      <i class="devicon-javascript-plain icon-js"></i>
+                    </p>
+                    Projeto Jujutsu Kaisen
+                      </div>
+                  <small>
+                    Landing page interativa inspirada em Jujutsu Kaisen, com seleção de personagens e efeitos visuais.
+                  </small>
+                  <div class="buttons">
+                    <a href="https://github.com/pedrotescaro/projetoJujutsuKaisen" target="_blank" rel="noopener noreferrer">
+                      View source <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <a href="https://pedrotescaro.github.io/projetoJujutsuKaisen/" target="_blank" rel="noopener noreferrer">
+                      Try it Live <i class="fas fa-external-link-alt"></i>
+                    </a>
+                  </div>
+                </div>
+              </article>
+
+              <!-- 5. Landing Page GTA - Design Complexo -->
+              <article class="project">
+                <a class="project-link" href="https://pedrotescaro.github.io/projeto-gta-main/" target="_blank" rel="noopener noreferrer">
+                  <img class="project-image" src="./src/imagens/projeto-gta.png" alt="Screenshot da Landing Page GTA - Página temática inspirada em Grand Theft Auto" />
+                </a>
+                <div class="project-details">
+                  <div class="project-tile">
+                    <p class="icons">
+                      <i class="devicon-html5-plain icon-html5"></i>
+                      <i class="devicon-css3-plain icon-css3"></i>
+                      <i class="devicon-javascript-plain icon-js"></i>
+                    </p>
+                    Landing Page GTA
+                      </div>
+                  <small>
+                    Landing page inspirada em GTA, com visual temático, responsivo e interativo. Desenvolvido com HTML, CSS e JavaScript.
+                  </small>
+                  <div class="buttons">
+                    <a href="https://github.com/pedrotescaro/projeto-gta-main" target="_blank" rel="noopener noreferrer">
+                      View source <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <a href="https://pedrotescaro.github.io/projeto-gta-main/" target="_blank" rel="noopener noreferrer">
+                      Try it Live <i class="fas fa-external-link-alt"></i>
+                    </a>
+                  </div>
+                </div>
+              </article>
+
+              <!-- 6. Social Links Profile - Mais Simples -->
+              <article class="project">
+                <a class="project-link" href="https://pedrotescaro.github.io/projeto-social-links-profile/" target="_blank" rel="noopener noreferrer">
+                  <img class="project-image" src="./src/imagens/projeto-perfil.png" alt="Screenshot do Social Links Profile - Página de perfil com links para redes sociais" />
+                </a>
+                <div class="project-details">
+                  <div class="project-tile">
+                    <p class="icons">
+                      <i class="devicon-html5-plain icon-html5"></i>
+                      <i class="devicon-css3-plain icon-css3"></i>
+                    </p>
+                    Social Links Profile
+                      </div>
+                  <small>
+                    Projeto de perfil com links para redes sociais, inspirado em desafios do Frontend Mentor. Visual limpo e responsivo.
+                  </small>
+                  <div class="buttons">
+                    <a href="https://github.com/pedrotescaro/projeto-social-links-profile" target="_blank" rel="noopener noreferrer">
+                      View source <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <a href="https://pedrotescaro.github.io/projeto-social-links-profile/" target="_blank" rel="noopener noreferrer">
+                      Try it Live <i class="fas fa-external-link-alt"></i>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
               </section>
              
         </main>
 
         <footer class="footer">
-            <p>&copy Copyright 2024 Pedro Tescaro</p>
+            <p>&copy; 2025 Pedro Tescaro. Todos os direitos reservados.</p>
         </footer>
 
         <script src="./src/js/index.js"></script>
