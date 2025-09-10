@@ -178,34 +178,6 @@ function animateCounter(element, target) {
     }, 20);
 }
 
-// Theme toggle functionality
-function initThemeToggle() {
-    const themeToggle = document.getElementById('themeToggle');
-    const body = document.body;
-    
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        body.classList.add(savedTheme);
-        updateThemeIcon(savedTheme);
-    }
-    
-    themeToggle.addEventListener('click', () => {
-        body.classList.toggle('light-theme');
-        const currentTheme = body.classList.contains('light-theme') ? 'light-theme' : '';
-        localStorage.setItem('theme', currentTheme);
-        updateThemeIcon(currentTheme);
-    });
-}
-
-function updateThemeIcon(theme) {
-    const icon = document.querySelector('#themeToggle i');
-    if (theme === 'light-theme') {
-        icon.className = 'fas fa-sun';
-    } else {
-        icon.className = 'fas fa-moon';
-    }
-}
 
 // Custom cursor functionality
 function initCustomCursor() {
@@ -348,7 +320,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initParallax();
     initTypingEffect();
     initParticleSystem();
-    initThemeToggle();
     initCustomCursor();
     initContactForm();
     initEasterEgg();
