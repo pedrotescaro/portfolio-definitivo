@@ -29,12 +29,58 @@
     </head>
 
     <body>
+        <!-- Loading Screen -->
+        <div class="loading-screen">
+            <div class="loading-container">
+                <div class="loading-logo">
+                    <div class="logo-text">PT</div>
+                    <div class="loading-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="loading-progress">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar"></div>
+
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+
+        <!-- Custom Cursor -->
+        <div class="custom-cursor"></div>
+        
         <main>
           <section class="first_section">
             <video class="first__background" autoplay muted loop>
                 <source src="./src/videos/video.mp4" type="video/mp4" />
             </video>
             <div class="fade-overlay"></div>
+            <div class="particles-container">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+            </div>
             <header class="cabecalho">
                 <nav class="menu">
                     <ul>
@@ -126,6 +172,41 @@
             </div>
         </section>
 
+        <!-- Seção de Estatísticas -->
+        <section class="stats-section">
+            <h2 class="stats-title">Minhas <span>Conquistas</span></h2>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="stat-number" data-target="15">0</div>
+                    <div class="stat-label">Projetos Concluídos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="stat-number" data-target="12">0</div>
+                    <div class="stat-label">Tecnologias Dominadas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="stat-number" data-target="2">0</div>
+                    <div class="stat-label">Anos de Estudo</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">% Paixão pelo Código</div>
+                </div>
+            </div>
+        </section>
+
         <section class="stack-tecnologias" id="hard-skills">
             <h2 class="stack-tecnologias__title"><span>Hard</span> Skills</h2>
 
@@ -186,10 +267,324 @@
                 </div>
                 </div>
             </section>
-        
 
+        <!-- Seção de Certificações -->
+        <section class="certifications">
+            <h2 class="certifications-title">Certificações <span>& Conquistas</span></h2>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <i class="fab fa-aws"></i>
+                    </div>
+                    <h3>AWS Cloud Practitioner Essentials</h3>
+                    <p>AWS Training Online</p>
+                    <span class="cert-date">Ago 2024</span>
+                    <div class="cert-status completed">Concluído</div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Cloud Computing</span>
+                        <span class="skill-tag">Lambda</span>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon cambridge-icon">
+                        <span class="cambridge-symbol">🏛️</span>
+                    </div>
+                    <h3>Cambridge English Level 1 Certificate</h3>
+                    <p>Cambridge English</p>
+                    <span class="cert-date">Jul 2023</span>
+                    <div class="cert-status completed">Concluído</div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Inglês</span>
+                        <span class="skill-tag">ESOL</span>
+                        <span class="skill-tag">First Certificate</span>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon unity-icon">
+                        <span class="unity-symbol">🎮</span>
+                    </div>
+                    <h3>Unity Essentials Pathway</h3>
+                    <p>Unity</p>
+                    <span class="cert-date">Ago 2024</span>
+                    <div class="cert-status completed">Concluído</div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Unity</span>
+                        <span class="skill-tag">Game Development</span>
+                        <span class="skill-tag">C#</span>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Computer Hardware Basics</h3>
+                    <p>Cisco</p>
+                    <span class="cert-date">Abr 2024</span>
+                    <div class="cert-status completed">Concluído</div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Hardware</span>
+                        <span class="skill-tag">Networking</span>
+                        <span class="skill-tag">Cisco</span>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Gestão da Informação e Conhecimento</h3>
+                    <p>FGV - Fundação Getulio Vargas</p>
+                    <span class="cert-date">Set 2024</span>
+                    <div class="cert-status completed">Concluído</div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Gestão</span>
+                        <span class="skill-tag">Tomada de Decisão</span>
+                        <span class="skill-tag">FGV</span>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Análise e Desenvolvimento de Sistemas</h3>
+                    <p>FATEC - Faculdade de Tecnologia</p>
+                    <span class="cert-date">2023 - 2026</span>
+                    <div class="cert-status">Em andamento</div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Desenvolvimento</span>
+                        <span class="skill-tag">Sistemas</span>
+                        <span class="skill-tag">FATEC</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        
+        <!-- Seção de Experiência Profissional -->
+        <section class="experience">
+            <h2 class="experience-title">Experiência <span>Profissional</span></h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Abr 2025 - Jul 2025</div>
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <div class="company-logo">
+                                <div class="logo-placeholder eboli-logo"></div>
+                            </div>
+                            <div class="experience-info">
+                                <h3>Desenvolvedor de Software</h3>
+                                <p class="timeline-company">Éboli Tecnologia · Estágio</p>
+                                <p class="timeline-duration">4 meses · São Paulo, Brasil · Remoto</p>
+                            </div>
+                        </div>
+                        <p class="experience-description">Desenvolvo soluções no Flutter com Dart</p>
+                        <div class="experience-skills">
+                            <span class="skill-tag">Flutter</span>
+                            <span class="skill-tag">Dart</span>
+                            <span class="skill-tag">Mobile Development</span>
+                            <span class="skill-tag">UI/UX</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Mar 2022 - Dez 2022</div>
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <div class="company-logo">
+                                <div class="logo-placeholder ifsp-logo"></div>
+                            </div>
+                            <div class="experience-info">
+                                <h3>Instrutor de Matemática</h3>
+                                <p class="timeline-company">IFSP · Projeto de Extensão</p>
+                                <p class="timeline-duration">10 meses · Suzano, São Paulo, Brasil · Presencial</p>
+                            </div>
+                        </div>
+                        <p class="experience-description">Projeto de extensão e Ensino do IFSP 2022 - função: Acompanhar alunos com dificuldade por meio de atendimento online ou presencial, esclarecendo dúvidas.</p>
+                        <div class="experience-skills">
+                            <span class="skill-tag">Matemática</span>
+                            <span class="skill-tag">Ensino</span>
+                            <span class="skill-tag">Soft Skills</span>
+                            <span class="skill-tag">Mentoria</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024 - Presente</div>
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <div class="company-logo">
+                                <div class="logo-placeholder freelance-logo"></div>
+                            </div>
+                            <div class="experience-info">
+                                <h3>Desenvolvedor Frontend Freelancer</h3>
+                                <p class="timeline-company">Projetos Independentes</p>
+                                <p class="timeline-duration">Contínuo · São Paulo, Brasil · Remoto</p>
+                            </div>
+                        </div>
+                        <p class="experience-description">Desenvolvimento de interfaces modernas e responsivas, criação de landing pages e sistemas web com foco em experiência do usuário.</p>
+                        <div class="experience-skills">
+                            <span class="skill-tag">HTML/CSS</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">UI/UX Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Design/UI/UX -->
+        <section class="design-skills">
+            <h2 class="design-title">Design <span>& UI/UX</span></h2>
+            <div class="design-grid">
+                <div class="design-item">
+                    <div class="design-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Design System</h3>
+                    <p>Criação de sistemas de design consistentes e escaláveis</p>
+                </div>
+                <div class="design-item">
+                    <div class="design-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile First</h3>
+                    <p>Design responsivo e mobile-first para todas as plataformas</p>
+                </div>
+                <div class="design-item">
+                    <div class="design-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Figma & Photoshop</h3>
+                    <p>Prototipação e edição de imagens profissionais</p>
+                </div>
+                <div class="design-item">
+                    <div class="design-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>UX Research</h3>
+                    <p>Análise de usuários e otimização de experiência</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Blog/Artigos -->
+        <section class="blog-section">
+            <h2 class="blog-title">Últimos <span>Artigos</span></h2>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="blog-content">
+                        <h3>Como criar animações CSS incríveis</h3>
+                        <p>Dicas e truques para criar animações fluidas e performáticas</p>
+                        <a href="#" class="blog-link">Ler mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="blog-content">
+                        <h3>Desenvolvimento Mobile com Flutter</h3>
+                        <p>Guia completo para começar com Flutter e Dart</p>
+                        <a href="#" class="blog-link">Ler mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="blog-content">
+                        <h3>Game Development com Godot</h3>
+                        <p>Introdução ao desenvolvimento de jogos 2D</p>
+                        <a href="#" class="blog-link">Ler mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Seção de Hobbies/Interesses -->
+        <section class="hobbies">
+            <h2 class="hobbies-title">Hobbies <span>& Interesses</span></h2>
+            <div class="hobbies-grid">
+                <div class="hobby-item">
+                    <div class="hobby-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Game Development</h3>
+                    <p>Desenvolvimento de jogos com Godot e GameMaker</p>
+                </div>
+                <div class="hobby-item">
+                    <div class="hobby-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>Música</h3>
+                    <p>Produção musical e composição de trilhas sonoras</p>
+                </div>
+                <div class="hobby-item">
+                    <div class="hobby-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Fotografia</h3>
+                    <p>Captura de momentos únicos e edição digital</p>
+                </div>
+                <div class="hobby-item">
+                    <div class="hobby-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Leitura</h3>
+                    <p>Livros sobre tecnologia, design e programação</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Metas/Objetivos -->
+        <section class="goals">
+            <h2 class="goals-title">Metas <span>& Objetivos</span></h2>
+            <div class="goals-grid">
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <h3>React Mastery</h3>
+                        <span class="goal-percentage">80%</span>
+                    </div>
+                    <div class="goal-progress">
+                        <div class="goal-progress-bar" style="width: 80%"></div>
+                    </div>
+                    <p>Dominar React e seus ecossistemas</p>
+                </div>
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <h3>Node.js Backend</h3>
+                        <span class="goal-percentage">60%</span>
+                    </div>
+                    <div class="goal-progress">
+                        <div class="goal-progress-bar" style="width: 60%"></div>
+                    </div>
+                    <p>Desenvolver habilidades em backend</p>
+                </div>
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <h3>Full Stack</h3>
+                        <span class="goal-percentage">70%</span>
+                    </div>
+                    <div class="goal-progress">
+                        <div class="goal-progress-bar" style="width: 70%"></div>
+                    </div>
+                    <p>Tornar-me um desenvolvedor full stack</p>
+                </div>
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <h3>AI/ML</h3>
+                        <span class="goal-percentage">30%</span>
+                    </div>
+                    <div class="goal-progress">
+                        <div class="goal-progress-bar" style="width: 30%"></div>
+                    </div>
+                    <p>Explorar inteligência artificial</p>
+                </div>
+            </div>
+        </section>
 
             <section class="projetos" id="projetos">
                 <h2 class="fourth__title">Meus <span>Projetos</span></h2>
@@ -366,6 +761,73 @@
               </article>
             </div>
               </section>
+
+        <!-- Seção de Contato Melhorada -->
+        <section class="contact-section">
+            <h2 class="contact-title">Vamos <span>Conversar</span></h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p>pedrotescaro@outlook.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Telefone</h3>
+                            <p>+55 11 97201-5304</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Localização</h3>
+                            <p>São Paulo, SP - Brasil</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Disponibilidade</h3>
+                            <p>Segunda a Sexta, 9h às 18h</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Seu nome" required>
+                        <label for="name">Nome</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Seu email" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" name="subject" placeholder="Assunto" required>
+                        <label for="subject">Assunto</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Sua mensagem" required></textarea>
+                        <label for="message">Mensagem</label>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <span>Enviar Mensagem</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
              
         </main>
 
