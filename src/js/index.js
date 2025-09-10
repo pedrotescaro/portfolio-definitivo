@@ -91,19 +91,26 @@ function initTypingEffect() {
     const title = document.querySelector('.first__title');
     if (!title) return;
     
+    // Preserve the original HTML structure
+    const originalHTML = title.innerHTML;
     const text = title.textContent;
-    title.textContent = '';
+    
+    // Clear content but preserve structure
+    title.innerHTML = '<span></span>';
     title.style.borderRight = '2px solid #9443d8';
     
     let i = 0;
     const typeWriter = () => {
         if (i < text.length) {
-            title.textContent += text.charAt(i);
+            const span = title.querySelector('span');
+            span.textContent = text.substring(0, i + 1);
             i++;
             setTimeout(typeWriter, 100);
         } else {
             setTimeout(() => {
                 title.style.borderRight = 'none';
+                // Restore original HTML structure with purple color
+                title.innerHTML = '<span style="color: #9443d8;">Pedro</span> Tescaro';
             }, 1000);
         }
     };
@@ -318,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initStaggeredAnimations();
     initHeaderScroll();
     initParallax();
-    initTypingEffect();
+    // initTypingEffect(); // Desabilitado - efeito de digitação removido
     initParticleSystem();
     initCustomCursor();
     initContactForm();

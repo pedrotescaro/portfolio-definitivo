@@ -268,7 +268,6 @@ h3 {
   text-transform: uppercase;
   font-size: 5rem;
   font-weight: 700;
-  color: #fff;
   margin-bottom: 1rem;
   position: relative;
   overflow: hidden;
@@ -278,48 +277,13 @@ h3 {
 
 .first__title span {
   display: inline-block;
-  background: linear-gradient(135deg, #fff 0%, var(--color-accent) 20%, #fff 40%, var(--color-purple) 60%, var(--color-accent) 80%, #fff 100%);
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientShift 6s ease-in-out infinite, titleFloat 8s ease-in-out infinite, titleGlow 3s ease-in-out infinite;
+  color: #9443d8;
   position: relative;
+  text-shadow: none;
+  filter: none;
 }
 
-.first__title span::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, #fff 0%, var(--color-accent) 25%, #fff 50%, var(--color-purple) 75%, #fff 100%);
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: blur(2px);
-  opacity: 0.7;
-  animation: gradientShift 6s ease-in-out infinite reverse;
-  z-index: -1;
-}
 
-.first__title::after {
-  content: 'Pedro Tescaro';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: titleShine 6s ease-in-out infinite;
-  z-index: 1;
-  pointer-events: none;
-}
 
 @keyframes titleFloat {
     0%, 100% { 
@@ -533,6 +497,25 @@ h3 {
     }
     to {
         text-shadow: 0 0 50px rgba(148, 67, 216, 0.8), 0 0 80px rgba(148, 67, 216, 0.3);
+    }
+}
+
+@keyframes purpleBreathing {
+    0%, 100% {
+        color: var(--color-purple);
+        filter: brightness(1) saturate(1);
+    }
+    25% {
+        color: #a855f7;
+        filter: brightness(1.1) saturate(1.2);
+    }
+    50% {
+        color: var(--color-accent);
+        filter: brightness(1.2) saturate(1.4);
+    }
+    75% {
+        color: #8b5cf6;
+        filter: brightness(1.1) saturate(1.2);
     }
 }
 
