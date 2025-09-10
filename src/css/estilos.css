@@ -25,7 +25,7 @@ html {
 }
 
 body {
-    background: linear-gradient(135deg, #000 0%, #030207 25%, #0a0a0a 50%, #030207 75%, #000 100%);
+    background: #000;
     font-family: 'Raleway', sans-serif;
     color: #fff;
     overflow-x: hidden;
@@ -173,16 +173,23 @@ span {
 }
 
 .fade-overlay {
-    position: absolute; /* Definindo posição absoluta para que o elemento cubra todo o cabeçalho */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(28, 13, 1, 0.5) 100%);
-    pointer-events: none; /* Permitindo interação com elementos abaixo */
-    z-index: -1; /* Colocando o .fade-overlay atrás do cabeçalho */
-    opacity: 1; /* Opacidade inicial */
-    transition: opacity 0.5s ease; /* Transição de opacidade */
+    background: linear-gradient(to bottom, 
+        transparent 0%, 
+        rgba(0, 0, 0, 0.05) 20%, 
+        rgba(0, 0, 0, 0.15) 40%, 
+        rgba(0, 0, 0, 0.35) 60%, 
+        rgba(0, 0, 0, 0.6) 80%, 
+        rgba(0, 0, 0, 0.9) 95%, 
+        rgba(0, 0, 0, 1) 100%);
+    pointer-events: none;
+    z-index: -1;
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }
 
 .fade-overlay:hover {
@@ -244,6 +251,21 @@ h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.first_section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to bottom, 
+        transparent 0%, 
+        rgba(0, 0, 0, 0.3) 50%, 
+        rgba(0, 0, 0, 0.8) 100%);
+    z-index: 1;
+    pointer-events: none;
 }
 
 .first__background {
@@ -596,11 +618,14 @@ h3 {
 
 /* --- SOBRE MIM --- */
 .sobre-mim {
-  background: transparent;
+  background: linear-gradient(to bottom, 
+    rgba(0, 0, 0, 0.3) 0%, 
+    rgba(0, 0, 0, 0.1) 20%, 
+    transparent 100%);
   border-radius: 0;
   border: none;
-  margin: 48px auto 40px auto;
-  padding: 0;
+  margin: 0 auto 40px auto;
+  padding: 80px 20px 40px 20px;
   max-width: 900px;
   box-shadow: none;
   display: flex;
@@ -1643,9 +1668,20 @@ h3 {
   font-weight: 800;
   color: #fff;
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
   letter-spacing: 1px;
   animation: titleSlideIn 1s ease-out;
+}
+
+.contact-subtitle {
+  text-align: center;
+  color: #bdbdbd;
+  font-size: 1.1rem;
+  margin-bottom: 60px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
 
 .contact-container {
@@ -1681,6 +1717,18 @@ h3 {
   transform: translateY(-5px);
   box-shadow: var(--shadow-glow), 0 15px 30px rgba(148, 67, 216, 0.2);
   border: 1px solid var(--color-accent);
+}
+
+.contact-link {
+  color: #bdbdbd;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.contact-link:hover {
+  color: var(--color-accent);
+  text-shadow: 0 0 10px rgba(179, 136, 255, 0.5);
 }
 
 .contact-icon {
@@ -1771,7 +1819,7 @@ h3 {
   background: linear-gradient(45deg, var(--color-purple), var(--color-accent));
   border: none;
   border-radius: 10px;
-  color: #fff;
+  color: #fff !important;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
@@ -1782,9 +1830,15 @@ h3 {
   gap: 10px;
 }
 
+.submit-btn span,
+.submit-btn i {
+  color: #fff !important;
+}
+
 .submit-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-glow), 0 10px 30px rgba(148, 67, 216, 0.4);
+  color: #fff !important;
 }
 
 /* === THEME TOGGLE === */
