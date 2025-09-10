@@ -1200,7 +1200,7 @@ h3 {
 /* === SEÇÃO DE EXPERIÊNCIA === */
 .experience {
   padding: 80px 0;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(20, 7, 40, 0.6) 100%);
+  background: #000;
 }
 
 .experience-title {
@@ -1227,9 +1227,16 @@ h3 {
   left: 50%;
   top: 0;
   bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg, var(--color-purple), var(--color-accent));
+  width: 3px;
+  background: linear-gradient(180deg, 
+    var(--color-purple) 0%, 
+    var(--color-accent) 25%, 
+    #b388ff 50%, 
+    var(--color-accent) 75%, 
+    var(--color-purple) 100%);
   transform: translateX(-50%);
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(148, 67, 216, 0.5);
 }
 
 .timeline-item {
@@ -1237,7 +1244,16 @@ h3 {
   margin-bottom: 50px;
   position: relative;
   animation: fadeInUp 1s ease-out;
+  opacity: 1;
+  transform: translateY(0);
 }
+
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.3s; }
+.timeline-item:nth-child(3) { animation-delay: 0.5s; }
+.timeline-item:nth-child(4) { animation-delay: 0.7s; }
+.timeline-item:nth-child(5) { animation-delay: 0.9s; }
+
 
 .timeline-item:nth-child(odd) {
   flex-direction: row;
@@ -1249,35 +1265,70 @@ h3 {
 
 .timeline-date {
   flex: 0 0 200px;
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-glass);
+  background: linear-gradient(135deg, 
+    rgba(148, 67, 216, 0.2) 0%, 
+    rgba(179, 136, 255, 0.1) 100%);
+  border: 1px solid var(--color-accent);
   border-radius: 15px;
   padding: 15px;
   text-align: center;
   font-weight: 600;
   color: var(--color-accent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   position: relative;
   z-index: 2;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(148, 67, 216, 0.2);
+}
+
+.timeline-date:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(148, 67, 216, 0.4);
+  border-color: #fff;
 }
 
 .timeline-content {
   flex: 1;
-  background: var(--color-card-bg);
+  background: linear-gradient(135deg, 
+    rgba(20, 20, 20, 0.9) 0%, 
+    rgba(30, 30, 30, 0.8) 100%);
   border: 1px solid var(--color-glass);
   border-radius: 20px;
   padding: 30px;
   margin: 0 30px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
 }
 
 .timeline-content:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-glow), 0 15px 30px rgba(148, 67, 216, 0.2);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 0 30px rgba(148, 67, 216, 0.4),
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   border: 1px solid var(--color-accent);
+}
+
+.timeline-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(148, 67, 216, 0.1), 
+    transparent);
+  transition: left 0.6s ease;
+}
+
+.timeline-content:hover::before {
+  left: 100%;
 }
 
 .timeline-content h3 {
@@ -1367,6 +1418,32 @@ h3 {
   font-weight: 800;
 }
 
+.automation-logo {
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  position: relative;
+}
+
+.automation-logo i {
+  font-size: 1.8rem;
+  color: #fff;
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.fatec-logo {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  position: relative;
+}
+
+.fatec-logo i {
+  font-size: 1.8rem;
+  color: #fff;
+}
+
 .freelance-logo {
   background: linear-gradient(135deg, var(--color-purple), var(--color-accent));
   position: relative;
@@ -1404,16 +1481,42 @@ h3 {
 .skill-tag {
   background: linear-gradient(45deg, var(--color-purple), var(--color-accent));
   color: #fff;
-  padding: 4px 12px;
-  border-radius: 20px;
+  padding: 6px 14px;
+  border-radius: 25px;
   font-size: 0.8rem;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-tag::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent);
+  transition: left 0.5s ease;
 }
 
 .skill-tag:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(148, 67, 216, 0.3);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 6px 20px rgba(148, 67, 216, 0.4),
+    0 0 15px rgba(179, 136, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.skill-tag:hover::before {
+  left: 100%;
 }
 
 /* === SEÇÃO DE DESIGN/UI/UX === */
