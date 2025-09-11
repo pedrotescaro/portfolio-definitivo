@@ -283,6 +283,9 @@ h3 {
     z-index: 10;
     animation: fadeInUp 1.5s ease-out;
     position: relative;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .first__title {
@@ -291,18 +294,29 @@ h3 {
   font-size: 5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  position: relative;
-  overflow: hidden;
+  position: static;
+  overflow: visible;
   letter-spacing: 3px;
   text-align: center;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10 !important;
+  animation: none !important;
+  transform: none !important;
 }
 
 .first__title span {
-  display: inline-block;
-  color: #9443d8;
-  position: relative;
+  display: inline-block !important;
+  color: #9443d8 !important;
+  position: static;
   text-shadow: none;
   filter: none;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 11 !important;
+  animation: none !important;
+  transform: none !important;
 }
 
 
@@ -502,6 +516,58 @@ h3 {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Correção específica para garantir visibilidade do título */
+.first__title {
+    animation: none !important;
+}
+
+@keyframes titleVisible {
+    from {
+        opacity: 1;
+        visibility: visible;
+        display: block;
+    }
+    to {
+        opacity: 1;
+        visibility: visible;
+        display: block;
+    }
+}
+
+/* Correção de emergência para garantir que o título seja sempre visível */
+.first__title {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+    z-index: 999 !important;
+    animation: none !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+}
+
+.first__title span {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #9443d8 !important;
+    position: static !important;
+    z-index: 1000 !important;
+    animation: none !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
 }
 
 @keyframes gradientShift {
@@ -1086,6 +1152,12 @@ h3 {
   position: relative;
   overflow: hidden;
   animation: fadeInUp 1s ease-out;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .cert-card::before {
@@ -1129,6 +1201,18 @@ h3 {
   color: #bdbdbd;
   margin-bottom: 15px;
   line-height: 1.6;
+}
+
+/* Garantir distribuição uniforme do conteúdo */
+.cert-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cert-meta {
+  margin-top: auto;
 }
 
 .cert-date {
@@ -2552,6 +2636,17 @@ h3 {
     color: #fff;
 }
 
+/* Garantir que cards específicos tenham o mesmo tamanho */
+.unity-card,
+.cisco-card {
+    min-height: 280px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
 .fgv-icon {
     background: linear-gradient(135deg, #2e7d32, #4caf50);
     color: #fff;
@@ -2695,5 +2790,63 @@ h3 {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.8rem;
+    }
+}
+
+/* Melhorias gerais de responsividade */
+@media (max-width: 768px) {
+    /* Garantir que o menu seja acessível em mobile */
+    .cabecalho .menu {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .cabecalho .menu ul {
+        min-width: max-content;
+    }
+    
+    /* Melhorar navegação por toque */
+    .cabecalho .menu li a {
+        touch-action: manipulation;
+    }
+    
+    /* Otimizar performance em mobile */
+    .cert-card::before,
+    .timeline-content::before,
+    .contact-item::before {
+        will-change: left;
+    }
+    
+    /* Melhorar legibilidade em telas pequenas */
+    .cert-content h3,
+    .experience-info h3,
+    .contact-info h3 {
+        hyphens: auto;
+        word-break: break-word;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Otimizações para telas muito pequenas */
+    .cert-card,
+    .timeline-content,
+    .contact-item {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+    
+    /* Melhorar espaçamento em mobile */
+    .cert-grid,
+    .timeline,
+    .contact-grid {
+        margin: 0;
+        padding: 0 0.5rem;
+    }
+    
+    /* Garantir que os botões sejam tocáveis */
+    .btn-submit,
+    .contact-link {
+        min-height: 48px;
+        min-width: 48px;
     }
 }
