@@ -189,21 +189,128 @@ function animateCounter(element, target) {
 // Custom cursor functionality
 function initCustomCursor() {
     const cursor = document.querySelector('.custom-cursor');
-    
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
+    const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (!cursor || !supportsFinePointer) {
+        if (cursor) {
+            cursor.remove();
+        }
+        return;
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const interactiveSelector = 'a, button, .stack-tecnologias .item, .project-link, .contact-item, .submit-btn';
+
+    const target = {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2
+    };
+
+    const current = {
+        x: target.x,
+        y: target.y
+    };
+
+    let isVisible = false;
+    let isInteractive = false;
+    let isPressed = false;
+    let rafId = null;
+
+    function syncCursorState() {
+        cursor.classList.toggle('is-visible', isVisible);
+        cursor.classList.toggle('is-interactive', isInteractive);
+        cursor.classList.toggle('is-pressed', isPressed);
+    }
+
+    function animateCursor() {
+        const easing = prefersReducedMotion ? 0.34 : (isInteractive ? 0.22 : 0.16);
+
+        current.x += (target.x - current.x) * easing;
+        current.y += (target.y - current.y) * easing;
+
+        const dx = target.x - current.x;
+        const dy = target.y - current.y;
+        const speed = Math.min(Math.hypot(dx, dy), 28);
+        const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+        const stretch = prefersReducedMotion ? 0 : speed / 28;
+        const baseScale = isInteractive ? 1.08 : 1;
+        const pressedScale = isPressed ? 0.9 : 1;
+
+        cursor.style.setProperty('--cursor-x', `${current.x}px`);
+        cursor.style.setProperty('--cursor-y', `${current.y}px`);
+        cursor.style.setProperty('--cursor-rotate', `${angle || 0}deg`);
+        cursor.style.setProperty('--cursor-scale-x', (baseScale * pressedScale * (1 + stretch * 0.28)).toFixed(3));
+        cursor.style.setProperty('--cursor-scale-y', (baseScale * pressedScale * (1 - stretch * 0.14)).toFixed(3));
+
+        rafId = requestAnimationFrame(animateCursor);
+    }
+
+    function startAnimation() {
+        if (!rafId) {
+            rafId = requestAnimationFrame(animateCursor);
+        }
+    }
+
+    document.addEventListener('mousemove', (event) => {
+        target.x = event.clientX;
+        target.y = event.clientY;
+
+        if (!isVisible) {
+            isVisible = true;
+            syncCursorState();
+        }
+
+        startAnimation();
+    }, { passive: true });
+
+    document.addEventListener('mouseover', (event) => {
+        const interactiveTarget = event.target.closest(interactiveSelector);
+        if (interactiveTarget) {
+            isInteractive = true;
+            syncCursorState();
+        }
     });
-    
-    // Hide cursor on hover over interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .stack-tecnologias .item, .project-link');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'scale(2)';
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.style.transform = 'scale(1)';
-        });
+
+    document.addEventListener('mouseout', (event) => {
+        const currentTarget = event.target.closest(interactiveSelector);
+        const relatedTarget = event.relatedTarget instanceof Element
+            ? event.relatedTarget.closest(interactiveSelector)
+            : null;
+
+        if (currentTarget && currentTarget !== relatedTarget) {
+            isInteractive = false;
+            syncCursorState();
+        }
+    });
+
+    document.addEventListener('mousedown', () => {
+        isPressed = true;
+        syncCursorState();
+    });
+
+    document.addEventListener('mouseup', () => {
+        isPressed = false;
+        syncCursorState();
+    });
+
+    document.addEventListener('mouseleave', () => {
+        isVisible = false;
+        isInteractive = false;
+        isPressed = false;
+        syncCursorState();
+    });
+
+    document.addEventListener('mouseenter', () => {
+        if (target.x || target.y) {
+            isVisible = true;
+            syncCursorState();
+        }
+    });
+
+    window.addEventListener('blur', () => {
+        isVisible = false;
+        isPressed = false;
+        syncCursorState();
     });
 }
 
