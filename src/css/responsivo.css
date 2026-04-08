@@ -1985,3 +1985,434 @@
         bottom: auto !important;
     }
 }
+
+/* Experiência - Redesign Editorial */
+@media (max-width: 1024px) {
+    .experience-entry {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .experience-entry-heading h3 {
+        max-width: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .experience {
+        padding: 88px 18px;
+    }
+
+    .experience-section-label {
+        gap: 14px;
+        margin-bottom: 30px;
+    }
+
+    .experience-entry {
+        padding: 26px 20px;
+        border-radius: 28px;
+        gap: 1.5rem;
+    }
+
+    .experience-entry-mark {
+        width: 76px;
+        height: 76px;
+        border-radius: 24px;
+    }
+
+    .experience-entry-mark i {
+        font-size: 1.7rem;
+    }
+
+    .experience-entry-company {
+        font-size: 1.9rem;
+    }
+
+    .experience-entry-heading h3 {
+        font-size: 1.7rem;
+    }
+
+    .experience-highlights {
+        gap: 14px;
+    }
+
+    .experience-highlights li {
+        font-size: 0.95rem;
+        padding-left: 20px;
+    }
+
+    .experience-pill-list {
+        gap: 10px;
+    }
+
+    .experience-pill {
+        min-height: 36px;
+        padding: 9px 12px;
+        font-size: 0.68rem;
+    }
+}
+
+@media (max-width: 540px) {
+    .experience-section-number {
+        font-size: 0.8rem;
+    }
+
+    .experience-section-line {
+        width: 32px;
+    }
+
+    .experience-section-text {
+        font-size: 0.76rem;
+        letter-spacing: 0.18em;
+    }
+
+    .experience-entry-company {
+        font-size: 1.55rem;
+    }
+
+    .experience-entry-tenure,
+    .experience-entry-details {
+        font-size: 0.72rem;
+    }
+
+    .experience-entry-heading h3 {
+        font-size: 1.38rem;
+    }
+
+    .experience-entry-mark {
+        width: 64px;
+        height: 64px;
+        border-radius: 20px;
+    }
+
+    .experience-entry-mark i {
+        font-size: 1.45rem;
+    }
+
+    .experience-highlights li {
+        font-size: 0.9rem;
+        line-height: 1.55;
+    }
+}
+
+/* Experiência - ajuste da composição inspirada na referência */
+@media (max-width: 1024px) {
+    .experience-list {
+        gap: 50px;
+    }
+
+    .experience-heading-wrap {
+        margin-bottom: 42px;
+    }
+
+    .experience-entry {
+        gap: 2rem;
+    }
+
+    .experience-entry-aside {
+        max-width: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .experience-heading-wrap {
+        margin-bottom: 34px;
+    }
+
+    .experience-heading {
+        font-size: 2.2rem;
+    }
+
+    .experience-entry {
+        gap: 1.75rem;
+        padding: 0;
+    }
+
+    .experience-entry-mark {
+        width: 88px;
+        height: 88px;
+        border-radius: 26px;
+    }
+
+    .experience-entry-body {
+        gap: 22px;
+        padding-top: 0;
+    }
+
+    .experience-entry-details {
+        font-size: 0.92rem;
+    }
+
+    .experience-entry-heading h3 {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 540px) {
+    .experience-heading-wrap {
+        margin-bottom: 28px;
+    }
+
+    .experience-kicker {
+        letter-spacing: 0.16em;
+    }
+
+    .experience-heading {
+        font-size: 1.85rem;
+    }
+
+    .experience-entry-mark {
+        width: 74px;
+        height: 74px;
+        border-radius: 22px;
+    }
+
+    .experience-entry-company {
+        font-size: 1.7rem;
+    }
+
+    .experience-entry-details {
+        font-size: 0.88rem;
+    }
+
+    .experience-entry-heading h3 {
+        font-size: 1.18rem;
+    }
+}
+
+/* Sobre Mim - Redesign Editorial */
+@media (max-width: 1024px) {
+    .sobre-mim {
+        padding: 96px 20px 64px;
+    }
+
+    .about-editorial__grid {
+        grid-template-columns: 1fr;
+        gap: 42px;
+    }
+
+    .about-editorial__display {
+        font-size: 3.2rem;
+        max-width: none;
+    }
+
+    .about-editorial__profile {
+        width: fit-content;
+    }
+
+    .about-editorial__photo-shell {
+        width: 200px;
+    }
+
+    .about-editorial__body {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .sobre-mim {
+        padding: 82px 18px 56px;
+    }
+
+    .about-editorial__label {
+        margin-bottom: 22px;
+    }
+
+    .about-editorial__display {
+        font-size: 2.25rem;
+    }
+
+    .about-editorial__profile {
+        margin-top: 28px;
+    }
+
+    .about-editorial__photo-shell {
+        width: 172px;
+    }
+
+    .about-editorial__body p {
+        font-size: 0.92rem;
+    }
+
+    .about-editorial__body {
+        gap: 18px;
+    }
+}
+
+@media (max-width: 540px) {
+    .sobre-mim {
+        padding: 72px 16px 48px;
+    }
+
+    .about-editorial__index,
+    .about-editorial__eyebrow {
+        font-size: 0.74rem;
+    }
+
+    .about-editorial__line {
+        width: 28px;
+    }
+
+    .about-editorial__display {
+        font-size: 1.82rem;
+    }
+
+    .about-editorial__profile {
+        width: fit-content;
+    }
+
+    .about-editorial__photo-shell {
+        width: 146px;
+        padding: 8px;
+    }
+
+    .about-editorial__body p {
+        font-size: 0.86rem;
+        line-height: 1.62;
+    }
+
+    .about-editorial__tags span {
+        font-size: 0.7rem;
+        min-height: 34px;
+        padding: 8px 12px;
+    }
+}
+
+/* Hard Skills - Redesign Compacto */
+@media (max-width: 1100px) {
+    .skills-board {
+        padding: 152px 20px 176px;
+    }
+
+    .skills-board::before {
+        top: 50px;
+    }
+
+    .skills-board__panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .skills-board__column {
+        padding: 26px 26px 28px;
+    }
+
+    .skills-board__column + .skills-board__column {
+        border-left: none;
+    }
+
+    .skills-board__column:nth-child(even) {
+        border-left: 1px solid var(--skills-divider);
+    }
+
+    .skills-board__column:nth-child(n + 3) {
+        border-top: 1px solid var(--skills-divider);
+    }
+}
+
+@media (max-width: 768px) {
+    .skills-board {
+        padding: 122px 18px 140px;
+    }
+
+    .skills-board::before {
+        width: calc(100% - 36px);
+        top: 40px;
+    }
+
+    .skills-board__label {
+        margin-bottom: 40px;
+    }
+
+    .skills-board__panel {
+        border-radius: 24px;
+    }
+
+    .skills-board__column h3 {
+        font-size: 1.12rem;
+    }
+
+    .skills-board__column li {
+        font-size: 0.92rem;
+    }
+}
+
+@media (max-width: 620px) {
+    .skills-board__panel {
+        grid-template-columns: 1fr;
+    }
+
+    .skills-board__column {
+        padding: 24px 22px;
+    }
+
+    .skills-board__column:nth-child(even) {
+        border-left: none;
+    }
+
+    .skills-board__column:nth-child(n + 2) {
+        border-top: 1px solid var(--skills-divider);
+    }
+}
+
+@media (max-width: 540px) {
+    .skills-board {
+        padding: 104px 16px 118px;
+    }
+
+    .skills-board__index,
+    .skills-board__eyebrow {
+        font-size: 0.74rem;
+    }
+
+    .skills-board__line {
+        width: 28px;
+    }
+
+    .skills-board::before {
+        width: calc(100% - 32px);
+        top: 30px;
+    }
+
+    .skills-board__panel {
+        border-radius: 20px;
+    }
+
+    .skills-board__icon {
+        width: 42px;
+        height: 42px;
+        margin-bottom: 14px;
+    }
+
+    .skills-board__column h3 {
+        margin-bottom: 14px;
+        font-size: 1.02rem;
+    }
+
+    .skills-board__column ul {
+        gap: 9px;
+    }
+
+    .skills-board__column li {
+        font-size: 0.88rem;
+        line-height: 1.45;
+    }
+}
+
+@media (max-width: 900px) {
+    .section-dots {
+        right: 10px;
+        gap: 8px;
+        padding: 8px 6px;
+    }
+
+    .section-dots__dot {
+        width: 9px;
+        height: 9px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-dots {
+        display: none;
+    }
+}

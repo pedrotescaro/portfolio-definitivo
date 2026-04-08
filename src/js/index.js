@@ -1,9 +1,95 @@
-// Progress Bar
-function updateProgressBar() {
-    const scrollTop = window.pageYOffset;
-    const docHeight = document.body.scrollHeight - window.innerHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
-    document.querySelector('.progress-bar').style.width = scrollPercent + '%';
+// Section dots indicator
+function initSectionDots() {
+    const dotsNav = document.querySelector('.section-dots');
+    const dots = Array.from(document.querySelectorAll('.section-dots__dot'));
+    if (!dotsNav || !dots.length) return;
+
+    const trackedSections = dots
+        .map((dot) => {
+            const targetId = dot.getAttribute('href');
+            const targetSection = targetId ? document.querySelector(targetId) : null;
+
+            if (!targetSection) return null;
+
+            return {
+                dot,
+                targetId,
+                targetSection
+            };
+        })
+        .filter(Boolean);
+
+    if (!trackedSections.length) return;
+
+    const heroSection = document.querySelector('#inicio');
+    const header = document.querySelector('.cabecalho');
+    let rafId = null;
+
+    const setActiveDot = (activeId) => {
+        dotsNav.classList.toggle('is-visible', activeId !== 'inicio');
+
+        trackedSections.forEach(({ dot, targetId }) => {
+            const isActive = targetId === `#${activeId}`;
+            dot.classList.toggle('is-active', isActive);
+
+            if (isActive) {
+                dot.setAttribute('aria-current', 'true');
+            } else {
+                dot.removeAttribute('aria-current');
+            }
+        });
+    };
+
+    const updateActiveSection = () => {
+        const headerHeight = header ? header.offsetHeight : 0;
+        const probeLine = window.innerHeight * 0.38;
+        const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
+        let activeId = null;
+        let bestMatch = {
+            id: trackedSections[0].targetSection.id,
+            distance: Number.POSITIVE_INFINITY
+        };
+
+        trackedSections.forEach(({ targetSection }) => {
+            const rect = targetSection.getBoundingClientRect();
+            const adjustedTop = rect.top - headerHeight * 0.35;
+            const adjustedBottom = rect.bottom - headerHeight * 0.1;
+
+            if (adjustedTop <= probeLine && adjustedBottom >= probeLine) {
+                activeId = targetSection.id;
+            }
+
+            const distanceToProbe = Math.abs(adjustedTop - probeLine);
+            if (distanceToProbe < bestMatch.distance) {
+                bestMatch = {
+                    id: targetSection.id,
+                    distance: distanceToProbe
+                };
+            }
+        });
+
+        if (!activeId) {
+            activeId = bestMatch.id;
+        }
+
+        if (window.scrollY < heroHeight * 0.45) {
+            activeId = 'inicio';
+        }
+
+        setActiveDot(activeId);
+    };
+
+    const requestSectionUpdate = () => {
+        if (rafId) return;
+        rafId = window.requestAnimationFrame(() => {
+            updateActiveSection();
+            rafId = null;
+        });
+    };
+
+    updateActiveSection();
+    window.addEventListener('scroll', requestSectionUpdate, { passive: true });
+    window.addEventListener('resize', requestSectionUpdate, { passive: true });
 }
 
 // Smooth scroll for navigation links
@@ -11,11 +97,13 @@ function initSmoothScroll() {
     const links = document.querySelectorAll('a[href^="#"]');
     links.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
+            if (!targetId || targetId === '#') return;
+
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
+                e.preventDefault();
                 const headerHeight = document.querySelector('.cabecalho').offsetHeight;
                 const targetPosition = targetSection.offsetTop - headerHeight;
                 
@@ -200,10 +288,18 @@ function initCustomCursor() {
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const interactiveSelector = 'a, button, .stack-tecnologias .item, .project-link, .contact-item, .submit-btn';
+    let zoomLevel = 1;
+
+    function syncZoomLevel() {
+        const rawZoom = parseFloat(window.getComputedStyle(document.documentElement).zoom);
+        zoomLevel = Number.isFinite(rawZoom) && rawZoom > 0 ? rawZoom : 1;
+    }
+
+    syncZoomLevel();
 
     const target = {
-        x: window.innerWidth / 2,
-        y: window.innerHeight / 2
+        x: window.innerWidth / (2 * zoomLevel),
+        y: window.innerHeight / (2 * zoomLevel)
     };
 
     const current = {
@@ -252,8 +348,8 @@ function initCustomCursor() {
     }
 
     document.addEventListener('mousemove', (event) => {
-        target.x = event.clientX;
-        target.y = event.clientY;
+        target.x = event.clientX / zoomLevel;
+        target.y = event.clientY / zoomLevel;
 
         if (!isVisible) {
             isVisible = true;
@@ -312,6 +408,10 @@ function initCustomCursor() {
         isPressed = false;
         syncCursorState();
     });
+
+    window.addEventListener('resize', () => {
+        syncZoomLevel();
+    }, { passive: true });
 }
 
 // Form submission handling
@@ -429,6 +529,7 @@ document.head.appendChild(confettiStyle);
 document.addEventListener('DOMContentLoaded', () => {
     initLoadingScreen();
     initSmoothScroll();
+    initSectionDots();
     initStaggeredAnimations();
     initHeaderScroll();
     initParallax();
@@ -437,9 +538,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initCustomCursor();
     initContactForm();
     initEasterEgg();
-    
-    // Progress bar
-    window.addEventListener('scroll', updateProgressBar);
     
     // Animate counters when they come into view
     const observerOptions = {

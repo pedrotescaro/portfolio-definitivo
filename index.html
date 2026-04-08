@@ -41,10 +41,6 @@
         </div>
     </div>
 
-    <!-- Progress Bar -->
-    <div class="progress-bar"></div>
-
-
     <!-- Custom Cursor -->
     <div class="custom-cursor" aria-hidden="true">
         <span class="custom-cursor__pulse"></span>
@@ -52,8 +48,18 @@
         <span class="custom-cursor__core"></span>
     </div>
 
+    <nav class="section-dots" aria-label="Indicador de seções">
+        <a class="section-dots__dot is-active" href="#inicio" aria-label="Ir para início"></a>
+        <a class="section-dots__dot" href="#sobre-mim" aria-label="Ir para sobre mim"></a>
+        <a class="section-dots__dot" href="#hard-skills" aria-label="Ir para stack e competências"></a>
+        <a class="section-dots__dot" href="#educacao" aria-label="Ir para formação"></a>
+        <a class="section-dots__dot" href="#experiencia" aria-label="Ir para experiência"></a>
+        <a class="section-dots__dot" href="#projetos" aria-label="Ir para projetos"></a>
+        <a class="section-dots__dot" href="#contato" aria-label="Ir para contato"></a>
+    </nav>
+
     <main>
-        <section class="first_section">
+        <section class="first_section" id="inicio">
             <video class="first__background" autoplay muted loop>
                 <source src="./src/videos/video.mp4" type="video/mp4" />
             </video>
@@ -129,36 +135,63 @@
         </section>
 
         <section class="sobre-mim" id="sobre-mim">
-            <h2 class="sobre-mim__title"><span>Sobre</span> Mim</h2>
-            <div class="sobre-mim__content">
-                <img class="sobre-mim__foto" src="./src/imagens/imagem.png" alt="Foto de perfil de Pedro Tescaro" />
-                <div class="sobre-mim__texto">
-                    <p>
-                        <span>Desenvolvedor Fullstack</span> apaixonado por tecnologia, cursando <span>Análise e
-                            Desenvolvimento de Sistemas</span> (FATEC) e com base técnica em <span>Automação
-                            Industrial</span> (IFSP). Com experiência profissional na <span>Éboli Tecnologia</span>
-                        desenvolvendo soluções mobile com Flutter/Dart. Meu objetivo é transformar ideias em
-                        <span>soluções digitais criativas, funcionais e de alto impacto</span>.
-                    </p>
+            <div class="about-editorial">
+                <div class="about-editorial__label">
+                    <span class="about-editorial__index">01</span>
+                    <span class="about-editorial__line" aria-hidden="true"></span>
+                    <span class="about-editorial__eyebrow">Sobre mim</span>
+                </div>
 
-                    <div class="competencias-lista">
-                        <h3><i class="fas fa-rocket"></i> Competências Principais</h3>
-                        <ul>
-                            <li><span>Front-End:</span> HTML5, CSS3, JavaScript/TypeScript, React, Bootstrap e Tailwind
-                                CSS.</li>
-                            <li><span>Mobile:</span> Experiência profissional com Flutter, Dart e Kotlin para Android.
-                            </li>
-                            <li><span>Cloud & DevOps:</span> Certificações em AWS e Google Cloud com foco em
-                                infraestrutura e IA.</li>
-                            <li><span>Backend:</span> Python, Java, C#, PHP, C/C++ e MySQL.</li>
-                            <li><span>Game Dev:</span> Unity, Godot e GameMaker Studio 2.</li>
-                            <li><span>Idiomas:</span> Inglês fluente (Cambridge English Level 1).</li>
-                        </ul>
+                <div class="about-editorial__grid">
+                    <div class="about-editorial__lead">
+                        <h2 class="about-editorial__display">Mobile sólido.<br>Visão de <span>produto.</span></h2>
+
+                        <div class="about-editorial__profile">
+                            <div class="about-editorial__photo-shell">
+                                <img class="about-editorial__photo" src="./src/imagens/Perfilfoto.png"
+                                    alt="Foto de perfil de Pedro Tescaro" loading="lazy" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-editorial__body">
+                        <p>Sou desenvolvedor mobile focado na criação de soluções digitais para a área da saúde.
+                            Atualmente curso <strong>Análise e Desenvolvimento de Sistemas</strong> na FATEC Ferraz de
+                            Vasconcelos e tenho formação técnica em <strong>Automação Industrial</strong> pelo IFSP, o
+                            que fortalece minha abordagem estruturada na resolução de problemas.</p>
+
+                        <p>Atuei como estagiário de desenvolvimento mobile na <strong>Éboli Tecnologia</strong>,
+                            desenvolvendo interfaces e funcionalidades em Flutter para aplicações em produção. Hoje sigo
+                            aprofundando meu trabalho em mobile com foco em produto, usabilidade e entrega de valor
+                            real.</p>
+
+                        <p>Sou criador do <strong>Heal+</strong>, um aplicativo que utiliza Inteligência Artificial
+                            para auxiliar profissionais de saúde no acompanhamento de pacientes com feridas. Após mais
+                            de 3 anos de evolução, o projeto se tornou um produto funcional em validação e já foi
+                            apresentado na <strong>16ª FETEPS</strong>.</p>
+
+                        <p>Tenho experiência com <strong>React Native</strong>, <strong>Firebase</strong> e
+                            desenvolvimento de aplicações orientadas à experiência do usuário, sempre com o objetivo de
+                            transformar problemas reais em soluções digitais eficientes. Também exploro
+                            <strong>JavaScript</strong>, <strong>Python</strong> e Data/IA como parte dessa
+                            construção.</p>
+
+                        <div class="about-editorial__tags">
+                            <span>React Native</span>
+                            <span>Heal+</span>
+                            <span>JavaScript</span>
+                            <span>Python</span>
+                            <span>Firebase</span>
+                            <span>Data / IA</span>
+                            <span>HealthTech</span>
+                            <span>UX Mobile</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Hard skills antigo comentado durante o redesign desta secao.
         <section class="stack-tecnologias" id="hard-skills">
             <h2 class="stack-tecnologias__title"><span>Hard</span> Skills</h2>
 
@@ -264,6 +297,75 @@
                 </div>
             </div>
         </section>
+        -->
+
+        <section class="skills-board" id="hard-skills">
+            <div class="skills-board__shell">
+                <div class="skills-board__label">
+                    <span class="skills-board__index">02</span>
+                    <span class="skills-board__line" aria-hidden="true"></span>
+                    <h2 class="skills-board__eyebrow">Stack & Competencias</h2>
+                </div>
+
+                <div class="skills-board__panel">
+                    <article class="skills-board__column">
+                        <div class="skills-board__icon" aria-hidden="true">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h3>Frontend & Web</h3>
+                        <ul>
+                            <li>React · TypeScript</li>
+                            <li>JavaScript · HTML/CSS</li>
+                            <li>Tailwind CSS</li>
+                            <li>Interfaces responsivas</li>
+                            <li>Consumo de APIs</li>
+                        </ul>
+                    </article>
+
+                    <article class="skills-board__column">
+                        <div class="skills-board__icon" aria-hidden="true">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <h3>Backend & Dados</h3>
+                        <ul>
+                            <li>Python · FastAPI</li>
+                            <li>SQLite · MySQL</li>
+                            <li>Firebase</li>
+                            <li>REST APIs</li>
+                            <li>Data / IA</li>
+                        </ul>
+                    </article>
+
+                    <article class="skills-board__column">
+                        <div class="skills-board__icon" aria-hidden="true">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <h3>Mobile</h3>
+                        <ul>
+                            <li>React Native · Expo</li>
+                            <li>Expo Router</li>
+                            <li>Flutter · Dart</li>
+                            <li>Kotlin</li>
+                            <li>UX mobile</li>
+                        </ul>
+                    </article>
+
+                    <article class="skills-board__column">
+                        <div class="skills-board__icon" aria-hidden="true">
+                            <i class="fa-solid fa-cloud"></i>
+                        </div>
+                        <h3>Infra & Cloud</h3>
+                        <ul>
+                            <li>Git · GitHub</li>
+                            <li>AWS · Google Cloud</li>
+                            <li>Linux</li>
+                            <li>Deploy e suporte</li>
+                            <li>Troubleshooting</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
 
         <!-- Formacao e Certificacoes -->
         <section class="formation-showcase" id="educacao">
@@ -362,66 +464,160 @@
                 </div>
             </div>
         </section>
+        <!-- Hard skills duplicado removido no redesign.
+
+        <section class="skills-board" id="hard-skills">
+            <div class="skills-board__shell">
+                <div class="skills-board__label">
+                    <span class="skills-board__index">02</span>
+                    <span class="skills-board__line" aria-hidden="true"></span>
+                    <h2 class="skills-board__eyebrow">Stack & Competencias</h2>
+                </div>
+
+                <div class="skills-board__panel">
+                    <article class="skills-board__column">
+                        <div class="skills-board__icon" aria-hidden="true">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h3>Frontend & Web</h3>
+                        <ul>
+                            <li>React · TypeScript</li>
+                            <li>JavaScript · HTML/CSS</li>
+                            <li>Tailwind CSS</li>
+                            <li>Interfaces responsivas</li>
+                            <li>Consumo de APIs</li>
+                        </ul>
+                    </article>
+
+                    <article class="skills-board__column">
+                        <div class="skills-board__icon" aria-hidden="true">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <h3>Backend & Dados</h3>
+                        <ul>
+                            <li>Python · FastAPI</li>
+                            <li>SQLite · MySQL</li>
+                            <li>Firebase</li>
+                            <li>REST APIs</li>
+                            <li>Data / IA</li>
+                        </ul>
+                    </article>
+
+                    <article class="skills-board__column">
+                        <div class="skills-board__icon" aria-hidden="true">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <h3>Mobile</h3>
+                        <ul>
+                            <li>React Native · Expo</li>
+                            <li>Expo Router</li>
+                            <li>Flutter · Dart</li>
+                            <li>Kotlin</li>
+                            <li>UX mobile</li>
+                        </ul>
+                    </article>
+
+                    <article class="skills-board__column">
+                        <div class="skills-board__icon" aria-hidden="true">
+                            <i class="fa-solid fa-cloud"></i>
+                        </div>
+                        <h3>Infra & Cloud</h3>
+                        <ul>
+                            <li>Git · GitHub</li>
+                            <li>AWS · Google Cloud</li>
+                            <li>Linux</li>
+                            <li>Deploy e suporte</li>
+                            <li>Troubleshooting</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+        -->
 
         <!-- Seção de Experiência Profissional -->
         <section class="experience" id="experiencia">
-            <h2 class="experience-title">Experiência <span>Profissional</span></h2>
-            <div class="timeline">
-                <!-- 1. Desenvolvedor Mobile - Éboli Tecnologia (Mais recente) -->
-                <div class="timeline-item">
-                    <div class="timeline-date">Abr 2025 - Jul 2025</div>
-                    <div class="timeline-content">
-                        <div class="experience-header">
-                            <div class="company-logo">
-                                <div class="logo-placeholder eboli-logo">
-                                    <i class="fas fa-mobile-alt"></i>
-                                </div>
-                            </div>
-                            <div class="experience-info">
-                                <h3>Desenvolvedor Mobile</h3>
-                                <p class="timeline-company">Éboli Tecnologia · Estágio</p>
-                                <p class="timeline-duration">4 meses · Remoto</p>
-                            </div>
-                        </div>
-                        <p class="experience-description">Desenvolvi soluções mobile para Android utilizando
-                            Flutter/Dart, com foco em Mobile Development e UI/UX. Participei ativamente em reuniões
-                            técnicas e na resolução de problemas reais de compatibilidade e configuração.</p>
-                        <div class="experience-skills">
-                            <span class="skill-tag">Flutter</span>
-                            <span class="skill-tag">Dart</span>
-                            <span class="skill-tag">Kotlin</span>
-                            <span class="skill-tag">Mobile Development</span>
-                            <span class="skill-tag">UI/UX</span>
-                        </div>
-                    </div>
+            <div class="experience-shell">
+                <div class="experience-heading-wrap">
+                    <p class="experience-kicker">Resumo profissional</p>
+                    <h2 class="experience-heading">Experiência<span>.</span></h2>
                 </div>
 
-                <!-- 2. Instrutor de Matemática - Projeto de Extensão -->
-                <div class="timeline-item">
-                    <div class="timeline-date">Mar 2022 - Dez 2022</div>
-                    <div class="timeline-content">
-                        <div class="experience-header">
-                            <div class="company-logo">
-                                <div class="logo-placeholder ifsp-logo">
-                                    <i class="fas fa-chalkboard-teacher"></i>
-                                </div>
+                <div class="experience-list">
+                    <article class="experience-entry">
+                        <div class="experience-entry-aside">
+                            <div class="experience-entry-mark experience-entry-mark--image">
+                                <img src="./src/imagens/eboli logo certo.png"
+                                    alt="Logo da Éboli Tecnologia" loading="lazy">
                             </div>
-                            <div class="experience-info">
+                            <span class="experience-entry-index">01</span>
+                            <p class="experience-entry-company">Éboli Tecnologia</p>
+                            <p class="experience-entry-tenure">Nov 2024 - Jul 2025</p>
+                            <p class="experience-entry-details">9 meses · Estágio · Remoto</p>
+                        </div>
+
+                        <div class="experience-entry-body">
+                            <div class="experience-entry-heading">
+                                <p class="experience-entry-role-label">Atuação</p>
+                                <h3>Desenvolvedor Mobile</h3>
+                            </div>
+
+                            <ul class="experience-highlights">
+                                <li>Desenvolvimento de soluções Android com Flutter e Dart, com foco em interfaces
+                                    funcionais e boa experiência de uso.</li>
+                                <li>Participação em reuniões técnicas para alinhamento de demandas, decisões de
+                                    produto e evolução das entregas.</li>
+                                <li>Resolução de problemas de compatibilidade, configuração e troubleshooting em
+                                    cenários reais de desenvolvimento mobile.</li>
+                            </ul>
+
+                            <div class="experience-pill-list">
+                                <span class="experience-pill">Flutter</span>
+                                <span class="experience-pill">Dart</span>
+                                <span class="experience-pill">Kotlin</span>
+                                <span class="experience-pill">Android</span>
+                                <span class="experience-pill">UI/UX</span>
+                                <span class="experience-pill">Troubleshooting</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="experience-entry">
+                        <div class="experience-entry-aside">
+                            <div class="experience-entry-mark experience-entry-mark--ifsp">
+                                <img src="./src/imagens/Marca_IFSP_2015_SZN-05.jpg"
+                                    alt="Logo do IFSP Campus Suzano" loading="lazy">
+                            </div>
+                            <span class="experience-entry-index">02</span>
+                            <p class="experience-entry-company">IFSP Campus Suzano</p>
+                            <p class="experience-entry-tenure">Mar 2022 - Dez 2022</p>
+                            <p class="experience-entry-details">10 meses · Projeto de Extensão · Presencial</p>
+                        </div>
+
+                        <div class="experience-entry-body">
+                            <div class="experience-entry-heading">
+                                <p class="experience-entry-role-label">Atuação</p>
                                 <h3>Instrutor de Matemática</h3>
-                                <p class="timeline-company">IFSP Campus Suzano · Projeto de Extensão</p>
-                                <p class="timeline-duration">10 meses · Suzano, SP · Presencial</p>
+                            </div>
+
+                            <ul class="experience-highlights">
+                                <li>Acompanhamento de alunos com dificuldade em Matemática básica por meio de suporte
+                                    online e presencial.</li>
+                                <li>Esclarecimento de dúvidas para turmas do Ensino Médio e EJA, adaptando linguagem
+                                    e abordagem conforme a necessidade.</li>
+                                <li>Fortalecimento de habilidades de comunicação, didática e mentoria em contexto
+                                    educacional.</li>
+                            </ul>
+
+                            <div class="experience-pill-list">
+                                <span class="experience-pill">Ensino</span>
+                                <span class="experience-pill">Mentoria</span>
+                                <span class="experience-pill">Comunicação</span>
+                                <span class="experience-pill">Didática</span>
+                                <span class="experience-pill">Matemática</span>
                             </div>
                         </div>
-                        <p class="experience-description">Atuei como monitor, acompanhando alunos com dificuldade em
-                            Matemática básica por meio de atendimento online e presencial. Esclareci dúvidas de alunos
-                            do Ensino Médio e EJA, desenvolvendo habilidades de comunicação e didática.</p>
-                        <div class="experience-skills">
-                            <span class="skill-tag">Ensino</span>
-                            <span class="skill-tag">Matemática</span>
-                            <span class="skill-tag">Mentoria</span>
-                            <span class="skill-tag">Soft Skills</span>
-                        </div>
-                    </div>
+                    </article>
                 </div>
             </div>
         </section>
@@ -752,7 +948,7 @@
         </section>
 
         <!-- Seção de Contato Melhorada -->
-        <section class="contact-section">
+        <section class="contact-section" id="contato">
             <h2 class="contact-title">Vamos <span>Trabalhar Juntos</span></h2>
             <p class="contact-subtitle">Pronto para transformar suas ideias em realidade? Entre em contato e vamos criar
                 algo incrível!</p>
