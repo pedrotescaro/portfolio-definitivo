@@ -1,8 +1,22 @@
+function organizePortfolioSections() {
+    const hardSkills = document.querySelector('#hard-skills');
+    const experience = document.querySelector('#experiencia');
+    const projects = document.querySelector('#projetos');
+    const education = document.querySelector('#educacao');
+
+    if (!hardSkills || !experience || !projects || !education) return;
+
+    hardSkills.insertAdjacentElement('afterend', experience);
+    experience.insertAdjacentElement('afterend', projects);
+    projects.insertAdjacentElement('afterend', education);
+}
+
 // Section dots indicator
 function initSectionDots() {
     const dotsNav = document.querySelector('.section-dots');
     const dots = Array.from(document.querySelectorAll('.section-dots__dot'));
     if (!dotsNav || !dots.length) return;
+    const isMobileViewport = () => window.innerWidth <= 768;
 
     const trackedSections = dots
         .map((dot) => {
@@ -26,7 +40,7 @@ function initSectionDots() {
     let rafId = null;
 
     const setActiveDot = (activeId) => {
-        dotsNav.classList.toggle('is-visible', activeId !== 'inicio');
+        dotsNav.classList.toggle('is-visible', isMobileViewport() || activeId !== 'inicio');
 
         trackedSections.forEach(({ dot, targetId }) => {
             const isActive = targetId === `#${activeId}`;
@@ -221,26 +235,63 @@ function initLoadingScreen() {
 
 // Enhanced scroll animations with stagger effect
 function initStaggeredAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealConfig = [
+        { selector: '.sobre-mim', variant: 'scroll-reveal--left' },
+        { selector: '.skills-board__shell', variant: 'scroll-reveal--up' },
+        { selector: '.formation-shell', variant: 'scroll-reveal--up' },
+        { selector: '.experience-shell', variant: 'scroll-reveal--right' },
+        { selector: '#projetos .project', variant: 'scroll-reveal--up', stagger: 120 },
+        { selector: '.community-showcase__label, .community-showcase__intro', variant: 'scroll-reveal--up', stagger: 90 },
+        { selector: '.community-card', variant: 'scroll-reveal--up', stagger: 90 },
+        { selector: '.contact-title, .contact-subtitle, .contact-container', variant: 'scroll-reveal--up', stagger: 80 }
+    ];
+
+    const revealTargets = [];
+
+    revealConfig.forEach(({ selector, variant = 'scroll-reveal--up', stagger = 0 }) => {
+        document.querySelectorAll(selector).forEach((element, index) => {
+            if (element.dataset.revealBound === 'true') return;
+
+            element.dataset.revealBound = 'true';
+            element.classList.add('scroll-reveal');
+
+            if (variant !== 'scroll-reveal--up') {
+                element.classList.add(variant);
+            }
+
+            if (!prefersReducedMotion && stagger) {
+                element.style.transitionDelay = `${Math.min(index * stagger, 360)}ms`;
+            }
+
+            revealTargets.push(element);
+        });
+    });
+
+    if (!revealTargets.length) return;
+
+    if (prefersReducedMotion) {
+        revealTargets.forEach((element) => {
+            element.classList.add('is-visible');
+            element.style.transitionDelay = '0ms';
+        });
+        return;
+    }
 
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }, index * 100); // Stagger effect
-            }
-        });
-    }, observerOptions);
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
 
-    // Observe elements for staggered animation
-    const animatedElements = document.querySelectorAll('.sobre-mim, .stack-tecnologias, .project, .categoria');
-    animatedElements.forEach(el => {
-        observer.observe(el);
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+        });
+    }, {
+        threshold: 0.16,
+        rootMargin: '0px 0px -12% 0px'
+    });
+
+    revealTargets.forEach((element) => {
+        observer.observe(element);
     });
 }
 
@@ -527,6 +578,7 @@ document.head.appendChild(confettiStyle);
 
 // Initialize all functions when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    organizePortfolioSections();
     initLoadingScreen();
     initSmoothScroll();
     initSectionDots();
