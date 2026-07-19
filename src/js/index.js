@@ -153,26 +153,6 @@ function initScrollAnimations() {
     });
 }
 
-// Header scroll effect
-function initHeaderScroll() {
-    const header = document.querySelector('.cabecalho');
-    let lastScrollY = window.scrollY;
-
-    window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-        
-        if (currentScrollY > 100) {
-            header.style.background = 'rgba(0, 0, 0, 0.95)';
-            header.style.backdropFilter = 'blur(25px)';
-        } else {
-            header.style.background = 'rgba(0, 0, 0, 0.8)';
-            header.style.backdropFilter = 'blur(20px)';
-        }
-
-        lastScrollY = currentScrollY;
-    });
-}
-
 // Parallax effect for hero section
 function initParallax() {
     const heroSection = document.querySelector('.first_section');
@@ -237,10 +217,12 @@ function initLoadingScreen() {
 function initStaggeredAnimations() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const revealConfig = [
-        { selector: '.sobre-mim', variant: 'scroll-reveal--left' },
         { selector: '.skills-board__shell', variant: 'scroll-reveal--up' },
-        { selector: '.formation-shell', variant: 'scroll-reveal--up' },
-        { selector: '.experience-shell', variant: 'scroll-reveal--right' },
+        { selector: '.formation-hero, .formation-heading', variant: 'scroll-reveal--up', stagger: 90 },
+        { selector: '.formation-item', variant: 'scroll-reveal--up', stagger: 110 },
+        { selector: '.formation-badge-card, .formation-actions', variant: 'scroll-reveal--up', stagger: 90 },
+        { selector: '.experience-hero', variant: 'scroll-reveal--up' },
+        { selector: '.experience-entry', variant: 'scroll-reveal--up', stagger: 120 },
         { selector: '#projetos .project', variant: 'scroll-reveal--up', stagger: 120 },
         { selector: '.community-showcase__label, .community-showcase__intro', variant: 'scroll-reveal--up', stagger: 90 },
         { selector: '.community-card', variant: 'scroll-reveal--up', stagger: 90 },
@@ -583,7 +565,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initSectionDots();
     initStaggeredAnimations();
-    initHeaderScroll();
     initParallax();
     // initTypingEffect(); // Desabilitado - efeito de digitação removido
     initParticleSystem();
