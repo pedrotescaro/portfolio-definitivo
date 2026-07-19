@@ -5299,19 +5299,24 @@ html[data-language="en"] .toolkit-card--featured::before {
 
 .community-story__copy,
 .community-story__media {
-  opacity: 1;
-  transform: none;
+  opacity: var(--community-panel-opacity, 1);
+  transform: translate3d(0, var(--community-panel-shift, 0), 0);
   transition: none;
+  will-change: opacity, transform;
 }
 
 .community-story__panel.is-active .community-story__copy,
 .community-story__panel.is-active .community-story__media {
-  opacity: 1;
-  transform: none;
+  opacity: var(--community-panel-opacity, 1);
+  transform: translate3d(0, var(--community-panel-shift, 0), 0);
 }
 
 .community-story__panel.is-active .community-story__media {
   transition-delay: 0ms;
+}
+
+.community-story__media {
+  scale: var(--community-panel-scale, 1);
 }
 
 .community-story__chapter {

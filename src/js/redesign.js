@@ -656,17 +656,46 @@
     if (!section || !track || panels.length < 2) return;
 
     let frame = null;
+    let currentProgress = 0;
+    let targetProgress = 0;
+    let previousFrameTime = 0;
+    let hasRendered = false;
 
     const clamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, value));
 
     const resetStory = () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+        frame = null;
+      }
+
+      currentProgress = 0;
+      targetProgress = 0;
+      previousFrameTime = 0;
+      hasRendered = false;
       track.style.removeProperty('transform');
       progressBar?.style.setProperty('transform', 'scaleX(0)');
       section.style.removeProperty('--community-story-progress');
-      panels.forEach((panel) => panel.classList.add('is-active'));
+      panels.forEach((panel) => {
+        panel.classList.add('is-active');
+        panel.style.removeProperty('--community-panel-opacity');
+        panel.style.removeProperty('--community-panel-shift');
+        panel.style.removeProperty('--community-panel-scale');
+      });
     };
 
-    const renderStory = () => {
+    const updateTargetProgress = () => {
+      const rect = section.getBoundingClientRect();
+      const scrollRange = Math.max(1, section.offsetHeight - window.innerHeight);
+      targetProgress = clamp(-rect.top / scrollRange);
+
+      if (!hasRendered) {
+        currentProgress = targetProgress;
+        hasRendered = true;
+      }
+    };
+
+    const renderStory = (frameTime) => {
       frame = null;
 
       if (!desktopMotion.matches) {
@@ -674,19 +703,38 @@
         return;
       }
 
-      const rect = section.getBoundingClientRect();
-      const scrollRange = Math.max(1, section.offsetHeight - window.innerHeight);
-      const progress = clamp(-rect.top / scrollRange);
-      const horizontalDistance = Math.max(0, track.scrollWidth - window.innerWidth);
-      const activeIndex = Math.round(progress * (panels.length - 1));
+      const elapsed = previousFrameTime ? Math.min(64, frameTime - previousFrameTime) : 16.67;
+      const smoothing = 1 - Math.exp(-elapsed / 115);
+      const distanceToTarget = targetProgress - currentProgress;
 
-      track.style.transform = `translate3d(${-horizontalDistance * progress}px, 0, 0)`;
-      progressBar?.style.setProperty('transform', `scaleX(${progress})`);
-      section.style.setProperty('--community-story-progress', progress.toFixed(4));
+      previousFrameTime = frameTime;
+      currentProgress += distanceToTarget * smoothing;
+
+      if (Math.abs(distanceToTarget) < 0.0001) {
+        currentProgress = targetProgress;
+      }
+
+      const horizontalDistance = Math.max(0, track.scrollWidth - window.innerWidth);
+      const panelPosition = currentProgress * (panels.length - 1);
+      const activeIndex = Math.round(panelPosition);
+
+      track.style.transform = `translate3d(${-horizontalDistance * currentProgress}px, 0, 0)`;
+      progressBar?.style.setProperty('transform', `scaleX(${currentProgress})`);
+      section.style.setProperty('--community-story-progress', currentProgress.toFixed(4));
 
       panels.forEach((panel, index) => {
+        const panelVisibility = clamp(1 - Math.abs(index - panelPosition));
+        const easedVisibility = 1 - Math.pow(1 - panelVisibility, 3);
+
         panel.classList.toggle('is-active', index === activeIndex);
+        panel.style.setProperty('--community-panel-opacity', (0.24 + easedVisibility * 0.76).toFixed(4));
+        panel.style.setProperty('--community-panel-shift', `${((1 - easedVisibility) * 26).toFixed(2)}px`);
+        panel.style.setProperty('--community-panel-scale', (0.97 + easedVisibility * 0.03).toFixed(4));
       });
+
+      if (currentProgress !== targetProgress) {
+        frame = window.requestAnimationFrame(renderStory);
+      }
     };
 
     const requestStoryUpdate = () => {
@@ -695,7 +743,9 @@
         return;
       }
 
+      updateTargetProgress();
       if (frame) return;
+      previousFrameTime = performance.now();
       frame = window.requestAnimationFrame(renderStory);
     };
 
