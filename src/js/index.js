@@ -243,7 +243,7 @@ function initStaggeredAnimations() {
             }
 
             if (!prefersReducedMotion && stagger) {
-                element.style.transitionDelay = `${Math.min(index * stagger, 360)}ms`;
+                element.style.transitionDelay = `${Math.min(index * stagger, 280)}ms`;
             }
 
             revealTargets.push(element);

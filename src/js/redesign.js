@@ -186,6 +186,209 @@
     selectFilter('web', false);
   }
 
+  function initProjectLightbox() {
+    const triggers = [...document.querySelectorAll('.project-card__visual')];
+
+    if (!triggers.length) return;
+
+    const lightbox = document.createElement('dialog');
+    lightbox.className = 'project-lightbox';
+    lightbox.id = 'project-lightbox';
+    lightbox.setAttribute('aria-modal', 'true');
+    lightbox.setAttribute('aria-labelledby', 'project-lightbox-title');
+    lightbox.innerHTML = `
+      <div class="project-lightbox__surface">
+        <button class="project-lightbox__close" type="button" data-project-lightbox-close>
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <div class="project-lightbox__layout">
+          <figure class="project-lightbox__media">
+            <img class="project-lightbox__image" src="" alt="" />
+            <div class="project-lightbox__gallery" data-project-lightbox-gallery hidden>
+              <button class="project-lightbox__gallery-button project-lightbox__gallery-button--previous" type="button" data-project-gallery-previous>
+                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+              </button>
+              <span class="project-lightbox__gallery-counter" aria-live="polite" aria-atomic="true">
+                <span data-project-gallery-current>1</span>
+                <span aria-hidden="true">/</span>
+                <span data-project-gallery-total>1</span>
+              </span>
+              <button class="project-lightbox__gallery-button project-lightbox__gallery-button--next" type="button" data-project-gallery-next>
+                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </figure>
+          <section class="project-lightbox__panel">
+            <div class="project-lightbox__copy">
+              <span class="project-lightbox__eyebrow"></span>
+              <h2 class="project-lightbox__title" id="project-lightbox-title"></h2>
+              <p class="project-lightbox__description"></p>
+            </div>
+            <div class="project-lightbox__actions">
+              <a data-project-lightbox-source target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-github" aria-hidden="true"></i><span></span>
+              </a>
+              <a data-project-lightbox-site target="_blank" rel="noopener noreferrer">
+                <span></span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(lightbox);
+
+    const lightboxImage = lightbox.querySelector('.project-lightbox__image');
+    const lightboxEyebrow = lightbox.querySelector('.project-lightbox__eyebrow');
+    const lightboxTitle = lightbox.querySelector('.project-lightbox__title');
+    const lightboxDescription = lightbox.querySelector('.project-lightbox__description');
+    const closeButton = lightbox.querySelector('[data-project-lightbox-close]');
+    const sourceLink = lightbox.querySelector('[data-project-lightbox-source]');
+    const siteLink = lightbox.querySelector('[data-project-lightbox-site]');
+    const galleryControls = lightbox.querySelector('[data-project-lightbox-gallery]');
+    const previousImageButton = lightbox.querySelector('[data-project-gallery-previous]');
+    const nextImageButton = lightbox.querySelector('[data-project-gallery-next]');
+    const currentImageLabel = lightbox.querySelector('[data-project-gallery-current]');
+    const totalImagesLabel = lightbox.querySelector('[data-project-gallery-total]');
+    let lastTrigger = null;
+    let galleryImages = [];
+    let galleryAlts = [];
+    let galleryIndex = 0;
+
+    const copy = () => {
+      const isEnglish = document.documentElement.dataset.language === 'en';
+      return {
+        enlarge: isEnglish ? 'Enlarge image' : 'Ampliar imagem',
+        close: isEnglish ? 'Close image' : 'Fechar imagem',
+        previous: isEnglish ? 'Previous image' : 'Imagem anterior',
+        next: isEnglish ? 'Next image' : 'Próxima imagem',
+        source: isEnglish ? 'Source' : 'Código',
+        project: isEnglish ? 'Live project' : 'Ver projeto',
+        eyebrow: isEnglish ? 'Selected project' : 'Projeto selecionado'
+      };
+    };
+
+    const renderGalleryImage = (index) => {
+      if (!galleryImages.length) return;
+
+      galleryIndex = (index + galleryImages.length) % galleryImages.length;
+      lightboxImage.src = galleryImages[galleryIndex];
+      lightboxImage.alt = galleryAlts[galleryIndex] || galleryAlts[0] || '';
+      currentImageLabel.textContent = String(galleryIndex + 1);
+      totalImagesLabel.textContent = String(galleryImages.length);
+      galleryControls.hidden = galleryImages.length < 2;
+    };
+
+    const populateLightbox = (trigger) => {
+      const sourceImage = trigger?.querySelector('.project-image');
+      const card = trigger?.closest('.project-card');
+      if (!sourceImage || !card) return false;
+
+      const configuredSources = (trigger.dataset.projectImages || '')
+        .split('|')
+        .map((source) => source.trim())
+        .filter(Boolean);
+      const configuredAlts = (trigger.dataset.projectImageAlts || '')
+        .split('|')
+        .map((alt) => alt.trim());
+      const projectTitle = card.querySelector('h3')?.textContent?.trim() || sourceImage.alt;
+      const projectType = card.querySelector('.project-card__type')?.textContent?.trim();
+      const projectDescription = card.querySelector('.project-card__body > p')?.textContent?.trim();
+      const repositoryLink = card.querySelector('.project-card__actions a[href*="github.com"]');
+      const labels = copy();
+
+      galleryImages = (configuredSources.length ? configuredSources : [sourceImage.currentSrc || sourceImage.src])
+        .map((source) => new URL(source, document.baseURI).href);
+      galleryAlts = galleryImages.map((_, index) => configuredAlts[index] || sourceImage.alt);
+      renderGalleryImage(0);
+      lightboxTitle.textContent = projectTitle;
+      lightboxDescription.textContent = projectDescription || '';
+      lightboxEyebrow.textContent = projectType || labels.eyebrow;
+      siteLink.href = trigger.href;
+
+      if (repositoryLink) {
+        sourceLink.href = repositoryLink.href;
+        sourceLink.hidden = false;
+      } else {
+        sourceLink.removeAttribute('href');
+        sourceLink.hidden = true;
+      }
+
+      return true;
+    };
+
+    const updateLanguage = () => {
+      const labels = copy();
+      closeButton.setAttribute('aria-label', labels.close);
+      previousImageButton.setAttribute('aria-label', labels.previous);
+      nextImageButton.setAttribute('aria-label', labels.next);
+      sourceLink.querySelector('span').textContent = labels.source;
+      siteLink.querySelector('span').textContent = labels.project;
+
+      triggers.forEach((trigger) => {
+        const projectTitle = trigger.closest('.project-card')?.querySelector('h3')?.textContent?.trim() || '';
+        const affordanceLabel = trigger.querySelector('.project-card__zoom span');
+        if (affordanceLabel) affordanceLabel.textContent = labels.enlarge;
+        trigger.setAttribute('aria-label', projectTitle ? `${labels.enlarge}: ${projectTitle}` : labels.enlarge);
+      });
+
+      if (lastTrigger && lightbox.open) populateLightbox(lastTrigger);
+    };
+
+    const closeLightbox = () => {
+      if (typeof lightbox.close === 'function' && lightbox.open) {
+        lightbox.close();
+      } else {
+        lightbox.removeAttribute('open');
+        document.body.classList.remove('is-lightbox-open');
+      }
+    };
+
+    triggers.forEach((trigger) => {
+      const affordance = document.createElement('span');
+      affordance.className = 'project-card__zoom';
+      affordance.innerHTML = '<i class="fa-solid fa-magnifying-glass-plus" aria-hidden="true"></i><span></span>';
+      trigger.appendChild(affordance);
+      trigger.setAttribute('aria-haspopup', 'dialog');
+      trigger.setAttribute('aria-controls', lightbox.id);
+
+      trigger.addEventListener('click', (event) => {
+        if (!trigger.querySelector('.project-image')) return;
+        event.preventDefault();
+        lastTrigger = trigger;
+        populateLightbox(trigger);
+        document.body.classList.add('is-lightbox-open');
+
+        if (typeof lightbox.showModal === 'function') {
+          lightbox.showModal();
+        } else {
+          lightbox.setAttribute('open', '');
+        }
+      });
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+    previousImageButton.addEventListener('click', () => renderGalleryImage(galleryIndex - 1));
+    nextImageButton.addEventListener('click', () => renderGalleryImage(galleryIndex + 1));
+    lightbox.addEventListener('keydown', (event) => {
+      if (galleryImages.length < 2) return;
+      if (event.key === 'ArrowLeft') renderGalleryImage(galleryIndex - 1);
+      if (event.key === 'ArrowRight') renderGalleryImage(galleryIndex + 1);
+    });
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+    lightbox.addEventListener('close', () => {
+      document.body.classList.remove('is-lightbox-open');
+      window.requestAnimationFrame(() => lastTrigger?.focus());
+    });
+    lightbox.addEventListener('cancel', () => {
+      document.body.classList.remove('is-lightbox-open');
+    });
+    document.addEventListener('site-language-change', updateLanguage);
+    updateLanguage();
+  }
+
   function initToolkitTabs() {
     const toolkit = document.querySelector('[data-toolkit]');
     if (!toolkit) return;
@@ -196,8 +399,81 @@
     const viewport = toolkit.querySelector('[data-toolkit-viewport]');
     const previousButton = toolkit.querySelector('[data-toolkit-prev]');
     const nextButton = toolkit.querySelector('[data-toolkit-next]');
+    const cards = [...toolkit.querySelectorAll('.toolkit-card')];
 
     if (!tabs.length || tabs.length !== panels.length || !track || !viewport) return;
+
+    const tooltip = document.createElement('div');
+    tooltip.className = 'toolkit-floating-tooltip';
+    tooltip.setAttribute('role', 'tooltip');
+    tooltip.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(tooltip);
+
+    let activeTooltipCard = null;
+    let tooltipFrame = null;
+
+    const positionTooltip = (card) => {
+      const cardRect = card.getBoundingClientRect();
+      const tooltipRect = tooltip.getBoundingClientRect();
+      const viewportGap = 12;
+      const preferredTop = cardRect.top - tooltipRect.height - 12;
+      const fallbackTop = cardRect.bottom + 12;
+      const hasSpaceAbove = preferredTop >= viewportGap;
+      const top = Math.max(
+        viewportGap,
+        Math.min(
+          hasSpaceAbove ? preferredTop : fallbackTop,
+          window.innerHeight - tooltipRect.height - viewportGap
+        )
+      );
+      const left = Math.max(
+        viewportGap,
+        Math.min(
+          cardRect.left + (cardRect.width - tooltipRect.width) / 2,
+          window.innerWidth - tooltipRect.width - viewportGap
+        )
+      );
+
+      tooltip.style.top = `${Math.round(top)}px`;
+      tooltip.style.left = `${Math.round(left)}px`;
+      tooltip.dataset.placement = hasSpaceAbove ? 'above' : 'below';
+    };
+
+    const showTooltip = (card) => {
+      const cardTitle = card.getAttribute('aria-label');
+      if (!cardTitle) return;
+
+      activeTooltipCard = card;
+      tooltip.textContent = cardTitle;
+      tooltip.setAttribute('aria-hidden', 'false');
+      tooltip.classList.remove('is-visible');
+      if (tooltipFrame) window.cancelAnimationFrame(tooltipFrame);
+      tooltipFrame = window.requestAnimationFrame(() => {
+        positionTooltip(card);
+        tooltip.classList.add('is-visible');
+        tooltipFrame = null;
+      });
+    };
+
+    const hideTooltip = (card) => {
+      if (card && activeTooltipCard !== card) return;
+      if (tooltipFrame) window.cancelAnimationFrame(tooltipFrame);
+      tooltipFrame = null;
+      activeTooltipCard = null;
+      tooltip.classList.remove('is-visible');
+      tooltip.setAttribute('aria-hidden', 'true');
+    };
+
+    cards.forEach((card) => {
+      const cardTitle = card.querySelector('h4')?.textContent?.trim();
+      if (!cardTitle) return;
+      card.tabIndex = 0;
+      card.setAttribute('aria-label', cardTitle);
+      card.addEventListener('pointerenter', () => showTooltip(card));
+      card.addEventListener('pointerleave', () => hideTooltip(card));
+      card.addEventListener('focus', () => showTooltip(card));
+      card.addEventListener('blur', () => hideTooltip(card));
+    });
 
     let activeIndex = 0;
     let resizeFrame = null;
@@ -208,6 +484,7 @@
     };
 
     const selectPanel = (index, moveFocus = false) => {
+      hideTooltip();
       activeIndex = Math.max(0, Math.min(index, panels.length - 1));
       track.style.transform = `translate3d(-${activeIndex * 100}%, 0, 0)`;
 
@@ -222,6 +499,9 @@
         const isActive = panelIndex === activeIndex;
         panel.classList.toggle('is-active', isActive);
         panel.setAttribute('aria-hidden', String(!isActive));
+        panel.querySelectorAll('.toolkit-card').forEach((card) => {
+          card.tabIndex = isActive ? 0 : -1;
+        });
       });
 
       if (previousButton) previousButton.disabled = activeIndex === 0;
@@ -244,9 +524,11 @@
     nextButton?.addEventListener('click', () => selectPanel(activeIndex + 1));
 
     window.addEventListener('resize', () => {
+      hideTooltip();
       if (resizeFrame) return;
       resizeFrame = window.requestAnimationFrame(updateHeight);
     }, { passive: true });
+    window.addEventListener('scroll', () => hideTooltip(), { passive: true, capture: true });
 
     window.addEventListener('load', updateHeight, { once: true });
     selectPanel(0);
@@ -656,12 +938,34 @@
     if (!section || !track || panels.length < 2) return;
 
     let frame = null;
-    let currentProgress = 0;
-    let targetProgress = 0;
+    let currentPanelPosition = 0;
+    let targetPanelPosition = 0;
+    let scrollProgress = 0;
     let previousFrameTime = 0;
     let hasRendered = false;
 
     const clamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, value));
+    const easeInOutCubic = (value) => value < 0.5
+      ? 4 * value * value * value
+      : 1 - Math.pow(-2 * value + 2, 3) / 2;
+
+    const getStoryPosition = (progress) => {
+      const lastPanelIndex = panels.length - 1;
+      if (progress <= 0) return 0;
+      if (progress >= 1) return lastPanelIndex;
+
+      const scaledProgress = progress * lastPanelIndex;
+      const segmentIndex = Math.min(lastPanelIndex - 1, Math.floor(scaledProgress));
+      const segmentProgress = scaledProgress - segmentIndex;
+      const holdStart = 0.14;
+      const holdEnd = 0.86;
+
+      if (segmentProgress <= holdStart) return segmentIndex;
+      if (segmentProgress >= holdEnd) return segmentIndex + 1;
+
+      const transitionProgress = (segmentProgress - holdStart) / (holdEnd - holdStart);
+      return segmentIndex + easeInOutCubic(transitionProgress);
+    };
 
     const resetStory = () => {
       if (frame) {
@@ -669,8 +973,9 @@
         frame = null;
       }
 
-      currentProgress = 0;
-      targetProgress = 0;
+      currentPanelPosition = 0;
+      targetPanelPosition = 0;
+      scrollProgress = 0;
       previousFrameTime = 0;
       hasRendered = false;
       track.style.removeProperty('transform');
@@ -687,10 +992,11 @@
     const updateTargetProgress = () => {
       const rect = section.getBoundingClientRect();
       const scrollRange = Math.max(1, section.offsetHeight - window.innerHeight);
-      targetProgress = clamp(-rect.top / scrollRange);
+      scrollProgress = clamp(-rect.top / scrollRange);
+      targetPanelPosition = getStoryPosition(scrollProgress);
 
       if (!hasRendered) {
-        currentProgress = targetProgress;
+        currentPanelPosition = targetPanelPosition;
         hasRendered = true;
       }
     };
@@ -704,35 +1010,33 @@
       }
 
       const elapsed = previousFrameTime ? Math.min(64, frameTime - previousFrameTime) : 16.67;
-      const smoothing = 1 - Math.exp(-elapsed / 115);
-      const distanceToTarget = targetProgress - currentProgress;
+      const smoothing = 1 - Math.exp(-elapsed / 140);
+      const distanceToTarget = targetPanelPosition - currentPanelPosition;
 
       previousFrameTime = frameTime;
-      currentProgress += distanceToTarget * smoothing;
+      currentPanelPosition += distanceToTarget * smoothing;
 
       if (Math.abs(distanceToTarget) < 0.0001) {
-        currentProgress = targetProgress;
+        currentPanelPosition = targetPanelPosition;
       }
 
       const horizontalDistance = Math.max(0, track.scrollWidth - window.innerWidth);
-      const panelPosition = currentProgress * (panels.length - 1);
-      const activeIndex = Math.round(panelPosition);
+      const lastPanelIndex = panels.length - 1;
+      const horizontalProgress = currentPanelPosition / lastPanelIndex;
+      const activeIndex = Math.round(currentPanelPosition);
 
-      track.style.transform = `translate3d(${-horizontalDistance * currentProgress}px, 0, 0)`;
-      progressBar?.style.setProperty('transform', `scaleX(${currentProgress})`);
-      section.style.setProperty('--community-story-progress', currentProgress.toFixed(4));
+      track.style.transform = `translate3d(${-horizontalDistance * horizontalProgress}px, 0, 0)`;
+      progressBar?.style.setProperty('transform', `scaleX(${scrollProgress})`);
+      section.style.setProperty('--community-story-progress', scrollProgress.toFixed(4));
 
       panels.forEach((panel, index) => {
-        const panelVisibility = clamp(1 - Math.abs(index - panelPosition));
-        const easedVisibility = 1 - Math.pow(1 - panelVisibility, 3);
-
         panel.classList.toggle('is-active', index === activeIndex);
-        panel.style.setProperty('--community-panel-opacity', (0.24 + easedVisibility * 0.76).toFixed(4));
-        panel.style.setProperty('--community-panel-shift', `${((1 - easedVisibility) * 26).toFixed(2)}px`);
-        panel.style.setProperty('--community-panel-scale', (0.97 + easedVisibility * 0.03).toFixed(4));
+        panel.style.removeProperty('--community-panel-opacity');
+        panel.style.removeProperty('--community-panel-shift');
+        panel.style.removeProperty('--community-panel-scale');
       });
 
-      if (currentProgress !== targetProgress) {
+      if (currentPanelPosition !== targetPanelPosition) {
         frame = window.requestAnimationFrame(renderStory);
       }
     };
@@ -771,13 +1075,7 @@
 
       if (prefersReducedMotion) {
         section.classList.add('is-section-active');
-        return;
       }
-
-      const veil = document.createElement('span');
-      veil.className = 'section-motion__veil';
-      veil.setAttribute('aria-hidden', 'true');
-      section.appendChild(veil);
     });
 
     if (prefersReducedMotion || !('IntersectionObserver' in window)) {
@@ -787,11 +1085,13 @@
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        entry.target.classList.toggle('is-section-active', entry.isIntersecting);
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-section-active');
+        observer.unobserve(entry.target);
       });
     }, {
-      threshold: 0.08,
-      rootMargin: '-10% 0px -10% 0px'
+      threshold: 0.12,
+      rootMargin: '0px 0px -12% 0px'
     });
 
     sections.forEach((section) => observer.observe(section));
@@ -801,6 +1101,7 @@
     finishLoading();
     initMotionReveals();
     initProjectFilters();
+    initProjectLightbox();
     initToolkitTabs();
     initPortraitMotion();
     initHeaderControls();

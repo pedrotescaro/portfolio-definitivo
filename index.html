@@ -418,7 +418,11 @@
                                         <div><span class="toolkit-card__label">ai.code.editor</span><h4>Cursor</h4></div>
                                     </article>
                                     <article class="toolkit-card">
-                                        <span class="toolkit-card__icon"><i class="devicon-android-plain colored"></i></span>
+                                        <span class="toolkit-card__icon toolkit-card__icon--brand">
+                                            <img class="toolkit-card__brand-logo toolkit-card__brand-logo--android-studio"
+                                                src="./src/imagens/android-studio-logo.png" alt="" aria-hidden="true"
+                                                decoding="async" />
+                                        </span>
                                         <div><span class="toolkit-card__label">android.development</span><h4>Android Studio</h4></div>
                                     </article>
                                     <article class="toolkit-card">
@@ -535,22 +539,51 @@
                                 </div>
                             </div>
 
-                            <div class="toolkit-panel" id="toolkit-panel-languages" role="tabpanel"
+                            <div class="toolkit-panel toolkit-panel--languages" id="toolkit-panel-languages" role="tabpanel"
                                 aria-labelledby="toolkit-tab-languages" data-toolkit-panel="languages" aria-hidden="true">
                                 <h3>// Linguagens e base web presentes nos meus projetos</h3>
-                                <div class="toolkit-grid toolkit-grid--languages">
-                                    <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-javascript-plain colored"></i></span><div><h4>JavaScript</h4></div></article>
-                                    <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-typescript-plain colored"></i></span><div><h4>TypeScript</h4></div></article>
-                                    <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-python-plain colored"></i></span><div><h4>Python</h4></div></article>
-                                    <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-java-plain colored"></i></span><div><h4>Java</h4></div></article>
-                                    <article class="toolkit-card"><span class="toolkit-card__icon toolkit-card__icon--brand"><img class="toolkit-card__brand-logo" src="./src/imagens/c-language-icons8.png" alt="" aria-hidden="true" decoding="async" /></span><div><h4>C</h4></div></article>
-                                    <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-dart-plain colored"></i></span><div><h4>Dart</h4></div></article>
-                                    <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-kotlin-plain colored"></i></span><div><h4>Kotlin</h4></div></article>
-                                    <article class="toolkit-card"><span class="toolkit-card__icon toolkit-card__icon--brand"><img class="toolkit-card__brand-logo toolkit-card__brand-logo--gamemaker" src="./src/imagens/gamemaker.svg" alt="" aria-hidden="true" decoding="async" /></span><div><h4>GML</h4></div></article>
-                                    <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-php-plain colored"></i></span><div><h4>PHP</h4></div></article>
-                                    <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-mysql-plain colored"></i></span><div><h4>SQL</h4></div></article>
-                                    <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-html5-plain colored"></i></span><div><h4>HTML5</h4></div></article>
-                                    <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-css3-plain colored"></i></span><div><h4>CSS3</h4></div></article>
+                                <div class="toolkit-groups toolkit-groups--languages">
+                                    <section class="toolkit-group toolkit-group--language" aria-labelledby="toolkit-languages-frontend">
+                                        <h3 id="toolkit-languages-frontend">// Frontend Web</h3>
+                                        <div class="toolkit-grid toolkit-grid--languages">
+                                            <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-html5-plain colored"></i></span><div><h4>HTML5</h4></div></article>
+                                            <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-css3-plain colored"></i></span><div><h4>CSS3</h4></div></article>
+                                            <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-javascript-plain colored"></i></span><div><h4>JavaScript</h4></div></article>
+                                            <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-typescript-plain colored"></i></span><div><h4>TypeScript</h4></div></article>
+                                        </div>
+                                    </section>
+
+                                    <section class="toolkit-group toolkit-group--language" aria-labelledby="toolkit-languages-backend">
+                                        <h3 id="toolkit-languages-backend">// Backend</h3>
+                                        <div class="toolkit-grid toolkit-grid--languages">
+                                            <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-python-plain colored"></i></span><div><h4>Python</h4></div></article>
+                                            <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-java-plain colored"></i></span><div><h4>Java</h4></div></article>
+                                            <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-php-plain colored"></i></span><div><h4>PHP</h4></div></article>
+                                        </div>
+                                    </section>
+
+                                    <section class="toolkit-group toolkit-group--language" aria-labelledby="toolkit-languages-mobile">
+                                        <h3 id="toolkit-languages-mobile">// Desenvolvimento Mobile</h3>
+                                        <div class="toolkit-grid toolkit-grid--languages">
+                                            <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-dart-plain colored"></i></span><div><h4>Dart</h4></div></article>
+                                            <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-kotlin-plain colored"></i></span><div><h4>Kotlin</h4></div></article>
+                                        </div>
+                                    </section>
+
+                                    <section class="toolkit-group toolkit-group--language" aria-labelledby="toolkit-languages-games">
+                                        <h3 id="toolkit-languages-games">// Sistemas &amp; Jogos</h3>
+                                        <div class="toolkit-grid toolkit-grid--languages">
+                                            <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-c-plain colored"></i></span><div><h4>C</h4></div></article>
+                                            <article class="toolkit-card"><span class="toolkit-card__icon toolkit-card__icon--brand"><img class="toolkit-card__brand-logo toolkit-card__brand-logo--gamemaker" src="./src/imagens/gamemaker.svg" alt="" aria-hidden="true" decoding="async" /></span><div><h4>GML</h4></div></article>
+                                        </div>
+                                    </section>
+
+                                    <section class="toolkit-group toolkit-group--language" aria-labelledby="toolkit-languages-database">
+                                        <h3 id="toolkit-languages-database">// Banco de Dados</h3>
+                                        <div class="toolkit-grid toolkit-grid--languages">
+                                            <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-mysql-plain colored"></i></span><div><h4>SQL</h4></div></article>
+                                        </div>
+                                    </section>
                                 </div>
                             </div>
                         </div>
@@ -597,7 +630,7 @@
                                 <span class="formation-item-marker" aria-hidden="true"></span>
                                 <span class="formation-item-index" aria-hidden="true">02</span>
                                 <div class="formation-item-meta">
-                                    <time class="formation-item-period">2020 — 2023</time>
+                <time class="formation-item-period">2021 — 2023</time>
                                     <span class="formation-chip formation-chip-done">Concluído</span>
                                 </div>
                                 <div class="formation-item-copy">
@@ -1039,9 +1072,45 @@
                 <div class="projects-redesign__panel">
                     <div class="projects-redesign__panel-head">
                         <span data-project-label>Web</span>
-                        <small><span data-project-count>6</span> <span data-project-count-label>projetos</span></small>
+                        <small><span data-project-count>8</span> <span data-project-count-label>projetos</span></small>
                     </div>
                     <div class="projects-container projects-grid-redesign" data-project-grid>
+                        <article class="project project-card" data-category="featured web" data-project-id="devdeck">
+                            <a class="project-link project-card__visual" href="https://devdeck-ochre.vercel.app/"
+                                target="_blank" rel="noopener noreferrer" aria-label="Abrir DevDeck"
+                                data-project-images="./src/imagens/devdeck-project-landing.png|./src/imagens/devdeck-project.png"
+                                data-project-image-alts="Landing page do DevDeck com mapa digital azul|Feed da rede social DevDeck em tema escuro">
+                                <img class="project-image" src="./src/imagens/devdeck-project-landing.png"
+                                    alt="Landing page do DevDeck com mapa digital azul" loading="lazy" decoding="async" />
+                                <span class="project-card__number">01</span>
+                            </a>
+                            <div class="project-details project-card__body">
+                                <div><span class="project-card__type">Next.js &middot; IA &middot; Gamifica&ccedil;&atilde;o</span><h3>DevDeck</h3></div>
+                                <p>Rede social gamificada para desenvolvedores compartilharem conhecimento, evolu&iacute;rem em trilhas e aprenderem com quizzes gerados por IA.</p>
+                                <div class="project-card__actions">
+                                    <a href="https://github.com/pedrotescaro/DevDeck" target="_blank" rel="noopener noreferrer">C&oacute;digo <i class="fa-brands fa-github"></i></a>
+                                    <a href="https://devdeck-ochre.vercel.app/" target="_blank" rel="noopener noreferrer">Abrir <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="project project-card" data-category="featured web" data-project-id="aurelis">
+                            <a class="project-link project-card__visual" href="https://aurelis-creative-intelligence.vercel.app/"
+                                target="_blank" rel="noopener noreferrer" aria-label="Abrir Aurelis Creative Intelligence">
+                                <img class="project-image" src="./src/imagens/aurelis-project.png"
+                                    alt="Landing page da Aurelis Creative Intelligence" loading="lazy" decoding="async" />
+                                <span class="project-card__number">02</span>
+                            </a>
+                            <div class="project-details project-card__body">
+                                <div><span class="project-card__type">Next.js &middot; Creative Intelligence</span><h3>Aurelis</h3></div>
+                                <p>Experi&ecirc;ncia imersiva de creative intelligence que transforma sinais de marca em visuais, insights e decis&otilde;es criativas.</p>
+                                <div class="project-card__actions">
+                                    <a href="https://github.com/pedrotescaro/aurelis-creative-intelligence" target="_blank" rel="noopener noreferrer">C&oacute;digo <i class="fa-brands fa-github"></i></a>
+                                    <a href="https://aurelis-creative-intelligence.vercel.app/" target="_blank" rel="noopener noreferrer">Abrir <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                </div>
+                            </div>
+                        </article>
+
                         <article class="project project-card" data-category="featured web">
                             <a class="project-link project-card__visual" href="https://healplus-one.vercel.app/"
                                 target="_blank" rel="noopener noreferrer" aria-label="Abrir Landing Page Heal+">
