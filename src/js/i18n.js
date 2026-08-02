@@ -25,11 +25,19 @@
     { selector: '#sobre-mim .about-reference__heading h2', value: 'About me' },
     {
       selector: '.about-reference__content > p:nth-of-type(1)',
-      value: 'My journey brings together <strong>web, backend, and mobile development</strong>. I am currently studying <strong>Systems Analysis and Development</strong> at FATEC Ferraz de Vasconcelos, and I hold a technical degree in <strong>Industrial Automation</strong> from IFSP—an education that strengthened my structured approach to solving problems.'
+      value: 'My journey brings together web, backend, and mobile development. I am currently studying Systems Analysis and Development at <button class="insight-trigger" type="button" data-insight-card="fatec-ferraz" aria-describedby="portfolio-insight-tooltip">FATEC Ferraz de Vasconcelos</button>, and I hold a technical degree in Industrial Automation from <button class="insight-trigger" type="button" data-insight-card="ifsp-suzano" aria-describedby="portfolio-insight-tooltip">IFSP Campus Suzano</button>—an education that strengthened my structured approach to solving problems.'
     },
     {
       selector: '.about-reference__content > p:nth-of-type(2)',
-      value: 'I worked as a mobile development intern at <strong>Éboli Tecnologia</strong>, building Flutter interfaces and features for production applications. I am also the creator of <strong>Heal+</strong>, an Artificial Intelligence solution that helps healthcare professionals monitor patients with wounds, presented at the <strong>16th FETEPS</strong>.'
+      value: 'I worked as a mobile development intern at <strong>Éboli Tecnologia</strong>, building Flutter interfaces and features for production applications. I am also the creator of <strong><button class="insight-trigger" type="button" data-insight-card="heal-plus" aria-describedby="portfolio-insight-tooltip">Heal+</button></strong>, an Artificial Intelligence solution that helps healthcare professionals monitor patients with wounds, presented at the <strong>16th <button class="insight-trigger" type="button" data-insight-card="feteps" aria-describedby="portfolio-insight-tooltip">FETEPS</button></strong>.'
+    },
+    {
+      selector: '.about-reference__quote p',
+      value: '“Talk is cheap. Show me the code.”'
+    },
+    {
+      selector: '.about-reference__quote cite',
+      value: '— <button class="insight-trigger" type="button" data-insight-card="linus-torvalds" aria-describedby="portfolio-insight-tooltip">Linus Torvalds</button>, creator of Linux'
     },
     {
       selector: '.about-reference__note',
@@ -89,8 +97,8 @@
     {
       selector: '.formation-item-copy p',
       value: [
-        'FATEC — Ferraz de Vasconcelos College of Technology',
-        'IFSP — Federal Institute of São Paulo, Suzano campus',
+        '<button class="insight-trigger" type="button" data-insight-card="fatec-ferraz" aria-describedby="portfolio-insight-tooltip">FATEC — Ferraz de Vasconcelos College of Technology</button>',
+        '<button class="insight-trigger" type="button" data-insight-card="ifsp-suzano" aria-describedby="portfolio-insight-tooltip">IFSP — Federal Institute of São Paulo, Suzano Campus</button>',
         'MEGA School Institute — Training level 8'
       ]
     },
@@ -240,21 +248,21 @@
     },
     { selector: '.community-story__panel:nth-of-type(2) .community-story__chapter', value: '02 / Health &amp; Innovation' },
     { selector: '.community-story__panel:nth-of-type(2) h3', value: '12th Technology Fair' },
-    { selector: '.community-story__panel:nth-of-type(2) .community-story__copy > strong', value: 'Fatec Ferraz · June 13, 2026' },
+    { selector: '.community-story__panel:nth-of-type(2) .community-story__copy > strong', value: '<button class="insight-trigger" type="button" data-insight-card="fatec-ferraz" aria-describedby="portfolio-insight-tooltip">Fatec Ferraz</button> · June 13, 2026' },
     {
       selector: '.community-story__panel:nth-of-type(2) .community-story__copy > p:not(.community-story__credits)',
       value: 'I presented Heal+, a mobile application for clinical wound monitoring that combines computer vision, artificial intelligence, and mobile development into a practical healthcare solution.'
     },
     {
       selector: '.community-story__panel:nth-of-type(2) .community-story__credits',
-      value: 'Project developed with <a href="https://www.linkedin.com/in/guilherme-alves-de-campos/" target="_blank" rel="noopener noreferrer">Guilherme Alves de Campos</a> and <a href="https://www.linkedin.com/in/paulo-leal-santos/" target="_blank" rel="noopener noreferrer">Paulo Henrique Leal Santos</a>, with reviews and feedback from <a href="https://www.linkedin.com/in/camilalopezfranca/" target="_blank" rel="noopener noreferrer">Camila França</a> and <a href="https://www.linkedin.com/in/keven-maximus-64b650207/" target="_blank" rel="noopener noreferrer">Keven Maximus</a>.'
+      value: 'Project developed with <a class="insight-trigger" href="https://www.linkedin.com/in/guilherme-alves-de-campos/" target="_blank" rel="noopener noreferrer" data-insight-card="guilherme-campos" aria-describedby="portfolio-insight-tooltip">Guilherme Alves de Campos</a> and <a class="insight-trigger" href="https://www.linkedin.com/in/paulo-leal-santos/" target="_blank" rel="noopener noreferrer" data-insight-card="paulo-santos" aria-describedby="portfolio-insight-tooltip">Paulo Henrique Leal Santos</a>, with reviews and feedback from <a class="insight-trigger" href="https://www.linkedin.com/in/camilalopezfranca/" target="_blank" rel="noopener noreferrer" data-insight-card="camila-franca" aria-describedby="portfolio-insight-tooltip">Camila França</a> and <a class="insight-trigger" href="https://www.linkedin.com/in/keven-maximus-64b650207/" target="_blank" rel="noopener noreferrer" data-insight-card="keven-maximus" aria-describedby="portfolio-insight-tooltip">Keven Maximus</a>.'
     },
     {
       selector: '.community-story__panel:nth-of-type(2) .community-story__copy > a',
       value: 'Discover Heal+ <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>'
     },
     { selector: '.community-story__panel:nth-of-type(3) .community-story__chapter', value: '03 / Entrepreneurship' },
-    { selector: '.community-story__panel:nth-of-type(3) .community-story__copy > strong', value: 'Sebrae + Fatec Ferraz · March 20, 2026' },
+    { selector: '.community-story__panel:nth-of-type(3) .community-story__copy > strong', value: 'Sebrae + <button class="insight-trigger" type="button" data-insight-card="fatec-ferraz" aria-describedby="portfolio-insight-tooltip">Fatec Ferraz</button> · March 20, 2026' },
     {
       selector: '.community-story__panel:nth-of-type(3) .community-story__copy p',
       value: 'Three hours immersed in entrepreneurship, artificial intelligence, and the real challenges faced by people getting started. The event reinforced that a good idea does not have to be unprecedented—it must create value and address a real problem.'
@@ -340,6 +348,17 @@
     { selector: '.toolkit-tabs', attribute: 'aria-label', value: 'Tool categories' },
     { selector: '[data-toolkit-prev]', attribute: 'aria-label', value: 'Previous category' },
     { selector: '[data-toolkit-next]', attribute: 'aria-label', value: 'Next category' },
+    { selector: '[data-community-viewport]', attribute: 'aria-label', value: 'Events and community' },
+    { selector: '[data-community-viewport]', attribute: 'aria-roledescription', value: 'carousel' },
+    { selector: '.community-story__navigator', attribute: 'aria-label', value: 'Event navigation' },
+    { selector: '[data-community-prev]', attribute: 'aria-label', value: 'Previous event' },
+    { selector: '[data-community-next]', attribute: 'aria-label', value: 'Next event' },
+    {
+      selector: '[data-community-panel]',
+      attribute: 'aria-label',
+      value: ['1 of 6', '2 of 6', '3 of 6', '4 of 6', '5 of 6', '6 of 6']
+    },
+    { selector: '[data-community-panel]', attribute: 'aria-roledescription', value: 'slide' },
     { selector: '.projects-redesign__sidebar', attribute: 'aria-label', value: 'Filter projects' },
     { selector: '.contact-redesign__primary', attribute: 'aria-label', value: 'Primary contact channels' },
     { selector: '.contact-redesign__secondary', attribute: 'aria-label', value: 'Other links by Pedro Tescaro' },

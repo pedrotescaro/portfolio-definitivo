@@ -1,0 +1,201 @@
+/* Tooltip card minimalista, adaptado do comportamento de referência para HTML puro. */
+
+.insight-trigger,
+.community-story__copy .community-story__credits a.insight-trigger {
+  margin: 0;
+  padding: 0;
+  display: inline;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit !important;
+  font: inherit;
+  font-style: inherit;
+  font-weight: 600;
+  line-height: inherit;
+  letter-spacing: inherit;
+  text-align: inherit;
+  text-decoration: none !important;
+  text-transform: inherit;
+  cursor: help;
+}
+
+a.insight-trigger,
+.community-story__copy .community-story__credits a.insight-trigger {
+  cursor: pointer;
+}
+
+.insight-trigger:hover,
+.insight-trigger[data-insight-open="true"] {
+  color: inherit !important;
+}
+
+[data-insight-card="fatec-ferraz"],
+[data-insight-card="ifsp-suzano"] {
+  color: #ededed !important;
+}
+
+body.light-mode [data-insight-card="fatec-ferraz"],
+body.light-mode [data-insight-card="ifsp-suzano"] {
+  color: #242426 !important;
+}
+
+[data-insight-card="fatec-ferraz"]:hover,
+[data-insight-card="fatec-ferraz"][data-insight-open="true"],
+[data-insight-card="ifsp-suzano"]:hover,
+[data-insight-card="ifsp-suzano"][data-insight-open="true"] {
+  color: #ededed !important;
+}
+
+body.light-mode [data-insight-card="fatec-ferraz"]:hover,
+body.light-mode [data-insight-card="fatec-ferraz"][data-insight-open="true"],
+body.light-mode [data-insight-card="ifsp-suzano"]:hover,
+body.light-mode [data-insight-card="ifsp-suzano"][data-insight-open="true"] {
+  color: #242426 !important;
+}
+
+.insight-trigger:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 3px;
+}
+
+.portfolio-insight-tooltip {
+  width: min(282px, calc(100vw - 24px));
+  padding: 0;
+  position: fixed;
+  top: -999px;
+  left: -999px;
+  z-index: 10000;
+  overflow: hidden;
+  contain: layout paint;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+  background: #191919;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.34);
+  color: #f1f1f1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(8px) scale(0.98);
+  transform-origin: top left;
+  transition:
+    opacity 160ms ease,
+    visibility 160ms ease,
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portfolio-insight-tooltip.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.portfolio-insight-tooltip__media {
+  width: 100%;
+  height: 138px;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #111;
+}
+
+.portfolio-insight-tooltip__media[hidden] {
+  display: none;
+}
+
+.portfolio-insight-tooltip__media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.portfolio-insight-tooltip__media figcaption {
+  max-width: calc(100% - 16px);
+  padding: 3px 5px;
+  position: absolute;
+  right: 7px;
+  bottom: 6px;
+  border-radius: 3px;
+  background: rgba(5, 5, 5, 0.72);
+  color: rgba(255, 255, 255, 0.74);
+  font-family: "Poppins", sans-serif;
+  font-size: 0.46rem;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.portfolio-insight-tooltip__body {
+  padding: 16px 18px 18px;
+}
+
+.portfolio-insight-tooltip__body strong {
+  display: block;
+  overflow-wrap: anywhere;
+  color: #f0f0f0;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.03rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.28;
+}
+
+.portfolio-insight-tooltip__body p {
+  margin: 7px 0 0;
+  color: #a7a7a7;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+body.light-mode .portfolio-insight-tooltip {
+  border-color: rgba(15, 15, 17, 0.13);
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(20, 20, 22, 0.16);
+  color: #171719;
+}
+
+body.light-mode .portfolio-insight-tooltip__media {
+  border-bottom-color: rgba(15, 15, 17, 0.08);
+  background: #e8e8e8;
+}
+
+body.light-mode .portfolio-insight-tooltip__body strong {
+  color: #202023;
+}
+
+body.light-mode .portfolio-insight-tooltip__body p {
+  color: #626266;
+}
+
+@media (max-width: 600px) {
+  .portfolio-insight-tooltip {
+    width: min(274px, calc(100vw - 24px));
+  }
+
+  .portfolio-insight-tooltip__media {
+    height: 128px;
+  }
+
+  .portfolio-insight-tooltip__body {
+    padding: 14px 15px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-insight-tooltip {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Impede o realce azul de seleção em todo o portfólio. */
+body,
+body * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

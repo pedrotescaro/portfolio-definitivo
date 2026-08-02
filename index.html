@@ -44,6 +44,7 @@
     <link rel="stylesheet" href="./src/css/estilos.css" />
     <link rel="stylesheet" href="./src/css/responsivo.css" />
     <link rel="stylesheet" href="./src/css/redesign.css" />
+    <link rel="stylesheet" href="./src/css/tooltip-card.css" />
     <title>Pedro Tescaro - Desenvolvedor Fullstack</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -205,20 +206,28 @@
 
                 <div class="about-reference__grid">
                     <div class="about-reference__content motion-reveal">
-                        <p>Minha trajetória une <strong>web, backend e mobile</strong>. Atualmente curso
-                            <strong>Análise e Desenvolvimento de Sistemas</strong> na FATEC Ferraz de Vasconcelos e sou
-                            técnico em <strong>Automação Industrial</strong> pelo IFSP, uma formação que fortaleceu minha
+                        <p>Minha trajetória une web, backend e mobile. Atualmente curso
+                            Análise e Desenvolvimento de Sistemas na
+                            <button class="insight-trigger" type="button" data-insight-card="fatec-ferraz"
+                                aria-describedby="portfolio-insight-tooltip">FATEC Ferraz de Vasconcelos</button> e sou
+                            técnico em Automação Industrial pelo
+                            <button class="insight-trigger" type="button" data-insight-card="ifsp-suzano"
+                                aria-describedby="portfolio-insight-tooltip">IFSP Campus Suzano</button>, uma formação que fortaleceu minha
                             maneira estruturada de resolver problemas.</p>
 
                         <p>Atuei como estagiário de desenvolvimento mobile na <strong>Éboli Tecnologia</strong>, criando
                             interfaces e funcionalidades em Flutter para aplicações em produção. Também sou criador do
-                            <strong>Heal+</strong>, uma solução com Inteligência Artificial para auxiliar profissionais
+                            <strong><button class="insight-trigger" type="button" data-insight-card="heal-plus"
+                                    aria-describedby="portfolio-insight-tooltip">Heal+</button></strong>, uma solução com Inteligência Artificial para auxiliar profissionais
                             de saúde no acompanhamento de pacientes com feridas, apresentada na <strong>16ª
-                                FETEPS</strong>.</p>
+                                <button class="insight-trigger" type="button" data-insight-card="feteps"
+                                    aria-describedby="portfolio-insight-tooltip">FETEPS</button></strong>.</p>
 
                         <blockquote class="about-reference__quote">
-                            <p>“Talk is cheap. Show me the code.”</p>
-                            <cite>— Linus Torvalds</cite>
+                            <p>“Falar é fácil. Mostre-me o código.”</p>
+                            <cite>— <button class="insight-trigger" type="button" data-insight-card="linus-torvalds"
+                                    aria-describedby="portfolio-insight-tooltip">Linus Torvalds</button>, criador do
+                                Linux</cite>
                         </blockquote>
 
                         <p class="about-reference__note"><em>(É essa ideia que levo para cada projeto: aprender,
@@ -420,7 +429,7 @@
                                     <article class="toolkit-card">
                                         <span class="toolkit-card__icon toolkit-card__icon--brand">
                                             <img class="toolkit-card__brand-logo toolkit-card__brand-logo--android-studio"
-                                                src="./src/imagens/android-studio-logo.png" alt="" aria-hidden="true"
+                                                src="./src/imagens/android-studio-icon.png" alt="" aria-hidden="true"
                                                 decoding="async" />
                                         </span>
                                         <div><span class="toolkit-card__label">android.development</span><h4>Android Studio</h4></div>
@@ -622,7 +631,8 @@
                                 </div>
                                 <div class="formation-item-copy">
                                     <h4>CST em Análise e Desenvolvimento de Sistemas</h4>
-                                    <p>FATEC — Faculdade de Tecnologia de Ferraz de Vasconcelos</p>
+                                    <p><button class="insight-trigger" type="button" data-insight-card="fatec-ferraz"
+                                            aria-describedby="portfolio-insight-tooltip">FATEC — Faculdade de Tecnologia de Ferraz de Vasconcelos</button></p>
                                 </div>
                             </article>
 
@@ -635,7 +645,8 @@
                                 </div>
                                 <div class="formation-item-copy">
                                     <h4>Ensino Médio integrado ao Técnico em Automação Industrial</h4>
-                                    <p>IFSP — Instituto Federal de São Paulo, campus Suzano</p>
+                                    <p><button class="insight-trigger" type="button" data-insight-card="ifsp-suzano"
+                                            aria-describedby="portfolio-insight-tooltip">IFSP — Instituto Federal de São Paulo, Campus Suzano</button></p>
                                 </div>
                             </article>
 
@@ -885,7 +896,8 @@
                                     alt="Logo do IFSP Campus Suzano" loading="lazy">
                             </div>
                             <span class="experience-entry-index">02</span>
-                            <p class="experience-entry-company">IFSP Campus Suzano</p>
+                            <p class="experience-entry-company"><button class="insight-trigger" type="button"
+                                    data-insight-card="ifsp-suzano" aria-describedby="portfolio-insight-tooltip">IFSP Campus Suzano</button></p>
                             <p class="experience-entry-tenure">Mar 2022 - Dez 2022</p>
                             <p class="experience-entry-details">10 meses · Projeto de Extensão · Presencial</p>
                         </div>
@@ -1270,9 +1282,17 @@
                     </div>
                 </header>
 
-                <div class="community-story__viewport">
-                    <div class="community-story__track" data-community-track>
-                        <article class="community-story__panel is-active" data-community-panel>
+                <div class="community-story__navigator" aria-label="Navega&ccedil;&atilde;o dos eventos">
+                    <button class="community-story__arrow community-story__arrow--prev" type="button"
+                        aria-label="Evento anterior" aria-controls="community-story-track" data-community-prev disabled>
+                        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                    </button>
+
+                    <div class="community-story__viewport" data-community-viewport tabindex="0" role="region"
+                        aria-roledescription="carrossel" aria-label="Eventos e comunidade">
+                        <div class="community-story__track" id="community-story-track" data-community-track>
+                        <article class="community-story__panel is-active" data-community-panel role="group"
+                            aria-roledescription="slide" aria-label="1 de 6">
                             <div class="community-story__content">
                                 <div class="community-story__copy">
                                     <span class="community-story__chapter">01 / Projeto &amp; Apresenta&ccedil;&atilde;o</span>
@@ -1293,24 +1313,31 @@
                             </div>
                         </article>
 
-                        <article class="community-story__panel" data-community-panel>
+                        <article class="community-story__panel" data-community-panel role="group"
+                            aria-roledescription="slide" aria-label="2 de 6">
                             <div class="community-story__content community-story__content--reverse">
                                 <div class="community-story__copy">
                                     <span class="community-story__chapter">02 / Sa&uacute;de &amp; Inova&ccedil;&atilde;o</span>
                                     <h3>XII Feira Tecnol&oacute;gica</h3>
-                                    <strong>Fatec Ferraz &middot; 13/06/2026</strong>
+                                    <strong><button class="insight-trigger" type="button" data-insight-card="fatec-ferraz"
+                                            aria-describedby="portfolio-insight-tooltip">Fatec Ferraz</button> &middot; 13/06/2026</strong>
                                     <p>Apresentei o Heal+, aplicativo mobile para acompanhamento cl&iacute;nico de feridas
                                         que une vis&atilde;o computacional, intelig&ecirc;ncia artificial e desenvolvimento mobile
                                         em uma solu&ccedil;&atilde;o pr&aacute;tica para a &aacute;rea da sa&uacute;de.</p>
                                     <p class="community-story__credits">Projeto desenvolvido com
-                                        <a href="https://www.linkedin.com/in/guilherme-alves-de-campos/" target="_blank"
-                                            rel="noopener noreferrer">Guilherme Alves de Campos</a> e
-                                        <a href="https://www.linkedin.com/in/paulo-leal-santos/" target="_blank"
-                                            rel="noopener noreferrer">Paulo Henrique Leal Santos</a>, com avalia&ccedil;&atilde;o e
-                                        feedbacks de <a href="https://www.linkedin.com/in/camilalopezfranca/" target="_blank"
-                                            rel="noopener noreferrer">Camila Fran&ccedil;a</a> e
-                                        <a href="https://www.linkedin.com/in/keven-maximus-64b650207/" target="_blank"
-                                            rel="noopener noreferrer">Keven Maximus</a>.</p>
+                                        <a class="insight-trigger" href="https://www.linkedin.com/in/guilherme-alves-de-campos/"
+                                            target="_blank" rel="noopener noreferrer" data-insight-card="guilherme-campos"
+                                            aria-describedby="portfolio-insight-tooltip">Guilherme Alves de Campos</a> e
+                                        <a class="insight-trigger" href="https://www.linkedin.com/in/paulo-leal-santos/"
+                                            target="_blank" rel="noopener noreferrer" data-insight-card="paulo-santos"
+                                            aria-describedby="portfolio-insight-tooltip">Paulo Henrique Leal Santos</a>, com
+                                        avalia&ccedil;&atilde;o e feedbacks de
+                                        <a class="insight-trigger" href="https://www.linkedin.com/in/camilalopezfranca/"
+                                            target="_blank" rel="noopener noreferrer" data-insight-card="camila-franca"
+                                            aria-describedby="portfolio-insight-tooltip">Camila Fran&ccedil;a</a> e
+                                        <a class="insight-trigger" href="https://www.linkedin.com/in/keven-maximus-64b650207/"
+                                            target="_blank" rel="noopener noreferrer" data-insight-card="keven-maximus"
+                                            aria-describedby="portfolio-insight-tooltip">Keven Maximus</a>.</p>
                                     <a class="community-story__link" href="https://healplus-one.vercel.app/" target="_blank"
                                         rel="noopener noreferrer">Conhecer o Heal+ <i
                                             class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
@@ -1324,12 +1351,14 @@
                             </div>
                         </article>
 
-                        <article class="community-story__panel" data-community-panel>
+                        <article class="community-story__panel" data-community-panel role="group"
+                            aria-roledescription="slide" aria-label="3 de 6">
                             <div class="community-story__content">
                                 <div class="community-story__copy">
                                     <span class="community-story__chapter">03 / Empreendedorismo</span>
                                     <h3>Startup Day</h3>
-                                    <strong>Sebrae + Fatec Ferraz &middot; 20/03/2026</strong>
+                                    <strong>Sebrae + <button class="insight-trigger" type="button" data-insight-card="fatec-ferraz"
+                                            aria-describedby="portfolio-insight-tooltip">Fatec Ferraz</button> &middot; 20/03/2026</strong>
                                     <p>Tr&ecirc;s horas de imers&atilde;o em empreendedorismo, intelig&ecirc;ncia artificial e nos
                                         desafios reais de quem est&aacute; come&ccedil;ando. O encontro refor&ccedil;ou que uma boa ideia
                                         n&atilde;o precisa ser in&eacute;dita, mas precisa gerar valor e responder a um problema real.</p>
@@ -1346,7 +1375,8 @@
                             </div>
                         </article>
 
-                        <article class="community-story__panel" data-community-panel>
+                        <article class="community-story__panel" data-community-panel role="group"
+                            aria-roledescription="slide" aria-label="4 de 6">
                             <div class="community-story__content community-story__content--reverse">
                                 <div class="community-story__copy">
                                     <span class="community-story__chapter">04 / Dados &amp; Inova&ccedil;&atilde;o</span>
@@ -1367,7 +1397,8 @@
                             </div>
                         </article>
 
-                        <article class="community-story__panel" data-community-panel>
+                        <article class="community-story__panel" data-community-panel role="group"
+                            aria-roledescription="slide" aria-label="5 de 6">
                             <div class="community-story__content">
                                 <div class="community-story__copy">
                                     <span class="community-story__chapter">05 / Intelig&ecirc;ncia Artificial</span>
@@ -1388,7 +1419,8 @@
                             </div>
                         </article>
 
-                        <article class="community-story__panel" data-community-panel>
+                        <article class="community-story__panel" data-community-panel role="group"
+                            aria-roledescription="slide" aria-label="6 de 6">
                             <div class="community-story__content community-story__content--reverse">
                                 <div class="community-story__copy">
                                     <span class="community-story__chapter">06 / Tecnologia &amp; Futuro</span>
@@ -1408,14 +1440,29 @@
                                 </div>
                             </div>
                         </article>
+                        </div>
                     </div>
+
+                    <button class="community-story__arrow community-story__arrow--next" type="button"
+                        aria-label="Pr&oacute;ximo evento" aria-controls="community-story-track" data-community-next>
+                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </button>
                 </div>
 
-                <div class="community-story__progress" aria-hidden="true">
-                    <span>01</span>
-                    <div><i data-community-progress></i></div>
-                    <span>06</span>
+                <div class="community-story__footer-controls">
+                    <div class="community-story__progress" aria-hidden="true">
+                        <span data-community-current>01</span>
+                        <div><i data-community-progress></i></div>
+                        <span>06</span>
+                    </div>
+                    <button class="community-story__autoplay" type="button" aria-label="Pausar carrossel autom&aacute;tico"
+                        aria-pressed="false" data-community-autoplay>
+                        <i class="fa-solid fa-pause" aria-hidden="true" data-community-autoplay-icon></i>
+                    </button>
                 </div>
+                <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-community-status>
+                    Evento 1 de 6
+                </p>
             </div>
         </section>
 
@@ -1490,6 +1537,7 @@
 
     <script src="./src/js/index.js"></script>
     <script src="./src/js/i18n.js"></script>
+    <script src="./src/js/tooltip-card.js"></script>
     <script src="./src/js/redesign.js"></script>
 </body>
 

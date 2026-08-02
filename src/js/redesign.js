@@ -884,7 +884,7 @@
           : `rgba(255, 255, 255, ${0.055 * trailOpacity})`);
         glow.addColorStop(0.38, isLightTheme
           ? `rgba(30, 30, 34, ${0.022 * trailOpacity})`
-          : `rgba(182, 140, 255, ${0.035 * trailOpacity})`);
+          : `rgba(255, 255, 255, ${0.035 * trailOpacity})`);
         glow.addColorStop(1, isLightTheme ? 'rgba(250, 250, 248, 0)' : 'rgba(10, 10, 10, 0)');
         context.fillStyle = glow;
         context.fillRect(0, 0, window.innerWidth, window.innerHeight);
@@ -901,7 +901,7 @@
           context.lineWidth = Math.max(0.45, ratio * 2.7);
           context.strokeStyle = isLightTheme
             ? `rgba(20, 20, 24, ${ratio * 0.32 * trailOpacity})`
-            : `rgba(238, 232, 246, ${ratio * 0.42 * trailOpacity})`;
+            : `rgba(242, 242, 242, ${ratio * 0.42 * trailOpacity})`;
           context.stroke();
         }
       }
@@ -930,138 +930,317 @@
 
   function initCommunityStory() {
     const section = document.querySelector('[data-community-story]');
+    const viewport = section?.querySelector('[data-community-viewport]');
     const track = section?.querySelector('[data-community-track]');
     const panels = [...(section?.querySelectorAll('[data-community-panel]') || [])];
     const progressBar = section?.querySelector('[data-community-progress]');
-    const desktopMotion = window.matchMedia('(min-width: 901px) and (prefers-reduced-motion: no-preference)');
+    const currentLabel = section?.querySelector('[data-community-current]');
+    const status = section?.querySelector('[data-community-status]');
+    const previousButton = section?.querySelector('[data-community-prev]');
+    const nextButton = section?.querySelector('[data-community-next]');
+    const autoplayButton = section?.querySelector('[data-community-autoplay]');
+    const autoplayIcon = section?.querySelector('[data-community-autoplay-icon]');
 
-    if (!section || !track || panels.length < 2) return;
+    if (!section || !viewport || !track || panels.length < 2) return;
 
     let frame = null;
-    let currentPanelPosition = 0;
-    let targetPanelPosition = 0;
-    let scrollProgress = 0;
-    let previousFrameTime = 0;
-    let hasRendered = false;
+    let slideAnimationFrame = null;
+    let activeIndex = 0;
+    let resizeFrame = null;
+    let heightFrame = null;
+    let isProgrammaticScroll = false;
+    let scrollSettleTimer = null;
+    let autoplayTimer = null;
+    let autoplayEnabled = true;
+    let autoplayDirection = 1;
+    let pointerPaused = false;
+    let focusPaused = false;
+    let keyboardMode = false;
 
-    const clamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, value));
-    const easeInOutCubic = (value) => value < 0.5
-      ? 4 * value * value * value
-      : 1 - Math.pow(-2 * value + 2, 3) / 2;
+    const autoplayDelay = 5000;
 
-    const getStoryPosition = (progress) => {
-      const lastPanelIndex = panels.length - 1;
-      if (progress <= 0) return 0;
-      if (progress >= 1) return lastPanelIndex;
+    const clampIndex = (index) => Math.max(0, Math.min(panels.length - 1, index));
+    const formatIndex = (index) => String(index + 1).padStart(2, '0');
 
-      const scaledProgress = progress * lastPanelIndex;
-      const segmentIndex = Math.min(lastPanelIndex - 1, Math.floor(scaledProgress));
-      const segmentProgress = scaledProgress - segmentIndex;
-      const holdStart = 0.14;
-      const holdEnd = 0.86;
+    const getPanelTitle = (index) => panels[index]?.querySelector('h3')?.textContent?.trim() || '';
 
-      if (segmentProgress <= holdStart) return segmentIndex;
-      if (segmentProgress >= holdEnd) return segmentIndex + 1;
-
-      const transitionProgress = (segmentProgress - holdStart) / (holdEnd - holdStart);
-      return segmentIndex + easeInOutCubic(transitionProgress);
-    };
-
-    const resetStory = () => {
-      if (frame) {
-        window.cancelAnimationFrame(frame);
-        frame = null;
-      }
-
-      currentPanelPosition = 0;
-      targetPanelPosition = 0;
-      scrollProgress = 0;
-      previousFrameTime = 0;
-      hasRendered = false;
-      track.style.removeProperty('transform');
-      progressBar?.style.setProperty('transform', 'scaleX(0)');
-      section.style.removeProperty('--community-story-progress');
-      panels.forEach((panel) => {
-        panel.classList.add('is-active');
-        panel.style.removeProperty('--community-panel-opacity');
-        panel.style.removeProperty('--community-panel-shift');
-        panel.style.removeProperty('--community-panel-scale');
+    const syncViewportHeight = () => {
+      if (heightFrame) window.cancelAnimationFrame(heightFrame);
+      heightFrame = window.requestAnimationFrame(() => {
+        heightFrame = null;
+        const panelHeight = panels[activeIndex]?.offsetHeight || 0;
+        if (panelHeight > 0) viewport.style.height = `${Math.ceil(panelHeight)}px`;
       });
     };
 
-    const updateTargetProgress = () => {
-      const rect = section.getBoundingClientRect();
-      const scrollRange = Math.max(1, section.offsetHeight - window.innerHeight);
-      scrollProgress = clamp(-rect.top / scrollRange);
-      targetPanelPosition = getStoryPosition(scrollProgress);
+    const updateStatus = (index) => {
+      const isEnglish = document.documentElement.dataset.language === 'en';
+      const prefix = isEnglish ? 'Event' : 'Evento';
+      const connector = isEnglish ? 'of' : 'de';
+      const message = `${prefix} ${index + 1} ${connector} ${panels.length}: ${getPanelTitle(index)}`;
 
-      if (!hasRendered) {
-        currentPanelPosition = targetPanelPosition;
-        hasRendered = true;
+      if (status) status.textContent = message;
+    };
+
+    const updateAutoplayControl = () => {
+      if (!autoplayButton) return;
+
+      const isEnglish = document.documentElement.dataset.language === 'en';
+      const isPaused = !autoplayEnabled;
+      const label = isPaused
+        ? (isEnglish ? 'Resume automatic carousel' : 'Retomar carrossel automático')
+        : (isEnglish ? 'Pause automatic carousel' : 'Pausar carrossel automático');
+
+      autoplayButton.setAttribute('aria-label', label);
+      autoplayButton.setAttribute('title', label);
+      autoplayButton.setAttribute('aria-pressed', String(isPaused));
+
+      if (autoplayIcon) {
+        autoplayIcon.classList.toggle('fa-pause', !isPaused);
+        autoplayIcon.classList.toggle('fa-play', isPaused);
       }
     };
 
-    const renderStory = (frameTime) => {
+    const stopAutoplay = () => {
+      if (!autoplayTimer) return;
+      window.clearTimeout(autoplayTimer);
+      autoplayTimer = null;
+    };
+
+    const scheduleAutoplay = () => {
+      stopAutoplay();
+      if (!autoplayEnabled || pointerPaused || focusPaused || document.hidden) return;
+
+      autoplayTimer = window.setTimeout(() => {
+        autoplayTimer = null;
+        if (activeIndex === panels.length - 1) autoplayDirection = -1;
+        if (activeIndex === 0) autoplayDirection = 1;
+
+        const nextIndex = activeIndex + autoplayDirection;
+        goToPanel(nextIndex);
+        scheduleAutoplay();
+      }, autoplayDelay);
+    };
+
+    const updateControls = (index) => {
+      activeIndex = clampIndex(index);
+      previousButton?.toggleAttribute('disabled', activeIndex === 0);
+      nextButton?.toggleAttribute('disabled', activeIndex === panels.length - 1);
+
+      if (currentLabel) currentLabel.textContent = formatIndex(activeIndex);
+
+      panels.forEach((panel, panelIndex) => {
+        const isActive = panelIndex === activeIndex;
+        panel.classList.toggle('is-active', isActive);
+        panel.inert = !isActive;
+        panel.setAttribute('aria-hidden', String(!isActive));
+
+        if (isActive) {
+          panel.setAttribute('aria-current', 'true');
+        } else {
+          panel.removeAttribute('aria-current');
+        }
+      });
+
+      updateStatus(activeIndex);
+      syncViewportHeight();
+    };
+
+    const syncFromScroll = () => {
       frame = null;
+      const scrollRange = Math.max(1, viewport.scrollWidth - viewport.clientWidth);
+      const progress = Math.max(0, Math.min(1, viewport.scrollLeft / scrollRange));
+      const nextIndex = clampIndex(Math.round(progress * (panels.length - 1)));
 
-      if (!desktopMotion.matches) {
-        resetStory();
-        return;
-      }
+      progressBar?.style.setProperty('transform', `scaleX(${progress})`);
+      if (!isProgrammaticScroll && nextIndex !== activeIndex) updateControls(nextIndex);
 
-      const elapsed = previousFrameTime ? Math.min(64, frameTime - previousFrameTime) : 16.67;
-      const smoothing = 1 - Math.exp(-elapsed / 140);
-      const distanceToTarget = targetPanelPosition - currentPanelPosition;
+      if (isProgrammaticScroll) return;
 
-      previousFrameTime = frameTime;
-      currentPanelPosition += distanceToTarget * smoothing;
-
-      if (Math.abs(distanceToTarget) < 0.0001) {
-        currentPanelPosition = targetPanelPosition;
-      }
-
-      const horizontalDistance = Math.max(0, track.scrollWidth - window.innerWidth);
-      const lastPanelIndex = panels.length - 1;
-      const horizontalProgress = currentPanelPosition / lastPanelIndex;
-      const activeIndex = Math.round(currentPanelPosition);
-
-      track.style.transform = `translate3d(${-horizontalDistance * horizontalProgress}px, 0, 0)`;
-      progressBar?.style.setProperty('transform', `scaleX(${scrollProgress})`);
-      section.style.setProperty('--community-story-progress', scrollProgress.toFixed(4));
-
-      panels.forEach((panel, index) => {
-        panel.classList.toggle('is-active', index === activeIndex);
-        panel.style.removeProperty('--community-panel-opacity');
-        panel.style.removeProperty('--community-panel-shift');
-        panel.style.removeProperty('--community-panel-scale');
-      });
-
-      if (currentPanelPosition !== targetPanelPosition) {
-        frame = window.requestAnimationFrame(renderStory);
-      }
+      if (scrollSettleTimer) window.clearTimeout(scrollSettleTimer);
+      scrollSettleTimer = window.setTimeout(() => {
+        const settledProgress = Math.max(0, Math.min(1, viewport.scrollLeft / scrollRange));
+        const settledIndex = clampIndex(Math.round(settledProgress * (panels.length - 1)));
+        if (settledIndex !== activeIndex) updateControls(settledIndex);
+      }, 140);
     };
 
-    const requestStoryUpdate = () => {
-      if (!desktopMotion.matches) {
-        resetStory();
-        return;
-      }
-
-      updateTargetProgress();
+    const requestSync = () => {
       if (frame) return;
-      previousFrameTime = performance.now();
-      frame = window.requestAnimationFrame(renderStory);
+      frame = window.requestAnimationFrame(syncFromScroll);
     };
 
-    const handleMotionChange = () => {
-      requestStoryUpdate();
+    const cancelSlideAnimation = () => {
+      if (slideAnimationFrame) window.cancelAnimationFrame(slideAnimationFrame);
+      slideAnimationFrame = null;
+      isProgrammaticScroll = false;
+      viewport.classList.remove('is-animating');
     };
 
-    window.addEventListener('scroll', requestStoryUpdate, { passive: true });
-    window.addEventListener('resize', requestStoryUpdate, { passive: true });
-    window.addEventListener('load', requestStoryUpdate, { once: true });
-    desktopMotion.addEventListener('change', handleMotionChange);
-    requestStoryUpdate();
+    const getPanelScrollLeft = (panel) => {
+      const viewportRect = viewport.getBoundingClientRect();
+      const panelRect = panel.getBoundingClientRect();
+      return viewport.scrollLeft + panelRect.left - viewportRect.left;
+    };
+
+    const easeInOutCubic = (progress) => (
+      progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2
+    );
+
+    const goToPanel = (index, behavior = 'smooth') => {
+      const nextIndex = clampIndex(index);
+      const panel = panels[nextIndex];
+      if (!panel) return;
+
+      cancelSlideAnimation();
+      if (scrollSettleTimer) window.clearTimeout(scrollSettleTimer);
+
+      const startLeft = viewport.scrollLeft;
+      const targetLeft = getPanelScrollLeft(panel);
+      const distance = targetLeft - startLeft;
+
+      updateControls(nextIndex);
+
+      if (behavior === 'auto' || Math.abs(distance) < 1) {
+        viewport.scrollLeft = targetLeft;
+        requestSync();
+        return;
+      }
+
+      const duration = prefersReducedMotion ? 320 : 760;
+      const startedAt = performance.now();
+      isProgrammaticScroll = true;
+      viewport.classList.add('is-animating');
+
+      const animate = (timestamp) => {
+        const elapsed = timestamp - startedAt;
+        const progress = Math.min(1, elapsed / duration);
+        viewport.scrollLeft = startLeft + distance * easeInOutCubic(progress);
+
+        if (progress < 1) {
+          slideAnimationFrame = window.requestAnimationFrame(animate);
+          return;
+        }
+
+        viewport.scrollLeft = targetLeft;
+        slideAnimationFrame = null;
+        isProgrammaticScroll = false;
+        viewport.classList.remove('is-animating');
+        requestSync();
+      };
+
+      slideAnimationFrame = window.requestAnimationFrame(animate);
+    };
+
+    previousButton?.addEventListener('click', () => {
+      goToPanel(activeIndex - 1);
+      scheduleAutoplay();
+    });
+    nextButton?.addEventListener('click', () => {
+      goToPanel(activeIndex + 1);
+      scheduleAutoplay();
+    });
+
+    viewport.addEventListener('keydown', (event) => {
+      const commands = {
+        ArrowLeft: activeIndex - 1,
+        ArrowRight: activeIndex + 1,
+        Home: 0,
+        End: panels.length - 1
+      };
+
+      if (!(event.key in commands)) return;
+      event.preventDefault();
+      goToPanel(commands[event.key]);
+      scheduleAutoplay();
+    });
+
+    viewport.addEventListener('scroll', requestSync, { passive: true });
+    viewport.addEventListener('pointerdown', () => {
+      pointerPaused = true;
+      cancelSlideAnimation();
+      stopAutoplay();
+    }, { passive: true });
+
+    const resumeAfterPointer = () => {
+      if (!pointerPaused) return;
+      pointerPaused = false;
+      scheduleAutoplay();
+    };
+
+    window.addEventListener('pointerup', resumeAfterPointer, { passive: true });
+    viewport.addEventListener('pointercancel', resumeAfterPointer, { passive: true });
+
+    document.addEventListener('keydown', () => {
+      keyboardMode = true;
+    }, true);
+
+    document.addEventListener('pointerdown', () => {
+      keyboardMode = false;
+    }, true);
+
+    section.addEventListener('focusin', (event) => {
+      if (!keyboardMode || event.target === autoplayButton) return;
+      focusPaused = true;
+      stopAutoplay();
+    });
+
+    section.addEventListener('focusout', () => {
+      window.requestAnimationFrame(() => {
+        const focusedElement = document.activeElement;
+        focusPaused = Boolean(
+          keyboardMode
+          && section.contains(focusedElement)
+          && focusedElement !== autoplayButton
+        );
+        scheduleAutoplay();
+      });
+    });
+
+    autoplayButton?.addEventListener('click', () => {
+      autoplayEnabled = !autoplayEnabled;
+      updateAutoplayControl();
+
+      if (autoplayEnabled) {
+        scheduleAutoplay();
+      } else {
+        stopAutoplay();
+      }
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopAutoplay();
+      } else {
+        scheduleAutoplay();
+      }
+    });
+
+    if ('ResizeObserver' in window) {
+      const panelResizeObserver = new ResizeObserver((entries) => {
+        if (entries.some((entry) => entry.target === panels[activeIndex])) syncViewportHeight();
+      });
+      panels.forEach((panel) => panelResizeObserver.observe(panel));
+    }
+
+    window.addEventListener('resize', () => {
+      if (resizeFrame) window.cancelAnimationFrame(resizeFrame);
+      resizeFrame = window.requestAnimationFrame(() => {
+        resizeFrame = null;
+        goToPanel(activeIndex, 'auto');
+      });
+    }, { passive: true });
+
+    document.addEventListener('site-language-change', () => {
+      updateStatus(activeIndex);
+      updateAutoplayControl();
+    });
+    updateControls(0);
+    progressBar?.style.setProperty('transform', 'scaleX(0)');
+    updateAutoplayControl();
+    scheduleAutoplay();
   }
 
   function initSectionTransitions() {

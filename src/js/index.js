@@ -179,7 +179,7 @@ function initTypingEffect() {
     
     // Clear content but preserve structure
     title.innerHTML = '<span></span>';
-    title.style.borderRight = '2px solid #9443d8';
+    title.style.borderRight = '2px solid #f2f2f3';
     
     let i = 0;
     const typeWriter = () => {
@@ -192,7 +192,7 @@ function initTypingEffect() {
             setTimeout(() => {
                 title.style.borderRight = 'none';
                 // Restore original HTML structure with purple color
-                title.innerHTML = '<span style="color: #9443d8;">Pedro</span> Tescaro';
+                title.innerHTML = '<span style="color: #f2f2f3;">Pedro</span> Tescaro';
             }, 1000);
         }
     };
@@ -507,7 +507,7 @@ function activateEasterEgg() {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: linear-gradient(45deg, #9443d8, #b388ff);
+        background: linear-gradient(45deg, #f2f2f3, #f2f2f3);
         color: white;
         padding: 20px 40px;
         border-radius: 20px;
@@ -529,7 +529,7 @@ function createConfetti() {
         position: fixed;
         width: 10px;
         height: 10px;
-        background: ${['#9443d8', '#b388ff', '#fff'][Math.floor(Math.random() * 3)]};
+        background: ${['#f2f2f3', '#f2f2f3', '#fff'][Math.floor(Math.random() * 3)]};
         top: -10px;
         left: ${Math.random() * 100}vw;
         z-index: 9999;
@@ -645,7 +645,7 @@ style.textContent = `
     .ripple {
         position: absolute;
         border-radius: 50%;
-        background: rgba(148, 67, 216, 0.3);
+        background: rgba(255, 255, 255, 0.3);
         transform: scale(0);
         animation: ripple-animation 0.6s linear;
         pointer-events: none;
