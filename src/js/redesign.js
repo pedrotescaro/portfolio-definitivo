@@ -563,20 +563,45 @@
 
   function initPortraitMotion() {
     const portrait = document.querySelector('[data-portrait]');
-    const supportsPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const card = portrait?.querySelector('.hero-portrait__frame');
+    const glare = portrait?.querySelector('.hero-portrait__shine');
 
-    if (!portrait || !supportsPointer || prefersReducedMotion) return;
+    if (!portrait || !card || !glare || prefersReducedMotion) return;
+
+    let rotateX = 0;
+    let rotateY = 0;
+
+    const applyCardTransform = (scale) => {
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+    };
 
     portrait.addEventListener('pointermove', (event) => {
+      if (event.pointerType === 'touch') return;
+
       const rect = portrait.getBoundingClientRect();
       const x = (event.clientX - rect.left) / rect.width - 0.5;
       const y = (event.clientY - rect.top) / rect.height - 0.5;
 
-      portrait.style.transform = `perspective(900px) rotateX(${-y * 5}deg) rotateY(${x * 5}deg)`;
+      rotateX = y * -18;
+      rotateY = x * 18;
+      applyCardTransform(1.045);
+      glare.style.transform = `translate3d(${x * 55}%, ${y * 55}%, 0)`;
+      portrait.classList.add('is-portrait-active');
+    });
+
+    portrait.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'touch') return;
+
+      portrait.classList.add('is-portrait-active');
+      applyCardTransform(1.045);
     });
 
     portrait.addEventListener('pointerleave', () => {
-      portrait.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+      rotateX = 0;
+      rotateY = 0;
+      portrait.classList.remove('is-portrait-active');
+      applyCardTransform(1);
+      glare.style.transform = 'translate3d(0, 0, 0)';
     });
   }
 
@@ -960,13 +985,10 @@
     const viewport = section?.querySelector('[data-community-viewport]');
     const track = section?.querySelector('[data-community-track]');
     const panels = [...(section?.querySelectorAll('[data-community-panel]') || [])];
-    const progressBar = section?.querySelector('[data-community-progress]');
-    const currentLabel = section?.querySelector('[data-community-current]');
+    const pagination = section?.querySelector('[data-community-pagination]');
     const status = section?.querySelector('[data-community-status]');
     const previousButton = section?.querySelector('[data-community-prev]');
     const nextButton = section?.querySelector('[data-community-next]');
-    const autoplayButton = section?.querySelector('[data-community-autoplay]');
-    const autoplayIcon = section?.querySelector('[data-community-autoplay-icon]');
 
     if (!section || !viewport || !track || panels.length < 2) return;
 
@@ -978,18 +1000,43 @@
     let isProgrammaticScroll = false;
     let scrollSettleTimer = null;
     let autoplayTimer = null;
-    let autoplayEnabled = true;
-    let autoplayDirection = 1;
     let pointerPaused = false;
     let focusPaused = false;
     let keyboardMode = false;
+    let paginationButtons = [];
 
     const autoplayDelay = 5000;
 
     const clampIndex = (index) => Math.max(0, Math.min(panels.length - 1, index));
-    const formatIndex = (index) => String(index + 1).padStart(2, '0');
-
     const getPanelTitle = (index) => panels[index]?.querySelector('h3')?.textContent?.trim() || '';
+
+    const updatePaginationLabels = () => {
+      if (!pagination) return;
+
+      const isEnglish = document.documentElement.dataset.language === 'en';
+      const groupLabel = isEnglish ? 'Select community event' : 'Selecionar evento da comunidade';
+      const goToLabel = isEnglish ? 'Go to event' : 'Ir para o evento';
+      const connector = isEnglish ? 'of' : 'de';
+
+      pagination.setAttribute('aria-label', groupLabel);
+      paginationButtons.forEach((button, index) => {
+        button.setAttribute('aria-label', `${goToLabel} ${index + 1} ${connector} ${panels.length}: ${getPanelTitle(index)}`);
+      });
+    };
+
+    const renderPagination = () => {
+      if (!pagination) return;
+
+      pagination.replaceChildren(...panels.map((_, index) => {
+        const indicator = document.createElement('button');
+        indicator.className = 'community-story__indicator';
+        indicator.type = 'button';
+        indicator.dataset.communityIndex = String(index);
+        return indicator;
+      }));
+      paginationButtons = [...pagination.querySelectorAll('[data-community-index]')];
+      updatePaginationLabels();
+    };
 
     const syncViewportHeight = () => {
       if (heightFrame) window.cancelAnimationFrame(heightFrame);
@@ -1009,23 +1056,44 @@
       if (status) status.textContent = message;
     };
 
-    const updateAutoplayControl = () => {
-      if (!autoplayButton) return;
+    const syncAutoplayIndicatorState = () => {
+      const isPaused = pointerPaused || focusPaused || document.hidden;
+      section.classList.toggle('is-community-autoplay-paused', isPaused);
+    };
+
+    const restartActiveIndicatorAnimation = () => {
+      const activeIndicator = pagination?.querySelector('.community-story__indicator.is-active');
+      if (!activeIndicator) return;
+
+      activeIndicator.classList.remove('is-active');
+      void activeIndicator.offsetWidth;
+      activeIndicator.classList.add('is-active');
+    };
+
+    const updateNextButtonLabel = (index = activeIndex) => {
+      if (!nextButton) return;
 
       const isEnglish = document.documentElement.dataset.language === 'en';
-      const isPaused = !autoplayEnabled;
-      const label = isPaused
-        ? (isEnglish ? 'Resume automatic carousel' : 'Retomar carrossel automático')
-        : (isEnglish ? 'Pause automatic carousel' : 'Pausar carrossel automático');
+      const isLastPanel = index === panels.length - 1;
+      const label = isLastPanel
+        ? (isEnglish ? 'Return to first event' : 'Voltar ao primeiro evento')
+        : (isEnglish ? 'Next event' : 'Próximo evento');
 
-      autoplayButton.setAttribute('aria-label', label);
-      autoplayButton.setAttribute('title', label);
-      autoplayButton.setAttribute('aria-pressed', String(isPaused));
+      nextButton.setAttribute('aria-label', label);
+      nextButton.setAttribute('title', label);
+    };
 
-      if (autoplayIcon) {
-        autoplayIcon.classList.toggle('fa-pause', !isPaused);
-        autoplayIcon.classList.toggle('fa-play', isPaused);
-      }
+    const updatePreviousButtonLabel = (index = activeIndex) => {
+      if (!previousButton) return;
+
+      const isEnglish = document.documentElement.dataset.language === 'en';
+      const isFirstPanel = index === 0;
+      const label = isFirstPanel
+        ? (isEnglish ? 'Go to last event' : 'Ir para o último evento')
+        : (isEnglish ? 'Previous event' : 'Evento anterior');
+
+      previousButton.setAttribute('aria-label', label);
+      previousButton.setAttribute('title', label);
     };
 
     const stopAutoplay = () => {
@@ -1036,14 +1104,14 @@
 
     const scheduleAutoplay = () => {
       stopAutoplay();
-      if (!autoplayEnabled || pointerPaused || focusPaused || document.hidden) return;
+      syncAutoplayIndicatorState();
+      if (pointerPaused || focusPaused || document.hidden) return;
+
+      restartActiveIndicatorAnimation();
 
       autoplayTimer = window.setTimeout(() => {
         autoplayTimer = null;
-        if (activeIndex === panels.length - 1) autoplayDirection = -1;
-        if (activeIndex === 0) autoplayDirection = 1;
-
-        const nextIndex = activeIndex + autoplayDirection;
+        const nextIndex = (activeIndex + 1) % panels.length;
         goToPanel(nextIndex);
         scheduleAutoplay();
       }, autoplayDelay);
@@ -1051,10 +1119,10 @@
 
     const updateControls = (index) => {
       activeIndex = clampIndex(index);
-      previousButton?.toggleAttribute('disabled', activeIndex === 0);
-      nextButton?.toggleAttribute('disabled', activeIndex === panels.length - 1);
-
-      if (currentLabel) currentLabel.textContent = formatIndex(activeIndex);
+      previousButton?.removeAttribute('disabled');
+      nextButton?.removeAttribute('disabled');
+      updatePreviousButtonLabel(activeIndex);
+      updateNextButtonLabel(activeIndex);
 
       panels.forEach((panel, panelIndex) => {
         const isActive = panelIndex === activeIndex;
@@ -1069,6 +1137,15 @@
         }
       });
 
+      paginationButtons.forEach((button, buttonIndex) => {
+        const isActive = buttonIndex === activeIndex;
+        const isComplete = buttonIndex < activeIndex;
+        button.classList.toggle('is-active', isActive);
+        button.classList.toggle('is-complete', isComplete);
+        if (isActive) button.setAttribute('aria-current', 'true');
+        else button.removeAttribute('aria-current');
+      });
+
       updateStatus(activeIndex);
       syncViewportHeight();
     };
@@ -1079,7 +1156,6 @@
       const progress = Math.max(0, Math.min(1, viewport.scrollLeft / scrollRange));
       const nextIndex = clampIndex(Math.round(progress * (panels.length - 1)));
 
-      progressBar?.style.setProperty('transform', `scaleX(${progress})`);
       if (!isProgrammaticScroll && nextIndex !== activeIndex) updateControls(nextIndex);
 
       if (isProgrammaticScroll) return;
@@ -1162,18 +1238,26 @@
     };
 
     previousButton?.addEventListener('click', () => {
-      goToPanel(activeIndex - 1);
+      goToPanel((activeIndex - 1 + panels.length) % panels.length);
       scheduleAutoplay();
     });
     nextButton?.addEventListener('click', () => {
-      goToPanel(activeIndex + 1);
+      goToPanel((activeIndex + 1) % panels.length);
+      scheduleAutoplay();
+    });
+
+    pagination?.addEventListener('click', (event) => {
+      const indicator = event.target.closest('[data-community-index]');
+      if (!indicator || !pagination.contains(indicator)) return;
+
+      goToPanel(Number(indicator.dataset.communityIndex));
       scheduleAutoplay();
     });
 
     viewport.addEventListener('keydown', (event) => {
       const commands = {
-        ArrowLeft: activeIndex - 1,
-        ArrowRight: activeIndex + 1,
+        ArrowLeft: (activeIndex - 1 + panels.length) % panels.length,
+        ArrowRight: (activeIndex + 1) % panels.length,
         Home: 0,
         End: panels.length - 1
       };
@@ -1189,6 +1273,7 @@
       pointerPaused = true;
       cancelSlideAnimation();
       stopAutoplay();
+      syncAutoplayIndicatorState();
     }, { passive: true });
 
     const resumeAfterPointer = () => {
@@ -1209,9 +1294,10 @@
     }, true);
 
     section.addEventListener('focusin', (event) => {
-      if (!keyboardMode || event.target === autoplayButton) return;
+      if (!keyboardMode) return;
       focusPaused = true;
       stopAutoplay();
+      syncAutoplayIndicatorState();
     });
 
     section.addEventListener('focusout', () => {
@@ -1220,21 +1306,9 @@
         focusPaused = Boolean(
           keyboardMode
           && section.contains(focusedElement)
-          && focusedElement !== autoplayButton
         );
         scheduleAutoplay();
       });
-    });
-
-    autoplayButton?.addEventListener('click', () => {
-      autoplayEnabled = !autoplayEnabled;
-      updateAutoplayControl();
-
-      if (autoplayEnabled) {
-        scheduleAutoplay();
-      } else {
-        stopAutoplay();
-      }
     });
 
     document.addEventListener('visibilitychange', () => {
@@ -1243,6 +1317,7 @@
       } else {
         scheduleAutoplay();
       }
+      syncAutoplayIndicatorState();
     });
 
     if ('ResizeObserver' in window) {
@@ -1262,11 +1337,12 @@
 
     document.addEventListener('site-language-change', () => {
       updateStatus(activeIndex);
-      updateAutoplayControl();
+      updatePaginationLabels();
+      updatePreviousButtonLabel(activeIndex);
+      updateNextButtonLabel(activeIndex);
     });
+    renderPagination();
     updateControls(0);
-    progressBar?.style.setProperty('transform', 'scaleX(0)');
-    updateAutoplayControl();
     scheduleAutoplay();
   }
 

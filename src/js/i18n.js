@@ -359,7 +359,13 @@
       attribute: 'aria-label',
       value: ['Home', 'About me', 'Tools &amp; Software', 'Experience', 'Projects', 'Education', 'Community', 'Contact']
     },
-    { selector: '.hero-portrait img', attribute: 'alt', value: 'Profile photo of Pedro Tescaro' },
+    { selector: '.hero-portrait', attribute: 'aria-label', value: 'Pedro Tescaro GitHub profile card' },
+    {
+      selector: '.hero-portrait__frame',
+      attribute: 'aria-label',
+      value: 'Pedro Tescaro (@pedrotescaro) on GitHub (opens in a new tab)'
+    },
+    { selector: '.hero-portrait__image--dark', attribute: 'alt', value: 'Profile photo of Pedro Tescaro' },
     { selector: '.about-reference__cards', attribute: 'aria-label', value: 'Professional goals' },
     { selector: '.toolkit-tabs', attribute: 'aria-label', value: 'Tool categories' },
     { selector: '[data-toolkit-prev]', attribute: 'aria-label', value: 'Previous category' },
@@ -378,6 +384,7 @@
     { selector: '.projects-redesign__sidebar', attribute: 'aria-label', value: 'Filter projects' },
     { selector: '.contact-redesign__primary', attribute: 'aria-label', value: 'Primary contact channels' },
     { selector: '.contact-redesign__secondary', attribute: 'aria-label', value: 'Other links by Pedro Tescaro' },
+    { selector: '.contact-social[href*="steamcommunity.com"]', attribute: 'aria-label', value: 'Pedro Tescaro on Steam' },
     { selector: '.contact-social[href*="curriculo"]', attribute: 'aria-label', value: 'Download Pedro Tescaro’s résumé' }
   ];
 
