@@ -1856,7 +1856,8 @@ body.is-ready .hero-portrait { transition-delay: 250ms; }
   inset: 0;
   z-index: 0;
   width: 100%;
-  height: 100%;
+  height: 100% !important;
+  min-height: 100%;
   aspect-ratio: auto;
   display: block;
   background: #111;
@@ -1876,11 +1877,16 @@ body.is-ready .hero-portrait { transition-delay: 250ms; }
 }
 
 .projects-redesign .project-card__visual .project-image {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 100%;
+  height: 100% !important;
+  min-height: 100% !important;
+  max-width: none;
+  max-height: none;
   padding: 0;
   display: block;
-  object-fit: cover;
+  object-fit: cover !important;
   object-position: center center !important;
   transform-origin: center center !important;
   border-radius: 0;
@@ -7552,7 +7558,7 @@ body.light-mode .section-motion__veil {
   }
 
   .projects-redesign .project-card.project {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 10;
     border-radius: 14px;
   }
 
