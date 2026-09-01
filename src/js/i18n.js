@@ -119,16 +119,25 @@
     },
     {
       selector: '.experience-entry-tenure',
-      value: ['Nov 2024 - Jul 2025', 'Mar 2022 - Dec 2022']
+      value: ['Apr 2026 - Present', 'Nov 2024 - Jul 2025', 'Mar 2022 - Dec 2022']
     },
     {
       selector: '.experience-entry-details',
-      value: ['9 months · Internship · Remote', '10 months · Extension Project · On-site']
+      value: ['R&D Fellowship · Remote', '9 months · Internship · Remote', '10 months · Extension Project · On-site']
     },
     { selector: '.experience-entry-role-label', value: 'Role' },
-    { selector: '.experience-entry-heading h3', value: ['Mobile Developer', 'Mathematics Instructor'] },
+    { selector: '.experience-entry-heading h3', value: ['R&D Fellow — REDI-SUS', 'Mobile Developer', 'Mathematics Instructor'] },
     {
       selector: '.experience-entry:nth-of-type(1) .experience-highlights li',
+      value: [
+        'Developed software solutions and applied digital health research in the REDI-SUS project, integrating the HEAL+ module for patient monitoring and wound analysis.',
+        'Conducted requirements gathering, systems modeling with UML (Use Cases, Sequence, and Activity diagrams), and technical/architectural documentation.',
+        'Built and integrated applications, services, and REST APIs for communication and interoperability between modules.',
+        'Researched, prepared data, and performed experiments with Computer Vision and Artificial Intelligence for wound image processing and classification.'
+      ]
+    },
+    {
+      selector: '.experience-entry:nth-of-type(2) .experience-highlights li',
       value: [
         'Developed Android solutions with Flutter and Dart, focusing on functional interfaces and a strong user experience.',
         'Participated in technical meetings to align requirements, product decisions, and delivery progress.',
@@ -136,7 +145,7 @@
       ]
     },
     {
-      selector: '.experience-entry:nth-of-type(2) .experience-highlights li',
+      selector: '.experience-entry:nth-of-type(3) .experience-highlights li',
       value: [
         'Supported students with difficulties in basic Mathematics through online and in-person guidance.',
         'Answered questions from High School and Youth and Adult Education classes, adapting language and approach to each need.',
@@ -144,7 +153,11 @@
       ]
     },
     {
-      selector: '.experience-entry:nth-of-type(2) .experience-pill',
+      selector: '.experience-entry:nth-of-type(1) .experience-pill',
+      value: ['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'REST APIs', 'Artificial Intelligence', 'Computer Vision', 'UML']
+    },
+    {
+      selector: '.experience-entry:nth-of-type(3) .experience-pill',
       value: ['Teaching', 'Mentoring', 'Communication', 'Teaching methods', 'Mathematics']
     },
 
@@ -305,11 +318,10 @@
       value: 'View participation <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>'
     },
 
-    { selector: '.contact-redesign__kicker', value: '07 / contact' },
     { selector: '#contact-title', value: 'Contact' },
     {
       selector: '.contact-subtitle',
-      value: 'Like my work or want to turn an idea into a product? Reach out through one of the channels below.'
+      value: 'Like my work or want to turn an idea into a product?<br />Reach out through one of the channels below.'
     },
     { selector: '.contact-redesign__secondary-title', value: 'Other links' },
     { selector: '.contact-social[href*="curriculo"] span', value: 'Résumé' },
