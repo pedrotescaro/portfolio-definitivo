@@ -163,11 +163,11 @@
     { selector: '[data-project-expand-prefix]', value: 'Show' },
     { selector: '[data-project-expand-suffix]', value: 'more projects' },
     {
-      selector: '[data-project-id="stacklist"] .project-card__type',
+      selector: '[data-project-id="stacklyst"] .project-card__type',
       value: 'Next.js · AI · Gamification'
     },
     {
-      selector: '[data-project-id="stacklist"] .project-card__body > p',
+      selector: '[data-project-id="stacklyst"] .project-card__body > p',
       value: 'A gamified social network where developers share knowledge, follow learning paths, and improve through AI-generated quizzes.'
     },
     {
@@ -183,48 +183,44 @@
       value: 'An immersive creative-intelligence experience that turns brand signals into visuals, insights, and creative decisions.'
     },
     {
-      selector: '.project-card:nth-of-type(3) .project-card__type',
-      value: 'HealthTech · Product'
-    },
-    {
-      selector: '.project-card:nth-of-type(3) .project-card__body > p',
-      value: 'A digital product that supports wound monitoring through a clear, healthcare-focused experience.'
-    },
-    {
-      selector: '.project-card:nth-of-type(4) .project-card__body > p',
+      selector: '[data-project-id="pretext"] .project-card__body > p',
       value: 'An editorial experience where typography and a 3D object dynamically share the same space.'
     },
     {
-      selector: '.project-card:nth-of-type(5) .project-card__type',
+      selector: '[data-project-id="healplus"] .project-card__type',
+      value: 'HealthTech · Product'
+    },
+    {
+      selector: '[data-project-id="healplus"] .project-card__body > p',
+      value: 'A digital product that supports wound monitoring through a clear, healthcare-focused experience.'
+    },
+    {
+      selector: '[data-project-id="sos-eletrica"] .project-card__type',
       value: 'Business website'
     },
     {
-      selector: '.project-card:nth-of-type(5) .project-card__body > p',
+      selector: '[data-project-id="sos-eletrica"] .project-card__body > p',
       value: 'A direct website designed to present technical services and turn visits into quote requests.'
     },
     {
-      selector: '.project-card:nth-of-type(6) .project-card__type',
+      selector: '[data-project-id="pryzen"] .project-card__type',
       value: 'Collaborative project'
     },
     {
-      selector: '.project-card:nth-of-type(6) .project-card__body > p',
+      selector: '[data-project-id="pryzen"] .project-card__body > p',
       value: 'Educational tools and scripts brought together in a collaborative web experience.'
     },
     {
-      selector: '.project-card:nth-of-type(7) .project-card__body > p',
+      selector: '[data-project-id="blue-star"] .project-card__body > p',
       value: 'A top-down pixel-art action RPG featuring exploration, character progression, and choices that shape the journey.'
     },
     {
-      selector: '.project-card:nth-of-type(8) .project-card__type',
+      selector: '[data-project-id="gta"] .project-card__type',
       value: 'Themed UI'
     },
     {
-      selector: '.project-card:nth-of-type(8) .project-card__body > p',
+      selector: '[data-project-id="gta"] .project-card__body > p',
       value: 'A responsive interface study with art direction inspired by the game universe.'
-    },
-    {
-      selector: '.project-card:nth-of-type(9) .project-card__body > p',
-      value: 'A themed character catalog developed during Alura’s Dev Immersion.'
     },
     {
       selector: '.project-card__actions a[href*="github.com"]',
