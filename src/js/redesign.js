@@ -208,11 +208,8 @@
               <button class="project-lightbox__gallery-button project-lightbox__gallery-button--previous" type="button" data-project-gallery-previous>
                 <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
               </button>
-              <span class="project-lightbox__gallery-counter" aria-live="polite" aria-atomic="true">
-                <span data-project-gallery-current>1</span>
-                <span aria-hidden="true">/</span>
-                <span data-project-gallery-total>1</span>
-              </span>
+              <div class="project-lightbox__gallery-pagination" data-project-gallery-pagination></div>
+              <span class="visually-hidden" aria-live="polite" aria-atomic="true" data-project-gallery-status></span>
               <button class="project-lightbox__gallery-button project-lightbox__gallery-button--next" type="button" data-project-gallery-next>
                 <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
               </button>
@@ -246,10 +243,10 @@
     const sourceLink = lightbox.querySelector('[data-project-lightbox-source]');
     const siteLink = lightbox.querySelector('[data-project-lightbox-site]');
     const galleryControls = lightbox.querySelector('[data-project-lightbox-gallery]');
+    const galleryPagination = lightbox.querySelector('[data-project-gallery-pagination]');
+    const galleryStatus = lightbox.querySelector('[data-project-gallery-status]');
     const previousImageButton = lightbox.querySelector('[data-project-gallery-previous]');
     const nextImageButton = lightbox.querySelector('[data-project-gallery-next]');
-    const currentImageLabel = lightbox.querySelector('[data-project-gallery-current]');
-    const totalImagesLabel = lightbox.querySelector('[data-project-gallery-total]');
     let lastTrigger = null;
     let galleryImages = [];
     let galleryAlts = [];
@@ -262,10 +259,29 @@
         close: isEnglish ? 'Close image' : 'Fechar imagem',
         previous: isEnglish ? 'Previous image' : 'Imagem anterior',
         next: isEnglish ? 'Next image' : 'Próxima imagem',
+        gallery: isEnglish ? 'Project images' : 'Imagens do projeto',
+        goTo: isEnglish ? 'Go to image' : 'Ir para a imagem',
+        of: isEnglish ? 'of' : 'de',
         source: isEnglish ? 'Source' : 'Código',
         project: isEnglish ? 'Live project' : 'Ver projeto',
         eyebrow: isEnglish ? 'Selected project' : 'Projeto selecionado'
       };
+    };
+
+    const renderGalleryPagination = () => {
+      const labels = copy();
+      galleryPagination.setAttribute('role', 'group');
+      galleryPagination.setAttribute('aria-label', labels.gallery);
+      galleryPagination.replaceChildren(
+        ...galleryImages.map((_, index) => {
+          const indicator = document.createElement('button');
+          indicator.className = 'project-lightbox__gallery-indicator';
+          indicator.type = 'button';
+          indicator.dataset.projectGalleryIndex = String(index);
+          indicator.setAttribute('aria-label', `${labels.goTo} ${index + 1} ${labels.of} ${galleryImages.length}`);
+          return indicator;
+        })
+      );
     };
 
     const renderGalleryImage = (index) => {
@@ -274,8 +290,13 @@
       galleryIndex = (index + galleryImages.length) % galleryImages.length;
       lightboxImage.src = galleryImages[galleryIndex];
       lightboxImage.alt = galleryAlts[galleryIndex] || galleryAlts[0] || '';
-      currentImageLabel.textContent = String(galleryIndex + 1);
-      totalImagesLabel.textContent = String(galleryImages.length);
+      galleryStatus.textContent = `${galleryIndex + 1} ${copy().of} ${galleryImages.length}`;
+      galleryPagination.querySelectorAll('[data-project-gallery-index]').forEach((indicator, indicatorIndex) => {
+        const isActive = indicatorIndex === galleryIndex;
+        indicator.classList.toggle('is-active', isActive);
+        if (isActive) indicator.setAttribute('aria-current', 'true');
+        else indicator.removeAttribute('aria-current');
+      });
       galleryControls.hidden = galleryImages.length < 2;
     };
 
@@ -300,6 +321,7 @@
       galleryImages = (configuredSources.length ? configuredSources : [sourceImage.currentSrc || sourceImage.src])
         .map((source) => new URL(source, document.baseURI).href);
       galleryAlts = galleryImages.map((_, index) => configuredAlts[index] || sourceImage.alt);
+      renderGalleryPagination();
       renderGalleryImage(0);
       lightboxTitle.textContent = projectTitle;
       lightboxDescription.textContent = projectDescription || '';
@@ -370,6 +392,11 @@
     closeButton.addEventListener('click', closeLightbox);
     previousImageButton.addEventListener('click', () => renderGalleryImage(galleryIndex - 1));
     nextImageButton.addEventListener('click', () => renderGalleryImage(galleryIndex + 1));
+    galleryPagination.addEventListener('click', (event) => {
+      const indicator = event.target.closest('[data-project-gallery-index]');
+      if (!indicator) return;
+      renderGalleryImage(Number(indicator.dataset.projectGalleryIndex));
+    });
     lightbox.addEventListener('keydown', (event) => {
       if (galleryImages.length < 2) return;
       if (event.key === 'ArrowLeft') renderGalleryImage(galleryIndex - 1);

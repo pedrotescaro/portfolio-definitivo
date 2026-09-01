@@ -163,12 +163,20 @@
     { selector: '[data-project-expand-prefix]', value: 'Show' },
     { selector: '[data-project-expand-suffix]', value: 'more projects' },
     {
-      selector: '[data-project-id="devdeck"] .project-card__type',
+      selector: '[data-project-id="stacklist"] .project-card__type',
       value: 'Next.js · AI · Gamification'
     },
     {
-      selector: '[data-project-id="devdeck"] .project-card__body > p',
+      selector: '[data-project-id="stacklist"] .project-card__body > p',
       value: 'A gamified social network where developers share knowledge, follow learning paths, and improve through AI-generated quizzes.'
+    },
+    {
+      selector: '[data-project-id="async"] .project-card__type',
+      value: 'Electron · Local AI · Open source'
+    },
+    {
+      selector: '[data-project-id="async"] .project-card__body > p',
+      value: 'An open-source desktop assistant that helps students and developers write better, learn faster, and build with confidence using local AI.'
     },
     {
       selector: '[data-project-id="aurelis"] .project-card__body > p',
