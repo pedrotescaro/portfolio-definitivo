@@ -157,15 +157,28 @@ function initScrollAnimations() {
 function initParallax() {
     const heroSection = document.querySelector('.first_section');
     const video = document.querySelector('.first__background');
-    
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * -0.5;
-        
-        if (video) {
-            video.style.transform = `translateY(${rate}px)`;
-        }
-    });
+
+    if (!heroSection || !video) return;
+
+    let frame = null;
+
+    const updateParallax = () => {
+        frame = null;
+        const heroBottom = heroSection.getBoundingClientRect().bottom;
+        if (heroBottom <= 0 || document.hidden) return;
+
+        const rate = window.pageYOffset * -0.5;
+        video.style.transform = `translate3d(0, ${rate}px, 0)`;
+    };
+
+    const requestParallaxUpdate = () => {
+        if (frame) return;
+        frame = window.requestAnimationFrame(updateParallax);
+    };
+
+    window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
+    window.addEventListener('resize', requestParallaxUpdate, { passive: true });
+    requestParallaxUpdate();
 }
 
 // Typing effect for title
@@ -280,7 +293,8 @@ function initStaggeredAnimations() {
 // Enhanced particle system
 function initParticleSystem() {
     const particlesContainer = document.querySelector('.particles-container');
-    
+    if (!particlesContainer || window.getComputedStyle(particlesContainer).display === 'none') return;
+
     // Create additional particles dynamically
     for (let i = 0; i < 10; i++) {
         const particle = document.createElement('div');
@@ -371,6 +385,14 @@ function initCustomCursor() {
         cursor.style.setProperty('--cursor-scale-x', (baseScale * pressedScale * (1 + stretch * 0.28)).toFixed(3));
         cursor.style.setProperty('--cursor-scale-y', (baseScale * pressedScale * (1 - stretch * 0.14)).toFixed(3));
 
+        const isSettled = Math.abs(dx) < 0.08 && Math.abs(dy) < 0.08;
+        if (!isVisible || document.hidden || (isSettled && !isPressed)) {
+            current.x = target.x;
+            current.y = target.y;
+            rafId = null;
+            return;
+        }
+
         rafId = requestAnimationFrame(animateCursor);
     }
 
@@ -397,6 +419,7 @@ function initCustomCursor() {
         if (interactiveTarget) {
             isInteractive = true;
             syncCursorState();
+            startAnimation();
         }
     });
 
@@ -409,17 +432,20 @@ function initCustomCursor() {
         if (currentTarget && currentTarget !== relatedTarget) {
             isInteractive = false;
             syncCursorState();
+            startAnimation();
         }
     });
 
     document.addEventListener('mousedown', () => {
         isPressed = true;
         syncCursorState();
+        startAnimation();
     });
 
     document.addEventListener('mouseup', () => {
         isPressed = false;
         syncCursorState();
+        startAnimation();
     });
 
     document.addEventListener('mouseleave', () => {
@@ -427,12 +453,15 @@ function initCustomCursor() {
         isInteractive = false;
         isPressed = false;
         syncCursorState();
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = null;
     });
 
     document.addEventListener('mouseenter', () => {
         if (target.x || target.y) {
             isVisible = true;
             syncCursorState();
+            startAnimation();
         }
     });
 
@@ -440,11 +469,23 @@ function initCustomCursor() {
         isVisible = false;
         isPressed = false;
         syncCursorState();
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = null;
     });
 
     window.addEventListener('resize', () => {
         syncZoomLevel();
     }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = null;
+            return;
+        }
+
+        if (isVisible) startAnimation();
+    });
 }
 
 // Form submission handling

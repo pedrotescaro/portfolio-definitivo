@@ -1,5 +1,12 @@
 (() => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const listenForMediaChange = (mediaQuery, listener) => {
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', listener);
+    } else if (typeof mediaQuery.addListener === 'function') {
+      mediaQuery.addListener(listener);
+    }
+  };
 
   function finishLoading() {
     const loadingScreen = document.querySelector('.loading-screen');
@@ -570,33 +577,48 @@
 
     let rotateX = 0;
     let rotateY = 0;
+    let frame = null;
+    let rect = null;
+    let pointerX = 0;
+    let pointerY = 0;
 
     const applyCardTransform = (scale) => {
       card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
     };
 
-    portrait.addEventListener('pointermove', (event) => {
-      if (event.pointerType === 'touch') return;
+    const renderMotion = () => {
+      frame = null;
+      if (!rect || rect.width === 0 || rect.height === 0) return;
 
-      const rect = portrait.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      const x = (pointerX - rect.left) / rect.width - 0.5;
+      const y = (pointerY - rect.top) / rect.height - 0.5;
 
       rotateX = y * -18;
       rotateY = x * 18;
       applyCardTransform(1.045);
       glare.style.transform = `translate3d(${x * 55}%, ${y * 55}%, 0)`;
       portrait.classList.add('is-portrait-active');
-    });
+    };
+
+    portrait.addEventListener('pointermove', (event) => {
+      if (event.pointerType === 'touch') return;
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      if (!frame) frame = window.requestAnimationFrame(renderMotion);
+    }, { passive: true });
 
     portrait.addEventListener('pointerenter', (event) => {
       if (event.pointerType === 'touch') return;
 
+      rect = portrait.getBoundingClientRect();
       portrait.classList.add('is-portrait-active');
       applyCardTransform(1.045);
     });
 
     portrait.addEventListener('pointerleave', () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      frame = null;
+      rect = null;
       rotateX = 0;
       rotateY = 0;
       portrait.classList.remove('is-portrait-active');
@@ -703,7 +725,7 @@
     window.addEventListener('resize', requestHeaderUpdate, { passive: true });
     document.addEventListener('site-language-change', updateMenuLabel);
 
-    window.matchMedia('(min-width: 821px)').addEventListener('change', (event) => {
+    listenForMediaChange(window.matchMedia('(min-width: 821px)'), (event) => {
       if (!event.matches || !mobileMenu?.classList.contains('is-open')) return;
       setMobileMenuOpen(false);
     });
@@ -876,7 +898,7 @@
       changeTheme(nextTheme);
     });
 
-    systemTheme.addEventListener('change', (event) => {
+    listenForMediaChange(systemTheme, (event) => {
       if (hasSavedPreference) return;
       changeTheme(event.matches ? 'light' : 'dark');
     });
@@ -903,9 +925,13 @@
     let pointerActive = false;
     let trailOpacity = 0;
     let resizeFrame = null;
+    let animationFrame = null;
+    let lastMovementAt = 0;
 
     const resizeCanvas = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const viewportPixels = Math.max(1, window.innerWidth * window.innerHeight);
+      const pixelBudgetRatio = Math.sqrt(2400000 / viewportPixels);
+      const dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 1.5, pixelBudgetRatio));
       canvas.width = Math.round(window.innerWidth * dpr);
       canvas.height = Math.round(window.innerHeight * dpr);
       canvas.style.width = `${window.innerWidth}px`;
@@ -919,13 +945,15 @@
       resizeFrame = window.requestAnimationFrame(resizeCanvas);
     };
 
-    const drawTrail = () => {
+    const drawTrail = (timestamp) => {
+      animationFrame = null;
       context.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
       const effectEnabled = !document.body.classList.contains('cursor-effect-off');
-      trailOpacity += ((pointerActive && effectEnabled ? 1 : 0) - trailOpacity) * 0.12;
+      const isMoving = pointerActive && timestamp - lastMovementAt < 140;
+      trailOpacity += ((isMoving && effectEnabled ? 1 : 0) - trailOpacity) * 0.14;
 
-      trail.push({ x: pointer.x, y: pointer.y });
+      if (isMoving) trail.push({ x: pointer.x, y: pointer.y });
       if (trail.length > maxTrail) trail.shift();
 
       if (trailOpacity > 0.01) {
@@ -939,7 +967,7 @@
           : `rgba(255, 255, 255, ${0.035 * trailOpacity})`);
         glow.addColorStop(1, isLightTheme ? 'rgba(250, 250, 248, 0)' : 'rgba(10, 10, 10, 0)');
         context.fillStyle = glow;
-        context.fillRect(0, 0, window.innerWidth, window.innerHeight);
+        context.fillRect(pointer.x - 220, pointer.y - 220, 440, 440);
 
         for (let index = 0; index < trail.length - 1; index += 1) {
           const start = trail[index];
@@ -958,26 +986,50 @@
         }
       }
 
-      window.requestAnimationFrame(drawTrail);
+      if (isMoving || trailOpacity > 0.01) {
+        animationFrame = window.requestAnimationFrame(drawTrail);
+      } else {
+        trailOpacity = 0;
+        trail.length = 0;
+      }
+    };
+
+    const requestTrailFrame = () => {
+      if (animationFrame || document.hidden) return;
+      animationFrame = window.requestAnimationFrame(drawTrail);
     };
 
     document.addEventListener('pointermove', (event) => {
       pointer.x = event.clientX;
       pointer.y = event.clientY;
       pointerActive = true;
+      lastMovementAt = performance.now();
+      requestTrailFrame();
     }, { passive: true });
 
     document.addEventListener('pointerleave', () => {
       pointerActive = false;
+      requestTrailFrame();
     });
 
     window.addEventListener('blur', () => {
       pointerActive = false;
+      requestTrailFrame();
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (animationFrame) window.cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+        pointerActive = false;
+        trailOpacity = 0;
+        trail.length = 0;
+        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      }
     });
 
     window.addEventListener('resize', requestResize, { passive: true });
     resizeCanvas();
-    drawTrail();
   }
 
   function initCommunityStory() {
@@ -1004,6 +1056,7 @@
     let focusPaused = false;
     let keyboardMode = false;
     let paginationButtons = [];
+    let sectionInView = !('IntersectionObserver' in window);
 
     const autoplayDelay = 5000;
 
@@ -1027,13 +1080,20 @@
     const renderPagination = () => {
       if (!pagination) return;
 
-      pagination.replaceChildren(...panels.map((_, index) => {
+      const indicators = panels.map((_, index) => {
         const indicator = document.createElement('button');
         indicator.className = 'community-story__indicator';
         indicator.type = 'button';
         indicator.dataset.communityIndex = String(index);
         return indicator;
-      }));
+      });
+
+      if (typeof pagination.replaceChildren === 'function') {
+        pagination.replaceChildren(...indicators);
+      } else {
+        pagination.textContent = '';
+        indicators.forEach((indicator) => pagination.appendChild(indicator));
+      }
       paginationButtons = [...pagination.querySelectorAll('[data-community-index]')];
       updatePaginationLabels();
     };
@@ -1057,7 +1117,7 @@
     };
 
     const syncAutoplayIndicatorState = () => {
-      const isPaused = pointerPaused || focusPaused || document.hidden;
+      const isPaused = pointerPaused || focusPaused || document.hidden || !sectionInView;
       section.classList.toggle('is-community-autoplay-paused', isPaused);
     };
 
@@ -1105,7 +1165,7 @@
     const scheduleAutoplay = () => {
       stopAutoplay();
       syncAutoplayIndicatorState();
-      if (pointerPaused || focusPaused || document.hidden) return;
+      if (pointerPaused || focusPaused || document.hidden || !sectionInView) return;
 
       restartActiveIndicatorAnimation();
 
@@ -1127,7 +1187,7 @@
       panels.forEach((panel, panelIndex) => {
         const isActive = panelIndex === activeIndex;
         panel.classList.toggle('is-active', isActive);
-        panel.inert = !isActive;
+        if ('inert' in panel) panel.inert = !isActive;
         panel.setAttribute('aria-hidden', String(!isActive));
 
         if (isActive) {
@@ -1320,6 +1380,25 @@
       syncAutoplayIndicatorState();
     });
 
+    if ('IntersectionObserver' in window) {
+      const sectionObserver = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        sectionInView = Boolean(entry?.isIntersecting);
+
+        if (sectionInView) {
+          scheduleAutoplay();
+        } else {
+          stopAutoplay();
+          syncAutoplayIndicatorState();
+        }
+      }, {
+        threshold: 0.04,
+        rootMargin: '160px 0px'
+      });
+
+      sectionObserver.observe(section);
+    }
+
     if ('ResizeObserver' in window) {
       const panelResizeObserver = new ResizeObserver((entries) => {
         if (entries.some((entry) => entry.target === panels[activeIndex])) syncViewportHeight();
@@ -1379,6 +1458,31 @@
     sections.forEach((section) => observer.observe(section));
   }
 
+  function initAnimationPerformance() {
+    const root = document.documentElement;
+    const animatedSections = [...document.querySelectorAll('main > section, body > footer.site-footer')];
+
+    const syncPageVisibility = () => {
+      root.classList.toggle('is-page-hidden', document.hidden);
+    };
+
+    document.addEventListener('visibilitychange', syncPageVisibility);
+    syncPageVisibility();
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('is-animation-paused', !entry.isIntersecting);
+      });
+    }, {
+      threshold: 0,
+      rootMargin: '180px 0px'
+    });
+
+    animatedSections.forEach((section) => observer.observe(section));
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     finishLoading();
     initMotionReveals();
@@ -1391,5 +1495,6 @@
     initCursorTrail();
     initCommunityStory();
     initSectionTransitions();
+    initAnimationPerformance();
   });
 })();

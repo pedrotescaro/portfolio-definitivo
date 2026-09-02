@@ -19,7 +19,13 @@
       selector: '.hero-minimal__subtitle',
       value: 'I build web, mobile, and backend experiences focused on clarity, performance, and real-world impact.'
     },
-    { selector: '.hero-minimal__actions a', value: ['About me', 'Contact'] },
+    {
+      selector: '.hero-minimal__actions a',
+      value: [
+        'About me',
+        '<i class="fa-solid fa-envelope" aria-hidden="true"></i><span>Contact me</span>'
+      ]
+    },
     { selector: '.hero-scroll span', value: 'Scroll to explore' },
 
     { selector: '#sobre-mim .about-reference__heading h2', value: 'About me' },
@@ -29,7 +35,7 @@
     },
     {
       selector: '.about-reference__content > p:nth-of-type(2)',
-      value: 'I worked as a mobile development intern at <strong>Éboli Tecnologia</strong>, building Flutter interfaces and features for production applications. I am also the creator of <strong><button class="insight-trigger" type="button" data-insight-card="heal-plus" aria-describedby="portfolio-insight-tooltip">Heal+</button></strong>, an Artificial Intelligence solution that helps healthcare professionals monitor patients with wounds, presented at the <strong>16th <button class="insight-trigger" type="button" data-insight-card="feteps" aria-describedby="portfolio-insight-tooltip">FETEPS</button></strong>.'
+      value: 'I worked as a mobile development intern at <strong>Éboli Tecnologia</strong>, building Flutter interfaces and features for production applications. I am also the creator of <strong><button class="insight-trigger" type="button" data-insight-card="heal-plus" aria-describedby="portfolio-insight-tooltip">Heal+</button></strong>, an Artificial Intelligence solution that helps healthcare professionals monitor patients with wounds, presented at the <span class="about-reference__event-name"><strong>16th <button class="insight-trigger" type="button" data-insight-card="feteps" aria-describedby="portfolio-insight-tooltip">FETEPS</button></strong></span>.'
     },
     {
       selector: '.about-reference__quote p',

@@ -193,11 +193,28 @@
     if (!document.querySelector('[data-insight-card]')) return;
     if (document.querySelector('#portfolio-insight-tooltip')) return;
 
-    Object.values(insights).forEach((insight) => {
-      if (!insight.image) return;
-      const preload = new Image();
-      preload.src = insight.image;
-    });
+    const preloadInsightImages = () => {
+      Object.values(insights).forEach((insight) => {
+        if (!insight.image) return;
+        const preload = new Image();
+        preload.decoding = 'async';
+        preload.src = insight.image;
+      });
+    };
+
+    const scheduleInsightPreload = () => {
+      if (typeof window.requestIdleCallback === 'function') {
+        window.requestIdleCallback(preloadInsightImages, { timeout: 3500 });
+      } else {
+        window.setTimeout(preloadInsightImages, 1800);
+      }
+    };
+
+    if (document.readyState === 'complete') {
+      scheduleInsightPreload();
+    } else {
+      window.addEventListener('load', scheduleInsightPreload, { once: true });
+    }
 
     const tooltip = document.createElement('aside');
     tooltip.id = 'portfolio-insight-tooltip';
@@ -206,7 +223,7 @@
     tooltip.setAttribute('aria-hidden', 'true');
     tooltip.innerHTML = `
       <figure class="portfolio-insight-tooltip__media" data-insight-media hidden>
-        <img alt="" data-insight-image>
+        <img alt="" data-insight-image decoding="async">
         <figcaption data-insight-credit></figcaption>
       </figure>
       <div class="portfolio-insight-tooltip__body">

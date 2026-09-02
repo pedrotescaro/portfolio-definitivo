@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -173,7 +173,10 @@
                     <div class="hero-minimal__footer motion-reveal">
                         <div class="hero-minimal__actions">
                             <a class="hero-button hero-button--filled" href="#sobre-mim">Sobre mim</a>
-                            <a class="hero-button hero-button--outline" href="#contato">Contato</a>
+                            <a class="hero-button hero-button--outline" href="#contato">
+                                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                                <span>Entre em contato</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -186,9 +189,10 @@
                         aria-label="Pedro Tescaro (@pedrotescaro) no GitHub (abre em uma nova aba)">
                         <img class="hero-portrait__image hero-portrait__image--dark"
                             src="./src/imagens/hero-profile-test.jpg" alt="Foto de perfil de Pedro Tescaro"
-                            draggable="false" />
+                            draggable="false" decoding="async" fetchpriority="high" />
                         <img class="hero-portrait__image hero-portrait__image--light"
-                            src="./src/imagens/hero-profile-test.jpg" alt="" aria-hidden="true" draggable="false" />
+                            src="./src/imagens/hero-profile-test.jpg" alt="" aria-hidden="true" draggable="false"
+                            decoding="async" />
                         <span class="hero-portrait__shade" aria-hidden="true"></span>
                         <span class="hero-portrait__shine" aria-hidden="true"></span>
                         <span class="hero-portrait__github" aria-hidden="true">
@@ -232,9 +236,10 @@
                             interfaces e funcionalidades em Flutter para aplicações em produção. Também sou criador do
                             <strong><button class="insight-trigger" type="button" data-insight-card="heal-plus"
                                     aria-describedby="portfolio-insight-tooltip">Heal+</button></strong>, uma solução com Inteligência Artificial para auxiliar profissionais
-                            de saúde no acompanhamento de pacientes com feridas, apresentada na <strong>16ª
-                                <button class="insight-trigger" type="button" data-insight-card="feteps"
-                                    aria-describedby="portfolio-insight-tooltip">FETEPS</button></strong>.</p>
+                            de saúde no acompanhamento de pacientes com feridas, apresentada na
+                            <span class="about-reference__event-name"><strong>16ª
+                                    <button class="insight-trigger" type="button" data-insight-card="feteps"
+                                        aria-describedby="portfolio-insight-tooltip">FETEPS</button></strong></span>.</p>
 
                         <blockquote class="about-reference__quote">
                             <p>“Falar é fácil. Mostre-me o código.”</p>
@@ -427,7 +432,7 @@
                                         <span class="toolkit-card__icon toolkit-card__icon--brand toolkit-card__icon--wide">
                                             <img class="toolkit-card__brand-logo toolkit-card__brand-logo--gamemaker"
                                                 src="./src/imagens/gamemaker.svg"
-                                                alt="" aria-hidden="true" decoding="async" />
+                                                alt="" aria-hidden="true" loading="lazy" decoding="async" />
                                         </span>
                                         <div><span class="toolkit-card__label">game.development()</span><h4>GameMaker Studio 2</h4></div>
                                     </article>
@@ -435,7 +440,7 @@
                                         <span class="toolkit-card__icon toolkit-card__icon--brand">
                                             <img class="toolkit-card__brand-logo toolkit-card__brand-logo--cursor"
                                                 src="https://cdn.simpleicons.org/cursor/FFFFFF" alt=""
-                                                aria-hidden="true" decoding="async" />
+                                                aria-hidden="true" loading="lazy" decoding="async" />
                                         </span>
                                         <div><span class="toolkit-card__label">ai.code.editor</span><h4>Cursor</h4></div>
                                     </article>
@@ -443,7 +448,7 @@
                                         <span class="toolkit-card__icon toolkit-card__icon--brand">
                                             <img class="toolkit-card__brand-logo toolkit-card__brand-logo--android-studio"
                                                 src="./src/imagens/android-studio-icon.png" alt="" aria-hidden="true"
-                                                decoding="async" />
+                                                loading="lazy" decoding="async" />
                                         </span>
                                         <div><span class="toolkit-card__label">android.development</span><h4>Android Studio</h4></div>
                                     </article>
@@ -451,7 +456,7 @@
                                         <span class="toolkit-card__icon toolkit-card__icon--brand">
                                             <img class="toolkit-card__brand-logo toolkit-card__brand-logo--codex"
                                                 src="https://images.ctfassets.net/kftzwdyauwt9/77tJ5U1tgxHMZflZ5m4Z24/ace4d8b6ad200d87ebcb69c466344343/Blossom_4k_Icon_1.png?fm=webp&amp;q=90&amp;w=128"
-                                                alt="" aria-hidden="true" decoding="async" />
+                                                alt="" aria-hidden="true" loading="lazy" decoding="async" />
                                         </span>
                                         <div><span class="toolkit-card__label">agentic.coding</span><h4>OpenAI Codex</h4></div>
                                     </article>
@@ -480,7 +485,7 @@
                                                 <span class="toolkit-card__icon toolkit-card__icon--brand">
                                                     <img class="toolkit-card__brand-logo toolkit-card__brand-logo--antigravity"
                                                         src="./src/imagens/antigravity-official.png" alt=""
-                                                        aria-hidden="true" decoding="async" />
+                                                        aria-hidden="true" loading="lazy" decoding="async" />
                                                 </span>
                                                 <div><span class="toolkit-card__label">/* ai assistant */</span><h4>Antigravity</h4></div>
                                             </article>
@@ -492,7 +497,7 @@
                                                 <span class="toolkit-card__icon toolkit-card__icon--brand toolkit-card__icon--wide">
                                                     <img class="toolkit-card__brand-logo toolkit-card__brand-logo--node"
                                                         src="./src/imagens/nodejs-official.webp" alt=""
-                                                        aria-hidden="true" decoding="async" />
+                                                        aria-hidden="true" loading="lazy" decoding="async" />
                                                 </span>
                                                 <div><span class="toolkit-card__label">npm run develop</span><h4>Node.js &amp; npm</h4></div>
                                             </article>
@@ -508,7 +513,7 @@
                                                 <span class="toolkit-card__icon toolkit-card__icon--brand">
                                                     <img class="toolkit-card__brand-logo toolkit-card__brand-logo--colab"
                                                         src="./src/imagens/google-colab.png" alt=""
-                                                        aria-hidden="true" decoding="async" />
+                                                        aria-hidden="true" loading="lazy" decoding="async" />
                                                 </span>
                                                 <div><span class="toolkit-card__label">python.notebook()</span><h4>Google Colab</h4></div>
                                             </article>
@@ -526,7 +531,7 @@
                                                 <span class="toolkit-card__icon toolkit-card__icon--brand">
                                                     <img class="toolkit-card__brand-logo toolkit-card__brand-logo--photoshop"
                                                         src="./src/imagens/photoshop-original.svg" alt=""
-                                                        aria-hidden="true" decoding="async" />
+                                                        aria-hidden="true" loading="lazy" decoding="async" />
                                                 </span>
                                                 <div><span class="toolkit-card__label">#image.editor</span><h4>Adobe Photoshop</h4></div>
                                             </article>
@@ -548,7 +553,7 @@
                                                 <span class="toolkit-card__icon toolkit-card__icon--brand">
                                                     <img class="toolkit-card__brand-logo toolkit-card__brand-logo--sql-server"
                                                         src="./src/imagens/microsoft-sql-server-2025.webp" alt=""
-                                                        aria-hidden="true" decoding="async" />
+                                                        aria-hidden="true" loading="lazy" decoding="async" />
                                                 </span>
                                                 <div><span class="toolkit-card__label">relational.database</span><h4>Microsoft SQL Server</h4></div>
                                             </article>
@@ -596,7 +601,7 @@
                                         <h3 id="toolkit-languages-games">// Sistemas &amp; Jogos</h3>
                                         <div class="toolkit-grid toolkit-grid--languages">
                                             <article class="toolkit-card"><span class="toolkit-card__icon"><i class="devicon-c-plain colored"></i></span><div><h4>C</h4></div></article>
-                                            <article class="toolkit-card"><span class="toolkit-card__icon toolkit-card__icon--brand"><img class="toolkit-card__brand-logo toolkit-card__brand-logo--gamemaker" src="./src/imagens/gamemaker.svg" alt="" aria-hidden="true" decoding="async" /></span><div><h4>GML</h4></div></article>
+                                            <article class="toolkit-card"><span class="toolkit-card__icon toolkit-card__icon--brand"><img class="toolkit-card__brand-logo toolkit-card__brand-logo--gamemaker" src="./src/imagens/gamemaker.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" /></span><div><h4>GML</h4></div></article>
                                         </div>
                                     </section>
 
@@ -691,7 +696,7 @@
                                 target="_blank" rel="noopener noreferrer">
                                 <span class="formation-badge-index" aria-hidden="true">01</span>
                                 <img src="./src/imagens/badges/artificial-intelligence-fundamentals.png"
-                                    alt="Badge Artificial Intelligence Fundamentals" loading="lazy" />
+                                    alt="Badge Artificial Intelligence Fundamentals" loading="lazy" decoding="async" />
                                 <div class="formation-badge-copy">
                                     <p>IBM</p>
                                     <h4>Artificial Intelligence Fundamentals</h4>
@@ -704,7 +709,7 @@
                                 target="_blank" rel="noopener noreferrer">
                                 <span class="formation-badge-index" aria-hidden="true">02</span>
                                 <img src="./src/imagens/badges/aws-academy-graduate-cloud-foundations-training-bad.png"
-                                    alt="Badge AWS Academy Graduate Cloud Foundations" loading="lazy" />
+                                    alt="Badge AWS Academy Graduate Cloud Foundations" loading="lazy" decoding="async" />
                                 <div class="formation-badge-copy">
                                     <p>AWS Academy</p>
                                     <h4>AWS Academy Graduate — Cloud Foundations</h4>
@@ -717,7 +722,7 @@
                                 target="_blank" rel="noopener noreferrer">
                                 <span class="formation-badge-index" aria-hidden="true">03</span>
                                 <img src="./src/imagens/badges/ccna-introduction-to-networks.png"
-                                    alt="Badge CCNA Introduction to Networks" loading="lazy" />
+                                    alt="Badge CCNA Introduction to Networks" loading="lazy" decoding="async" />
                                 <div class="formation-badge-copy">
                                     <p>Cisco Networking Academy</p>
                                     <h4>CCNA: Introduction to Networks</h4>
@@ -730,7 +735,7 @@
                                 target="_blank" rel="noopener noreferrer">
                                 <span class="formation-badge-index" aria-hidden="true">04</span>
                                 <img src="./src/imagens/badges/ccna-switching-routing-wireless-essentials.png"
-                                    alt="Badge CCNA Switching Routing and Wireless Essentials" loading="lazy" />
+                                    alt="Badge CCNA Switching Routing and Wireless Essentials" loading="lazy" decoding="async" />
                                 <div class="formation-badge-copy">
                                     <p>Cisco Networking Academy</p>
                                     <h4>CCNA: Switching, Routing, and Wireless Essentials</h4>
@@ -743,7 +748,7 @@
                                 target="_blank" rel="noopener noreferrer">
                                 <span class="formation-badge-index" aria-hidden="true">05</span>
                                 <img src="./src/imagens/badges/quantum-machine-learning.png"
-                                    alt="Badge Quantum Machine Learning" loading="lazy" />
+                                    alt="Badge Quantum Machine Learning" loading="lazy" decoding="async" />
                                 <div class="formation-badge-copy">
                                     <p>IBM Quantum</p>
                                     <h4>Quantum Machine Learning</h4>
@@ -756,7 +761,7 @@
                                 target="_blank" rel="noopener noreferrer">
                                 <span class="formation-badge-index" aria-hidden="true">06</span>
                                 <img src="./src/imagens/badges/data-analysis-using-python.png"
-                                    alt="Badge Data Analysis Using Python" loading="lazy" />
+                                    alt="Badge Data Analysis Using Python" loading="lazy" decoding="async" />
                                 <div class="formation-badge-copy">
                                     <p>IBM Skills Network</p>
                                     <h4>Data Analysis Using Python</h4>
@@ -851,15 +856,17 @@
         <!-- Seção de Experiência Profissional -->
         <section class="experience" id="experiencia" aria-labelledby="experience-title">
             <div class="experience-shell">
-                <header class="experience-hero about-reference__heading">
-                    <span class="about-reference__index">03</span>
-                    <div>
-                        <h2 id="experience-title">Experiências</h2>
-                        <span class="about-reference__title-line" aria-hidden="true"></span>
-                    </div>
-                </header>
-                <p class="experience-hero__intro">Experiências profissionais que fortaleceram minha prática em
-                    desenvolvimento, colaboração, comunicação e resolução de problemas.</p>
+                <div class="experience-header-layout">
+                    <header class="experience-hero about-reference__heading">
+                        <span class="about-reference__index">03</span>
+                        <div>
+                            <h2 id="experience-title">Experiências</h2>
+                            <span class="about-reference__title-line" aria-hidden="true"></span>
+                            <p class="experience-hero__intro">Experiências profissionais que fortaleceram minha prática em
+                                desenvolvimento, colaboração, comunicação e resolução de problemas.</p>
+                        </div>
+                    </header>
+                </div>
 
                 <div class="experience-list">
                     <article class="experience-entry">
@@ -867,7 +874,7 @@
                         <div class="experience-entry-aside">
                             <div class="experience-entry-mark experience-entry-mark--faurg">
                                 <img src="./src/imagens/faurg-logo.jpg"
-                                    alt="Logo da FAURG" loading="lazy">
+                                    alt="Logo da FAURG" loading="lazy" decoding="async">
                             </div>
                             <span class="experience-entry-index">01</span>
                             <p class="experience-entry-company">FAURG</p>
@@ -878,7 +885,7 @@
                         <div class="experience-entry-body">
                             <div class="experience-entry-heading">
                                 <p class="experience-entry-role-label">Atuação</p>
-                                <h3>Bolsista de Pesquisa e Desenvolvimento &mdash; REDI-SUS</h3>
+                                <h3>Bolsista de Pesquisa e Desenvolvimento</h3>
                             </div>
 
                             <ul class="experience-highlights">
@@ -894,7 +901,6 @@
                                 <span class="experience-pill">TypeScript</span>
                                 <span class="experience-pill">Node.js</span>
                                 <span class="experience-pill">Python</span>
-                                <span class="experience-pill">APIs REST</span>
                                 <span class="experience-pill">Inteligência Artificial</span>
                                 <span class="experience-pill">Visão Computacional</span>
                                 <span class="experience-pill">UML</span>
@@ -907,7 +913,7 @@
                         <div class="experience-entry-aside">
                             <div class="experience-entry-mark experience-entry-mark--image">
                                 <img src="./src/imagens/eboli logo certo.png"
-                                    alt="Logo da Éboli Tecnologia" loading="lazy">
+                                    alt="Logo da Éboli Tecnologia" loading="lazy" decoding="async">
                             </div>
                             <span class="experience-entry-index">02</span>
                             <p class="experience-entry-company">Éboli Tecnologia</p>
@@ -946,7 +952,7 @@
                         <div class="experience-entry-aside">
                             <div class="experience-entry-mark experience-entry-mark--ifsp">
                                 <img src="./src/imagens/Marca_IFSP_2015_SZN-05.jpg"
-                                    alt="Logo do IFSP Campus Suzano" loading="lazy">
+                                    alt="Logo do IFSP Campus Suzano" loading="lazy" decoding="async">
                             </div>
                             <span class="experience-entry-index">03</span>
                             <p class="experience-entry-company"><button class="insight-trigger" type="button"
@@ -1299,7 +1305,7 @@
                         <article class="project project-card" data-category="experiment web" hidden>
                             <a class="project-link project-card__visual" href="https://pedrotescaro.github.io/projeto-listagem-pokemon/"
                                 target="_blank" rel="noopener noreferrer" aria-label="Abrir Listagem Pokémon">
-                                <img class="project-image" src="./src/imagens/projeto-listagem-pokemon.png" alt="Interface da Listagem Pokémon" />
+                                <img class="project-image" src="./src/imagens/projeto-listagem-pokemon.png" alt="Interface da Listagem Pokémon" loading="lazy" decoding="async" />
                                 <span class="project-card__number">06</span>
                             </a>
                             <div class="project-details project-card__body">
@@ -1316,7 +1322,7 @@
                         <article class="project project-card" data-category="experiment web" hidden>
                             <a class="project-link project-card__visual" href="https://pedrotescaro.github.io/imersao-alura-jujutsu/"
                                 target="_blank" rel="noopener noreferrer" aria-label="Abrir projeto Jujutsu Kaisen">
-                                <img class="project-image" src="./src/imagens/site-jjknew.jpg" alt="Catálogo Jujutsu Kaisen" />
+                                <img class="project-image" src="./src/imagens/site-jjknew.jpg" alt="Catálogo Jujutsu Kaisen" loading="lazy" decoding="async" />
                                 <span class="project-card__number">07</span>
                             </a>
                             <div class="project-details project-card__body">
@@ -1386,7 +1392,7 @@
                                     <span aria-hidden="true">01</span>
                                     <img src="./src/imagens/feteps-heal-apresentacao.jpeg"
                                         alt="Pedro Tescaro apresentando o aplicativo HEAL na 16&ordf; FETEPS"
-                                        loading="lazy" />
+                                        loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </article>
@@ -1424,7 +1430,7 @@
                                     <span aria-hidden="true">02</span>
                                     <img src="./src/imagens/heal-fatec-feira-2026.png"
                                         alt="Pedro Tescaro, Guilherme Alves de Campos e Paulo Henrique Leal Santos apresentando o Heal+ na XII Feira Tecnol&oacute;gica da Fatec Ferraz"
-                                        loading="lazy" />
+                                        loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </article>
@@ -1448,7 +1454,7 @@
                                     <span aria-hidden="true">03</span>
                                     <img src="./src/imagens/startup-day-sebrae-fatec-2026.jpg"
                                         alt="Palestra do Startup Day do Sebrae realizada na Fatec Ferraz de Vasconcelos"
-                                        loading="lazy" />
+                                        loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </article>
@@ -1470,7 +1476,7 @@
                                     <span aria-hidden="true">04</span>
                                     <img src="./src/imagens/fiap-meetup-inovacao-dados.png"
                                         alt="Arte do Meetup Inova&ccedil;&atilde;o em Dados da FIAP"
-                                        loading="lazy" />
+                                        loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </article>
@@ -1492,7 +1498,7 @@
                                     <span aria-hidden="true">05</span>
                                     <img src="./src/imagens/imersao-alura-gemini.png"
                                         alt="Transmiss&atilde;o da Imers&atilde;o Dev da Alura com Google Gemini"
-                                        loading="lazy" />
+                                        loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </article>
@@ -1514,7 +1520,7 @@
                                     <span aria-hidden="true">06</span>
                                     <img src="./src/imagens/ctrl-alt-dream-evento.png"
                                         alt="Palestra online do evento Ctrl+Alt+Dream promovido pela IBM e pelo Centro Paula Souza"
-                                        loading="lazy" />
+                                        loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </article>
